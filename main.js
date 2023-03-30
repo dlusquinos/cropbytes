@@ -143,24 +143,28 @@
       "asset_id": "fcl",
 	  "quantity": 0,
 	  "srcAsset": "cos",
+	  "extract": "cof"
     },
 	
 	{
       "asset_id": "ocl",
 	  "quantity": 0,
 	  "srcAsset": "cos",
+	  "extract": "cof"
     },
 	
 	{
       "asset_id": "scl",
 	  "quantity": 0,
 	  "srcAsset": "cos",
+	  "extract": "cof"
     },
 	
 	{
       "asset_id": "fcl",
 	  "quantity": 0,
 	  "srcAsset": "cas",
+	  "extract": "caf"
     },
 	
 	{
@@ -174,6 +178,7 @@
       "asset_id": "scl",
 	  "quantity": 0,
 	  "srcAsset": "cas",
+	  "extract": "caf"
     }
   ]
   
