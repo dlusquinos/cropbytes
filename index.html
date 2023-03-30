@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculadora de rentabilidad de CropBytes</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="estilos.css">
+
+	<!-- Referencia a la biblioteca DataTables -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+ 	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+ </head>
+  <body>
+    <h1>Calculadora de rentabilidad de CropBytes</h1>   
+	<table id="myFarm" class="table">
+		<thead>
+			<tr>
+				<th>Asset</th>
+				<th>Nombre</th>
+				<th>Producción diaria</th>
+				<th>Consumo diario</th>
+				<th>Categoría</th>										
+				<th>Rentabilidad semanal</th>
+				<th>Cantidad</th>
+				<th>Rentabilidad total</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+		<tfoot>
+		  <tr>
+			<th colspan="7">Rentabilidad total de la granja</th>
+			<th></th>
+		  </tr>
+		</tfoot>
+	</table>
+    <div id="resultado"></div>
+    <script src="main.js"></script>
+  </body>
+</html>
