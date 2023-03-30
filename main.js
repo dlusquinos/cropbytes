@@ -7,7 +7,7 @@
 	 **ANIMALS**
 	 ***********/
   
-    {
+	{
       "asset_id": "br",
 	  "quantity": 0
     },
@@ -333,17 +333,19 @@ $(document).ready(function() {
 				if (index !== -1) {
 					farm[index].quantity = this.value;
 					localStorage.setItem("farm", JSON.stringify(farm));
-					/*
-					//Repintar fila
-					datosFila.quantity = this.value;
-					datosFila.totalProfitability = datosFila.quantity * datosFila.profitability;
-					tabla.row(tr).data(datosFila);
-					tabla.draw();
-					*/
 					
-					//Repintar tabla
-					var data = construirData();
-					tabla.clear().rows.add(data).draw();
+					
+					if(datosFila.category == "Super Hero") {
+						//Repintar tabla
+						var data = construirData();
+						tabla.clear().rows.add(data).draw();
+					} else {
+						//Repintar fila
+						datosFila.quantity = this.value;
+						datosFila.totalProfitability = datosFila.quantity * datosFila.profitability;
+						tabla.row(tr).data(datosFila);
+						tabla.draw();
+					}
 				}
 
 			});
