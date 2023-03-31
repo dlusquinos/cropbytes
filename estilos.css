@@ -1,32 +1,76 @@
 
 
-table#myFarm.dataTable thead{
-	background-color: #a1f69c;
+body {
+	font-family: Rubik;
+	color: white;
+	background-color: #1D293F;
 }
 
- table#myFarm.dataTable thead th, table.dataTable thead td {
+.cabecera {
+	background: white;
+    margin: -8px;
+    padding: 8px;
+    color: #1D293F;
+    
+}
+
+h1.cabecera {
+	height: 75px;
+	line-height: 75px;
+}
+h4.cabecera {
+	height:40px;
+	line-height: 40px;
+}
+
+#myFarm_wrapper, #myBalance_wrapper {
+	margin-top: 15px;
+	margin-bottom: 20px;
+}
+
+#myFarm_filter.dataTables_filter, #myBalance_filter.dataTables_filter {
+	color:white;
+	padding: 4px 0px;
+	font-size: 12px;
+}
+
+#myFarm_filter.dataTables_filter input, #myBalance_filter.dataTables_filter input  {
+	background-color: white;
+}
+
+table#myFarm.dataTable, table#myBalance.dataTable {
+	font-size: 12px;
+	color: #1D293F;
+	width: 100% !important;
+}
+
+table#myFarm.dataTable thead, table#myBalance.dataTable thead{
+	background-color: #FFCC32;
+}
+
+table#myFarm.dataTable thead th, table#myBalance.dataTable thead th, table.dataTable thead td {
 	padding: 10px 3px;
     border-bottom: 1px solid #c5c8c3;
 	text-align: left;
 }
 
 
-table#myFarm.dataTable tbody tr.even {
-    background-color: #affdc6;
+table#myFarm.dataTable tbody tr.even, table#myBalance.dataTable tbody tr.even {
+    background-color: #f0e0af;
 }
 
-table#myFarm.dataTable tbody th, table#myFarm.dataTable tbody td {
+table#myFarm.dataTable tbody th, table#myFarm.dataTable tbody td, table#myBalance.dataTable tbody th, table#myBalance.dataTable tbody td  {
     padding: 0px 3px;
 }
 
-table#myFarm.dataTable tfoot th, table.dataTable tfoot td {
+table#myFarm.dataTable tfoot th, table.dataTable tfoot td, table#myBalance.dataTable tfoot th{
     border-top: 1px solid #c5c8c3;
 	padding: 10px 3px;
     text-align: left;
 }
 
-table#myFarm.dataTable tfoot {
-	background-color: #a1f69c;
+table#myFarm.dataTable tfoot, table#myBalance.dataTable tfoot {
+	background-color: #FFCC32;
 }
 
 .importe.rojo {
@@ -34,5 +78,11 @@ table#myFarm.dataTable tfoot {
 }
 
 .importe.verde {
-	color:green;
+	color:#269a26;
+}
+
+
+.pg-logo__img {
+	height: 50px;
+    float:right;
 }
