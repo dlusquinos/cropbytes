@@ -3,6 +3,7 @@
   <head>
     <title>Calculadora de rentabilidad de CropBytes</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="shortcut icon" href="https://www.cropbytes.com/img/favicon.ico" async="">
 	<link rel="stylesheet" type="text/css" href="estilos.css">
 
 	<!-- Referencia a la biblioteca DataTables -->
@@ -10,31 +11,52 @@
  	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
  </head>
-  <body>
-    <h1>Calculadora de rentabilidad de CropBytes</h1>   
-	<table id="myFarm" class="table">
-		<thead>
-			<tr>
-				<th>Asset</th>
-				<th>Nombre</th>
-				<th>Producción diaria</th>
-				<th>Consumo diario</th>
-				<th>Categoría</th>										
-				<th>Rentabilidad semanal</th>
-				<th>Cantidad</th>
-				<th>Rentabilidad total</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-		<tfoot>
-		  <tr>
-			<th colspan="7">Rentabilidad total de la granja</th>
-			<th></th>
-		  </tr>
-		</tfoot>
-	</table>
-    <div id="resultado"></div>
+  <body >
+    <h1 class="cabecera">Calculadora de Cropbytes <img src="https://ik.imagekit.io/cbytes/tr:w-396/cb-logo-color_eTMorxlcjz.png" class="pg-logo__img" alt="CropBytes"></h1>
+	<!-- Tabla de rentabilidad -->
+	<div class="contenedor-tabla-myFarm" style="display:none">
+		<h4 class="cabecera">Rentabilidad semanal</h4>
+		<table id="myFarm" class="table" >
+			<thead>
+				<tr>
+					<th></th>
+					<th>Nombre</th>
+					<th>Producción diaria</th>
+					<th>Consumo diario</th>
+					<th>Categoría</th>										
+					<th>Rentabilidad semanal (CBX)</th>
+					<th>Cantidad</th>
+					<th>Rentabilidad total (CBX)</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+			<tfoot>
+			  <tr>
+				<th colspan="7">Rentabilidad total de la granja</th>
+				<th></th>
+			  </tr>
+			</tfoot>
+		</table>
+	</div>
+	<!-- Tabla de balance -->
+	<div class="contenedor-tabla-myBalance" style="display:none">
+		<h4 class="cabecera">Balance semanal</h4>
+		<table id="myBalance" class="table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Extracto</th>
+					<th>Producción</th>
+					<th>Consumo</th>
+					<th>Balance</th>
+					<th>Balance en CBX</th>					
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>		
+		</table>
+	</div>
     <script src="main.js"></script>
   </body>
 </html>
