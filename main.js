@@ -620,7 +620,7 @@ function construirBalance(data) {
 	};
 	pow.production = getPowerProduction(data);
 	pow.consumption = getExtractConsumption(data, "pow");
-	pow.balance = frf.production - frf.consumption;
+	pow.balance = pow.production - pow.consumption;
 	pow.balance_cbx = roundResult(pow.balance*obtenerPrecioAsset("pow"));
 	balance.push(pow);
 		
