@@ -51,7 +51,7 @@ table#myFarm.dataTable thead, table#myBalance.dataTable thead{
 table#myFarm.dataTable thead th, table#myBalance.dataTable thead th, table.dataTable thead td {
 	padding: 10px 3px;
     border-bottom: 1px solid #c5c8c3;
-	text-align: left;
+	border-right: 1px solid #c5c8c3;
 }
 
 
@@ -61,6 +61,7 @@ table#myFarm.dataTable tbody tr.even, table#myBalance.dataTable tbody tr.even {
 
 table#myFarm.dataTable tbody th, table#myFarm.dataTable tbody td, table#myBalance.dataTable tbody th, table#myBalance.dataTable tbody td  {
     padding: 0px 3px;
+	border-right: 1px solid #c5c8c3;
 }
 
 table#myFarm.dataTable tfoot th, table.dataTable tfoot td, table#myBalance.dataTable tfoot th{
@@ -95,4 +96,12 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.cabecera-superior th{
+	text-align:center;
+}
+
+.cabecera-inferior th{
+	text-align:left;
 }
