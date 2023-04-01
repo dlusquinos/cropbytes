@@ -261,6 +261,7 @@ $(document).ready(function() {
         data: [],
         "columns": [
             { "data": "image_url",
+			  "orderable": false,
 			  "render": function (data, type, row, meta) {
 				  if (type == 'display') {
 				  	 return '<img src="' + data + '" width="35">';
@@ -277,7 +278,14 @@ $(document).ready(function() {
 			  }
 			},
 			
+			{ "data": "category",
+			  "render": function (data, type, row, meta) {
+				  return data;
+			  }
+			},			
+			
 			{ "data": "daily_production",
+			  "orderable": false,
 			  "render": function (data, type, row, meta) {
 				  
 				  if(row.type == "feed_mill") {
@@ -289,6 +297,7 @@ $(document).ready(function() {
 			},
 			
 			{ "data": "daily_consumption",
+			  "orderable": false,
 			  "render": function (data, type, row, meta) {
 				 if(row.type == "feed_mill") {
 					  return '<input type="number" class="editable daily_consumption" contenteditable="true" value="'+ row.default_cons.quant +'" /><span> ' + row.default_cons.type + '</span>';
@@ -296,13 +305,7 @@ $(document).ready(function() {
 					  return data;
 				  }
 			  }
-			},
-			
-			{ "data": "category",
-			  "render": function (data, type, row, meta) {
-				  return data;
-			  }
-			},
+			},			
 			
 			{ 
                 "data": "profitability",
@@ -318,7 +321,12 @@ $(document).ready(function() {
 			{ 
                 "data": "quantity",
                 "render": function (data, type, row, meta) {
-                    return '<input type="number" class="editable quantity" contenteditable="true" value="'+ data +'" />';
+					if(type == "display") {
+						return '<input type="number" class="editable quantity" contenteditable="true" value="'+ data +'" />';
+					} else {
+						return data;
+					}
+                    
                 }
             },
 			
@@ -338,7 +346,7 @@ $(document).ready(function() {
         "paging": false,
         "info": false,
 		"filter": true,
-		"order": [[ 4, 'asc' ]],
+		"order": [[ 2, 'asc' ]],
 		
 		"initComplete": function(settings, json) {
 			
@@ -498,6 +506,7 @@ $(document).ready(function() {
         "columns": [
 		
 			{ "data": "image_url",
+			  "orderable": false,
 			  "render": function (data, type, row, meta) {
 				  if (type == 'display') {
 				  	 return '<img src="' + data + '" width="35">';
@@ -550,7 +559,7 @@ $(document).ready(function() {
         "paging": false,
         "info": false,
 		"filter": false,
-		"order": [[ 0, 'asc' ]],
+		"order": [[ 1, 'asc' ]],
 		
 		drawCallback: function(settings) {	
 			$('.contenedor-tabla-myBalance').show();
