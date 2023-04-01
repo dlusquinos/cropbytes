@@ -86,3 +86,13 @@ table#myFarm.dataTable tfoot, table#myBalance.dataTable tfoot {
 	height: 50px;
     float:right;
 }
+
+input.editable {
+	width:30px;
+}
+
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
