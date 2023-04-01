@@ -14,13 +14,14 @@
   <body >
     <h1 class="cabecera">Calculadora de Cropbytes <img src="https://ik.imagekit.io/cbytes/tr:w-396/cb-logo-color_eTMorxlcjz.png" class="pg-logo__img" alt="CropBytes"></h1>
 	<!-- Tabla de rentabilidad -->
-	<div class="contenedor-tabla-myFarm" style="display:none">
+	<div class="contenedor-tabla-myFarm" style="visibility:hidden">
 		<h4 class="cabecera">Rentabilidad semanal</h4>
 		<table id="myFarm" class="table" >
 			<thead>
 				<tr class="cabecera-superior">
 					<th colspan="3">Asset</th>
 					<th colspan="2">Input/Output diario</th>
+					<th colspan="2">Grazing</th>
 					<th colspan="3">Rentabilidad semanal (CBX)</th>
 				</tr>	
 				<tr class="cabecera-inferior">
@@ -28,9 +29,11 @@
 					<th>Nombre</th>
 					<th>Categoría</th>
 					<th>Producción</th>
-					<th>Consumo</th>													
-					<th>Por asset</th>
-					<th>Cantidad</th>
+					<th>Consumo</th>
+					<th>Fee</th>													
+					<th>Act.</th>																		
+					<th>Individual</th>
+					<th>Cant.</th>
 					<th>Total</th>
 				</tr>
 			</thead>
@@ -38,14 +41,14 @@
 			</tbody>
 			<tfoot>
 			  <tr>
-				<th colspan="7">Rentabilidad total de la granja</th>
+				<th colspan="9">Rentabilidad total de la granja</th>
 				<th></th>
 			  </tr>
 			</tfoot>
 		</table>
 	</div>
 	<!-- Tabla de balance -->
-	<div class="contenedor-tabla-myBalance" style="display:none">
+	<div class="contenedor-tabla-myBalance" style="visibility:hidden">
 		<h4 class="cabecera">Balance semanal</h4>
 		<table id="myBalance" class="table">
 			<thead>
