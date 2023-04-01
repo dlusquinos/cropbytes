@@ -231,6 +231,23 @@
 		  "cantidad": 2,
 		  "tipo": ""
 	  }
+    },
+	
+	/**************
+	 **FEED MILL***
+	 **************/
+	{
+      "asset_id": "fm",
+	  "quantity": 0,
+	  "default_prod":{
+		  "quant": 0,
+		  "type": "cbx"
+	   },
+	  
+	  "default_cons":{
+		  "quant": 0,
+		  "type": "pow"
+	  }
     }
   ]
   
@@ -262,13 +279,22 @@ $(document).ready(function() {
 			
 			{ "data": "daily_production",
 			  "render": function (data, type, row, meta) {
-				  return data;
+				  
+				  if(row.type == "feed_mill") {
+					  return '<input type="number" class="editable daily_production" contenteditable="true" value="'+ row.default_prod.quant +'" /><span> ' + row.default_prod.type + '</span>';
+				  } else {
+					  return data;
+				  }
 			  }
 			},
 			
 			{ "data": "daily_consumption",
 			  "render": function (data, type, row, meta) {
-				  return data;
+				 if(row.type == "feed_mill") {
+					  return '<input type="number" class="editable daily_consumption" contenteditable="true" value="'+ row.default_cons.quant +'" /><span> ' + row.default_cons.type + '</span>';
+				  } else {
+					  return data;
+				  }
 			  }
 			},
 			
@@ -292,7 +318,7 @@ $(document).ready(function() {
 			{ 
                 "data": "quantity",
                 "render": function (data, type, row, meta) {
-                    return '<input class="editable" contenteditable="true" value="'+ data +'" />';
+                    return '<input type="number" class="editable quantity" contenteditable="true" value="'+ data +'" />';
                 }
             },
 			
@@ -323,11 +349,9 @@ $(document).ready(function() {
 			$('.contenedor-tabla-myFarm').show();
 			$('#myFarm').DataTable().columns.adjust();
 			
-			// Elimina los eventos antiguos de celda
-			$('#myFarm tbody .editable').off('change');
-			
-
-			$('#myFarm tbody .editable').on('change', function(event) {
+			//Eventos celda Cantidad
+			$('#myFarm tbody .quantity').off('change');
+			$('#myFarm tbody .quantity').on('change', function(event) {
 				event.stopPropagation();
 				
 				var tr = $(this).closest('tr');
@@ -361,8 +385,91 @@ $(document).ready(function() {
 					myBalanceTable.clear().rows.add(balance).draw();
 					
 				}
-
 			});
+			
+			
+			//Eventos celda produccion
+			$('#myFarm tbody .daily_production').off('change');
+			$('#myFarm tbody .daily_production').on('change', function(event) {
+				event.stopPropagation();
+				
+				var tr = $(this).closest('tr');
+				var tabla = $('#myFarm').DataTable();
+				var datosFila = tabla.row(tr).data();
+				
+				
+				var index = farm.findIndex(function(asset) {
+					return asset.asset_id === datosFila.asset_id
+				});
+				
+				if (index !== -1) {
+					farm[index].default_prod.quant = this.value;
+					localStorage.setItem("farm", JSON.stringify(farm));
+					
+					
+					//Repintar fila					
+					var weekly_production = 7*this.value + "*" + datosFila.default_prod.type;
+					var weekly_consumption = "7*" + datosFila.default_cons.quant + "*" + datosFila.default_cons.type;
+					var formula = weekly_production + "-" + weekly_consumption;
+					
+					datosFila.daily_production = this.value + " " + datosFila.default_prod.type;
+					datosFila.profitability = getAssetProfitability(datosFila, formula); 
+					datosFila.totalProfitability = datosFila.quantity * datosFila.profitability;
+					datosFila.gives_weekly = 7*this.value;
+		
+
+					tabla.row(tr).data(datosFila);
+					tabla.draw();
+					
+					
+					//Repintamos la tabla de balance
+					var balance = construirBalance(tabla.data());
+					myBalanceTable.clear().rows.add(balance).draw();
+					
+				}
+			});
+			
+			//Eventos celda consumo
+			$('#myFarm tbody .daily_consumption').off('change');
+			$('#myFarm tbody .daily_consumption').on('change', function(event) {
+				event.stopPropagation();
+				
+				var tr = $(this).closest('tr');
+				var tabla = $('#myFarm').DataTable();
+				var datosFila = tabla.row(tr).data();
+				
+				
+				var index = farm.findIndex(function(asset) {
+					return asset.asset_id === datosFila.asset_id
+				});
+				
+				if (index !== -1) {
+					farm[index].default_cons.quant = this.value;
+					localStorage.setItem("farm", JSON.stringify(farm));
+					
+					
+								
+					var weekly_production = 7*datosFila.default_prod.quant + "*" + datosFila.default_prod.type;
+					var weekly_consumption = 7*this.value + "*" + datosFila.default_cons.type ;
+					var formula = weekly_production + "-" + weekly_consumption;
+					
+					datosFila.daily_consumption = this.value + " " + datosFila.default_cons.type;
+					datosFila.profitability = getAssetProfitability(datosFila, formula); 
+					datosFila.totalProfitability = datosFila.quantity * datosFila.profitability;
+					datosFila.takes_weekly[datosFila.default_cons.type] = 7*this.value;
+
+					//Repintar fila		
+					tabla.row(tr).data(datosFila);
+					tabla.draw();
+					
+					
+					//Repintamos la tabla de balance
+					var balance = construirBalance(tabla.data());
+					myBalanceTable.clear().rows.add(balance).draw();
+					
+				}
+			});
+			
 
 	    },
 		
@@ -549,6 +656,10 @@ function construirData() {
 		bean.srcAsset = farmAsset.srcAsset;
 		bean.extract = farmAsset.extract;
 		bean.bonus = farmAsset.bonus;
+		bean.profitability = 0;
+		bean.totalProfitability = 0;
+		bean.default_prod = farmAsset.default_prod;
+		bean.default_cons = farmAsset.default_cons;
 		
 		data.push(bean);
 	}
@@ -730,6 +841,17 @@ function obtenerCropLands(assetsData) {
 	return cropLands;
 }
 
+function obtenerFeedMill(assetsData) {
+	var feedMill = null;
+	for(var i=0; i < assetsData.length; i++) {
+		var asset = assetsData[i];
+		if(asset.type == "feed_mill") {
+			feedMill = asset;
+		}
+	}
+	return feedMill;
+}
+
 
 function rellenarConfiguracion(data) {
 	
@@ -779,7 +901,7 @@ function rellenarConfiguracion(data) {
 			}
 			asset.daily_production = "+" + asset.bonus.cantidad + asset.bonus.tipo + " " + asset.extract;
 			asset.daily_consumption = other[0].count + " " + other[0].assetId + " / " + other[1].count + " " + other[1].assetId;
-			asset.profitability = getAssetProfitability(asset, formula, marketData, extractList);
+			asset.profitability = getAssetProfitability(asset, formula);
 			asset.totalProfitability = asset.quantity * asset.profitability;
 		
 		}
@@ -825,7 +947,7 @@ function rellenarConfiguracion(data) {
 			}
 			asset.daily_production = eval(quant) + " " + extract;
 			asset.daily_consumption = other[0].count + " " + other[0].assetId + " / " + other[1].count + " " + other[1].assetId;
-			asset.profitability = getAssetProfitability(asset, formula, marketData, extractList);
+			asset.profitability = getAssetProfitability(asset, formula);
 			asset.totalProfitability = asset.quantity * asset.profitability;
 		}
 
@@ -865,7 +987,7 @@ function rellenarConfiguracion(data) {
 		}
 		asset.daily_production = daily_production + " " + treeCrop.produceAsset;
 		asset.daily_consumption = roundResult(treeCrop.waterRequired/extractTime) + " water";
-		asset.profitability = getAssetProfitability(asset, formula, marketData, extractList);
+		asset.profitability = getAssetProfitability(asset, formula);
 		asset.totalProfitability = asset.quantity * asset.profitability;
 		
 	}
@@ -906,7 +1028,7 @@ function rellenarConfiguracion(data) {
 		}
 		asset.daily_production = daily_production + " " + storage.produceAsset;
 		asset.daily_consumption = roundResult(eval(daily_consumption)) + " " + consumption_extract;
-		asset.profitability = getAssetProfitability(asset, formula, marketData, extractList);
+		asset.profitability = getAssetProfitability(asset, formula);
 		asset.totalProfitability = asset.quantity * asset.profitability;
 		
 	}
@@ -954,8 +1076,31 @@ function rellenarConfiguracion(data) {
 		}
 		cropLand.daily_production = roundResult(daily_production) + " " + cropLand.extract;
 		cropLand.daily_consumption = roundResult(Math.round(landSize)*cropLandConf.waterRequired/cropTime) + " water" + " / " + roundResult(Math.round(landSize)/cropTime) + " " + cropType;
-		cropLand.profitability = getAssetProfitability(cropLand, formula, marketData, extractList);
+		cropLand.profitability = getAssetProfitability(cropLand, formula);
 		cropLand.totalProfitability = cropLand.quantity * cropLand.profitability;
+	}
+	
+	
+	//Configuracion Feed mill
+	var feedMill = obtenerFeedMill(data);
+	if(feedMill != null) {
+		feedMill.gives_weekly = 7*feedMill.default_prod.quant;
+		feedMill.takes_weekly = {
+			water: 0,
+			cof: 0,
+			caf: 0,
+			frf: 0,
+			pow: 7*feedMill.default_cons.quant
+		}
+		
+		var weekly_production = 7*feedMill.default_prod.quant + "*" + feedMill.default_prod.type;
+		var weekly_consumption = 7*feedMill.default_cons.quant + "*" + feedMill.default_cons.type;
+		var formula = weekly_production + "-" + weekly_consumption;
+		
+		feedMill.daily_production = feedMill.default_prod.quant + " " + feedMill.default_prod.type;
+		feedMill.daily_consumption = feedMill.default_cons.quant + " " + feedMill.default_cons.type;
+		feedMill.profitability = getAssetProfitability(feedMill, formula); 
+		feedMill.totalProfitability = feedMill.quantity * feedMill.profitability;
 	}
 	
 	
@@ -974,7 +1119,7 @@ function roundResult(number) {
 	return parseFloat(number.toFixed(3));
 }
 
-function getAssetProfitability(asset, formula, marketData, extractList) {
+function getAssetProfitability(asset, formula) {
 	
 	var marketExtracts = [];
 	for(var i=0; i < extractList.length; i++) {
@@ -991,6 +1136,7 @@ function getAssetProfitability(asset, formula, marketData, extractList) {
 	}
 
 	marketExtracts.push({clave: "greasecbx", precio: GREASE_COST_PER_UNIT});
+	marketExtracts.push({clave: "cbxcbx", precio: 1});
 
 	for(var i=0; i < marketExtracts.length; i++) { 
 		var extract = marketExtracts[i];
