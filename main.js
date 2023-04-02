@@ -311,8 +311,16 @@ $(document).ready(function() {
 				return data;
 			  }
 			},
-		
+					
+			
+			{ "data": "category",
+			  "render": function (data, type, row, meta) {
+				  return data;
+			  }
+			},
+
 			{ "data": "price",
+			  "width": "10%",
 			  "render": function (data, type, row, meta) {
 				if (type == 'display') {
 					 var precio = data ? data + " CBX": "";
@@ -332,13 +340,22 @@ $(document).ready(function() {
 			  }
 			},
 			
-			{ "data": "category",
+			{ "data": "amount",
+			  "width": "5%",
 			  "render": function (data, type, row, meta) {
-				  return data;
+				return data;
 			  }
-			},			
+			},
+			
+			{ "data": "volume",
+			  "width": "5%",
+			  "render": function (data, type, row, meta) {
+				return data;
+			  }
+			},		
 			
 			{ "data": "daily_production",
+			  "width": "10%",
 			  "orderable": false,
 			  "render": function (data, type, row, meta) {
 				  
@@ -351,6 +368,7 @@ $(document).ready(function() {
 			},
 			
 			{ "data": "daily_consumption",
+			  "width": "10%",
 			  "orderable": false,
 			  "render": function (data, type, row, meta) {
 				 if(row.type == "feed_mill") {
@@ -603,14 +621,14 @@ $(document).ready(function() {
 			
 			// Calcular el sumatorio de la columna 9
 			var sumatorio = this.api()
-			  .column(10, { page: 'current'})
+			  .column(12, { page: 'current'})
 			  .data()
 			  .reduce(function(a, b) {
 				return Number(a) + Number(b);
 			  }, 0);
 			
 			// Añadir el sumatorio al pie de la tabla
-			$(this.api().column(10).footer()).html(roundResult(sumatorio));
+			$(this.api().column(12).footer()).html(roundResult(sumatorio));
 			
 		 }
 		
@@ -652,6 +670,18 @@ $(document).ready(function() {
 				  } else {
 					  return data;
 				  }
+			  }
+			},
+			
+			{ "data": "amount",
+			  "render": function (data, type, row, meta) {
+				return data;
+			  }
+			},
+			
+			{ "data": "volume",
+			  "render": function (data, type, row, meta) {
+				return data;
 			  }
 			},
 
@@ -720,7 +750,6 @@ $(document).ready(function() {
 
 });
 
-
 function obtenerAssetsAPI () {
 	var assetJSON = $.ajax({
 	  url: "https://api.cropbytes.com/api/v1/game/assets/list",
@@ -757,7 +786,12 @@ function obtenerPreciosMarketAPI() {
 	for (var i = 0; i < atributos.length; i++) { 
 		if(atributos[i].endsWith('cbx')) {
 			var elto = marketData[atributos[i]];
-			var item = {clave: atributos[i], precio : elto.ticker.last, variacion: elto.ticker.price_change_percent };
+			var item = {clave: atributos[i], 
+						precio : elto.ticker.last, 
+						variacion: elto.ticker.price_change_percent,
+						volumen: elto.ticker.volume,
+						transacciones: elto.ticker.amount
+						};
 			filteredCBX.push(item);
 		}
 	}
@@ -812,6 +846,8 @@ function construirData() {
 		bean.weekly_formula = {};
 		bean.price = obtenerPrecioAsset(bean.asset_id);
 		bean.price_change_percent = obtenerVariacionPrecioAsset(bean.asset_id); 
+		bean.volume = obtenerVolumenAsset(bean.asset_id);
+		bean.amount = obtenerTransaccionesAsset(bean.asset_id);
 		
 		data.push(bean);
 	}
@@ -839,6 +875,8 @@ function construirBalance(data) {
 	water.balance_cbx = roundResult(water.balance*obtenerPrecioAsset("water"));
 	water.price = obtenerPrecioAsset(water.asset_id);
 	water.price_change_percent = obtenerVariacionPrecioAsset(water.asset_id); 
+	water.volume = obtenerVolumenAsset(water.asset_id);
+	water.amount = obtenerTransaccionesAsset(water.asset_id);
 	balance.push(water);
 	
 	//Cof
@@ -853,6 +891,8 @@ function construirBalance(data) {
 	cof.balance_cbx =  roundResult(cof.balance*obtenerPrecioAsset("cof"));
 	cof.price = obtenerPrecioAsset(cof.asset_id);
 	cof.price_change_percent = obtenerVariacionPrecioAsset(cof.asset_id); 
+	cof.volume = obtenerVolumenAsset(cof.asset_id);
+	cof.amount = obtenerTransaccionesAsset(cof.asset_id);
 	balance.push(cof);
 	
 	//Caf
@@ -867,6 +907,8 @@ function construirBalance(data) {
 	caf.balance_cbx =  roundResult(caf.balance*obtenerPrecioAsset("caf"));
 	caf.price = obtenerPrecioAsset(caf.asset_id);
 	caf.price_change_percent = obtenerVariacionPrecioAsset(caf.asset_id);
+	caf.volume = obtenerVolumenAsset(caf.asset_id);
+	caf.amount = obtenerTransaccionesAsset(caf.asset_id);
 	balance.push(caf);
 	
 	//Frf
@@ -881,6 +923,8 @@ function construirBalance(data) {
 	frf.balance_cbx = roundResult(frf.balance*obtenerPrecioAsset("frf"));
 	frf.price = obtenerPrecioAsset(frf.asset_id);
 	frf.price_change_percent = obtenerVariacionPrecioAsset(frf.asset_id);
+	frf.volume = obtenerVolumenAsset(frf.asset_id);
+	frf.amount = obtenerTransaccionesAsset(frf.asset_id);
 	balance.push(frf);
 	
 	//Pow
@@ -895,6 +939,8 @@ function construirBalance(data) {
 	pow.balance_cbx = roundResult(pow.balance*obtenerPrecioAsset("pow"));
 	pow.price = obtenerPrecioAsset(pow.asset_id);
 	pow.price_change_percent = obtenerVariacionPrecioAsset(pow.asset_id);
+	pow.volume = obtenerVolumenAsset(pow.asset_id);
+	pow.amount = obtenerTransaccionesAsset(pow.asset_id);
 	balance.push(pow);
 		
 	return balance;
@@ -1287,7 +1333,8 @@ function getSHBonus(data, extractName) {
 }
 
 function roundResult(number) {
-	return parseFloat(number.toFixed(3));
+	var num = parseFloat(number);
+	return parseFloat(num.toFixed(3));
 }
 
 function getAssetProfitability(asset, formula) {
@@ -1383,6 +1430,20 @@ function obtenerVariacionPrecioAsset(asset_id) {
 			return item.clave.slice(0, -3) === asset_id;
 	});
 	return marketAsset ? marketAsset.variacion : null;
+}
+
+function obtenerVolumenAsset(asset_id) {
+	var marketAsset = marketData.find(function(item) {
+			return item.clave.slice(0, -3) === asset_id;
+	});
+	return marketAsset ? roundResult(marketAsset.volumen) : null;
+}
+
+function obtenerTransaccionesAsset(asset_id) {
+	var marketAsset = marketData.find(function(item) {
+			return item.clave.slice(0, -3) === asset_id;
+	});
+	return marketAsset ?  Math.floor(marketAsset.transacciones) : null;
 }
 
 
