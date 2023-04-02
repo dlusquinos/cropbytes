@@ -238,6 +238,39 @@
 	  }
     },
 	
+	{
+      "asset_id": "hlr",
+	  "quantity": 0,
+	  "extract": "",
+	  "bonus": {
+		  "cantidad": "",
+		  "tipo": "",
+		  "descripcion": "Helps in recovering animal health quickly",
+	  }
+    },
+	
+	{
+      "asset_id": "ss",
+	  "quantity": 0,
+	  "extract": "",
+	  "bonus": {
+		  "cantidad": "",
+		  "tipo": "",
+		  "descripcion": "Automatically feeds your animals"
+	  }
+    },
+	
+	{
+      "asset_id": "bls",
+	  "quantity": 0,
+	  "extract": "",
+	  "bonus": {
+		  "cantidad": "",
+		  "tipo": "",
+		  "descripcion": "Automatically feeds your animals"
+	  }
+    },
+	
 	/**************
 	 **FEED MILL***
 	 **************/
@@ -266,21 +299,36 @@ $(document).ready(function() {
         data: [],
         "columns": [
             { "data": "image_url",
-			  "width": "30px",
+			  "width": "35px",
 			  "orderable": false,
-			  "render": function (data, type, row, meta) {
-				  if (type == 'display') {
+			  "render": function (data, type, row, meta) {				  
 				  	 return '<img src="' + data + '" width="35">';
-				  } else {
-					  return data;
-				  }
 			  }
 			},
 			
 			{ "data": "name",
-			  "searchable": true,
 			  "render": function (data, type, row, meta) {
-				  return data;
+				return data;
+			  }
+			},
+		
+			{ "data": "price",
+			  "render": function (data, type, row, meta) {
+				if (type == 'display') {
+					 var precio = data ? data + " CBX": "";
+					 var variacion = row.price_change_percent ? row.price_change_percent : ""; 
+					 var varClass = variacion.includes("+") ? "verde" : "rojo";
+					 var html = '<div class="contenedor-asset">' +									
+									'<div class="marketChange">' +
+										'<span class="marketChangePrice">'+ precio +'</span>' +
+										'<span><span class="importe '+ varClass +'">'+ variacion +'</span></span>' +
+									'</div>' +
+								'</div>'			
+					  
+				  	 return html;
+				  } else {
+					  return data;
+				  }
 			  }
 			},
 			
@@ -331,7 +379,7 @@ $(document).ready(function() {
 				  if(type == "display") {
 					  if(row.grazing_fee) {
 						   var checked = data ? "checked" : "";
-						   return '<input type="checkbox" class="grazing-checkbox" ' + checked + '>';
+						   return '<input type="checkbox" tabindex="-1" class="grazing-checkbox" ' + checked + '>';
 					  } else {
 						  return "";
 					  }
@@ -555,14 +603,14 @@ $(document).ready(function() {
 			
 			// Calcular el sumatorio de la columna 9
 			var sumatorio = this.api()
-			  .column(9, { page: 'current'})
+			  .column(10, { page: 'current'})
 			  .data()
 			  .reduce(function(a, b) {
 				return Number(a) + Number(b);
 			  }, 0);
 			
 			// Añadir el sumatorio al pie de la tabla
-			$(this.api().column(9).footer()).html(roundResult(sumatorio));
+			$(this.api().column(10).footer()).html(roundResult(sumatorio));
 			
 		 }
 		
@@ -574,23 +622,39 @@ $(document).ready(function() {
         "columns": [
 		
 			{ "data": "image_url",
-			  "width": "30px",
+			  "width": "35px",
 			  "orderable": false,
-			  "render": function (data, type, row, meta) {
-				  if (type == 'display') {
+			  "render": function (data, type, row, meta) {				  
 				  	 return '<img src="' + data + '" width="35">';
-				  } else {
-					  return data;
-				  }
 			  }
 			},
-		
+			
 			{ "data": "name",
 			  "render": function (data, type, row, meta) {
 				return data;
 			  }
 			},
 			
+			{ "data": "price",
+			  "render": function (data, type, row, meta) {
+				if (type == 'display') {
+					 var precio = data ? data + " CBX": "";
+					 var variacion = row.price_change_percent ? row.price_change_percent : ""; 
+					 var varClass = variacion.includes("+") ? "verde" : "rojo";
+					 var html = '<div class="contenedor-asset">' +									
+									'<div class="marketChange">' +
+										'<span class="marketChangePrice">'+ precio +'</span>' +
+										'<span><span class="importe '+ varClass +'">'+ variacion +'</span></span>' +
+									'</div>' +
+								'</div>'			
+					  
+				  	 return html;
+				  } else {
+					  return data;
+				  }
+			  }
+			},
+
             { "data": "production",
 			  "render": function (data, type, row, meta) {
 				return data;
@@ -641,8 +705,8 @@ $(document).ready(function() {
 	marketData = obtenerPreciosMarketAPI();
 	assetsData = obtenerAssetsAPI();
 	confAssetsData = obtenerConfAssetsAPI();
-	extractList = obtenerExtractos(assetsData.data.assets);
-	seedList = obtenerSemillas(assetsData.data.assets);
+	extractList = obtenerExtractos();
+	seedList = obtenerSemillas();
 	feedConfig = confAssetsData.data.feedConfigNew;
 	treeCrops = confAssetsData.data.cropConfigV2.treeCrops;
 	grindFees = confAssetsData.data.cropConfigV2.grindings;
@@ -729,11 +793,11 @@ function construirData() {
 		
 		var bean = {};
 		bean.asset_id = farmAsset.asset_id;
-		bean.name =  getNombre(farmAsset.asset_id, assetsData.data);
-		bean.category =  getCategoria(farmAsset.asset_id, assetsData.data);
-		bean.type =  getTipo(farmAsset.asset_id, assetsData.data);
-		bean.options =  getOptions(farmAsset.asset_id, assetsData.data);
-		bean.image_url = getImageUrl(farmAsset.asset_id, assetsData.data);
+		bean.name =  getNombre(farmAsset.asset_id);
+		bean.category =  getCategoria(farmAsset.asset_id);
+		bean.type =  getTipo(farmAsset.asset_id);
+		bean.options =  getOptions(farmAsset.asset_id);
+		bean.image_url = getImageUrl(farmAsset.asset_id);
 		bean.quantity = farmAsset.quantity;
 		bean.srcAsset = farmAsset.srcAsset;
 		bean.extract = farmAsset.extract;
@@ -746,6 +810,8 @@ function construirData() {
 		bean.grazing_fee = 0;
 		bean.grazing_active = farmAsset.grazing_active ? farmAsset.grazing_active : false;
 		bean.weekly_formula = {};
+		bean.price = obtenerPrecioAsset(bean.asset_id);
+		bean.price_change_percent = obtenerVariacionPrecioAsset(bean.asset_id); 
 		
 		data.push(bean);
 	}
@@ -764,61 +830,71 @@ function construirBalance(data) {
 	//Water
 	var water ={
 		asset_id: "water",
-		name: getNombre("water", assetsData.data),
-		image_url: getImageUrl("water", assetsData.data)
+		name: getNombre("water"),
+		image_url: getImageUrl("water")
 	}	
 	water.production = getWaterProduction(data);
 	water.consumption = getExtractConsumption(data, "water"),
 	water.balance = water.production - water.consumption;
 	water.balance_cbx = roundResult(water.balance*obtenerPrecioAsset("water"));
+	water.price = obtenerPrecioAsset(water.asset_id);
+	water.price_change_percent = obtenerVariacionPrecioAsset(water.asset_id); 
 	balance.push(water);
 	
 	//Cof
 	var cof ={
 		asset_id: "cof",
-		name: getNombre("cof", assetsData.data),
-		image_url: getImageUrl("cof", assetsData.data)
+		name: getNombre("cof"),
+		image_url: getImageUrl("cof")
 	}	
 	cof.production = getCofProduction(data);
 	cof.consumption = getExtractConsumption(data, "cof");
 	cof.balance =  cof.production - cof.consumption;
 	cof.balance_cbx =  roundResult(cof.balance*obtenerPrecioAsset("cof"));
+	cof.price = obtenerPrecioAsset(cof.asset_id);
+	cof.price_change_percent = obtenerVariacionPrecioAsset(cof.asset_id); 
 	balance.push(cof);
 	
 	//Caf
 	var caf ={
 		asset_id: "caf",
-		name: getNombre("caf", assetsData.data),
-		image_url: getImageUrl("caf", assetsData.data)
+		name: getNombre("caf"),
+		image_url: getImageUrl("caf")
 	};
 	caf.production =  getCafProduction(data);
 	caf.consumption =  getExtractConsumption(data, "caf");
 	caf.balance =  caf.production - caf.consumption;
 	caf.balance_cbx =  roundResult(caf.balance*obtenerPrecioAsset("caf"));
+	caf.price = obtenerPrecioAsset(caf.asset_id);
+	caf.price_change_percent = obtenerVariacionPrecioAsset(caf.asset_id);
 	balance.push(caf);
 	
 	//Frf
 	var frf ={
 		asset_id: "frf",
-		name: getNombre("frf", assetsData.data),
-		image_url: getImageUrl("frf", assetsData.data)
+		name: getNombre("frf"),
+		image_url: getImageUrl("frf")
 	};
 	frf.production = getFruitProduction(data);
 	frf.consumption =  getExtractConsumption(data, "frf");
 	frf.balance =  frf.production - frf.consumption;
 	frf.balance_cbx = roundResult(frf.balance*obtenerPrecioAsset("frf"));
+	frf.price = obtenerPrecioAsset(frf.asset_id);
+	frf.price_change_percent = obtenerVariacionPrecioAsset(frf.asset_id);
 	balance.push(frf);
 	
 	//Pow
 	var pow ={
 		asset_id: "pow",
-		name: getNombre("pow", assetsData.data),
-		image_url: getImageUrl("pow", assetsData.data)
+		name: getNombre("pow"),
+		image_url: getImageUrl("pow")
 	};
 	pow.production = getPowerProduction(data);
 	pow.consumption = getExtractConsumption(data, "pow");
 	pow.balance = pow.production - pow.consumption;
 	pow.balance_cbx = roundResult(pow.balance*obtenerPrecioAsset("pow"));
+	pow.price = obtenerPrecioAsset(pow.asset_id);
+	pow.price_change_percent = obtenerVariacionPrecioAsset(pow.asset_id);
 	balance.push(pow);
 		
 	return balance;
@@ -895,10 +971,11 @@ function getFruitProduction(data) {
 
 
 
-function obtenerExtractos(assetsData) {
+function obtenerExtractos() {
 	var extractList = [];
-	for(var i=0; i < assetsData.length; i++) {
-		var asset = assetsData[i];
+	var assets = assetsData.data.assets;
+	for(var i=0; i < assets.length; i++) {
+		var asset = assets[i];
 		if(asset.category == 'Feed' || asset.category == 'Extract') {
 			extractList.push(asset.id);
 		}
@@ -907,10 +984,11 @@ function obtenerExtractos(assetsData) {
 	return extractList;
 }
 
-function obtenerSemillas(assetsData) {
+function obtenerSemillas() {
 	var seedList = [];
-	for(var i=0; i < assetsData.length; i++) {
-		var asset = assetsData[i];
+	var assets = assetsData.data.assets;
+	for(var i=0; i < assets.length; i++) {
+		var asset = assets[i];
 		if(asset.category == 'Seed') {
 			seedList.push(asset);
 		}
@@ -918,10 +996,10 @@ function obtenerSemillas(assetsData) {
 	return seedList;
 }
 
-function obtenerCropLands(assetsData) {
+function obtenerCropLands(data) {
 	var cropLands = [];
-	for(var i=0; i < assetsData.length; i++) {
-		var asset = assetsData[i];
+	for(var i=0; i < data.length; i++) {
+		var asset = data[i];
 		if(asset.type == "crop_land") {
 			cropLands.push(asset);
 		}
@@ -929,10 +1007,10 @@ function obtenerCropLands(assetsData) {
 	return cropLands;
 }
 
-function obtenerFeedMill(assetsData) {
+function obtenerFeedMill(data) {
 	var feedMill = null;
-	for(var i=0; i < assetsData.length; i++) {
-		var asset = assetsData[i];
+	for(var i=0; i < data.length; i++) {
+		var asset = data[i];
 		if(asset.type == "feed_mill") {
 			feedMill = asset;
 		}
@@ -982,7 +1060,9 @@ function rellenarConfiguracion(data) {
 				pow: 0
 			}
 			asset.weekly_formula.principal = formula;
-			asset.daily_production = "+" + asset.bonus.cantidad + asset.bonus.tipo + " " + asset.extract;
+			var cantidad = asset.bonus.cantidad ? "+" + asset.bonus.cantidad : "";
+			var descripcion = asset.extract ? asset.extract : asset.bonus.descripcion;
+			asset.daily_production = cantidad + asset.bonus.tipo + " " + descripcion;
 			asset.daily_consumption = other[0].count + " " + other[0].assetId + " / " + other[1].count + " " + other[1].assetId;
 			asset.profitability = getAssetProfitability(asset, formula);
 			asset.totalProfitability = asset.quantity * asset.profitability;
@@ -1241,38 +1321,51 @@ function getAssetProfitability(asset, formula) {
 }
 
 
-function getImageUrl(asset_id, assetsData) {
-	var asset = assetsData.assets.find(function(item) {
+function getImageUrl(asset_id) {
+	var assets = assetsData.data.assets;
+	var asset = assets.find(function(item) {
 		return item.id === asset_id;
 	}); 	
 	return asset.image;
 }
 
+function getDefaultPrice(asset_id) {
+	var assets = assetsData.data.assets;
+	var asset = assets.find(function(item) {
+		return item.id === asset_id;
+	}); 	
+	return asset.defaultPrice ? asset.defaultPrice : null;
+}
 
-function getNombre(asset_id, assetsData) {
-	var asset = assetsData.assets.find(function(item) {
+
+function getNombre(asset_id) {
+	var assets = assetsData.data.assets;
+	var asset = assets.find(function(item) {
 		return item.id === asset_id;
 	}); 
 	return asset.name;
 }
 
 
-function getCategoria(asset_id, assetsData) {
-	var asset = assetsData.assets.find(function(item) {
+function getCategoria(asset_id) {
+	var assets = assetsData.data.assets;
+	var asset = assets.find(function(item) {
 		return item.id === asset_id;
 	}); 
 	return asset.category;
 }
 
-function getTipo(asset_id, assetsData) {
-	var asset = assetsData.assets.find(function(item) {
+function getTipo(asset_id) {
+	var assets = assetsData.data.assets;
+	var asset = assets.find(function(item) {
 		return item.id === asset_id;
 	}); 
 	return asset.type;
 }
 
-function getOptions(asset_id, assetsData) {
-	var asset = assetsData.assets.find(function(item) {
+function getOptions(asset_id) {
+	var assets = assetsData.data.assets;
+	var asset = assets.find(function(item) {
 		return item.id === asset_id;
 	}); 
 	return JSON.parse(asset.options);
@@ -1282,7 +1375,14 @@ function obtenerPrecioAsset(asset_id) {
 	var marketAsset = marketData.find(function(item) {
 			return item.clave.slice(0, -3) === asset_id;
 	});
-	return marketAsset.precio;
+	return  marketAsset ? marketAsset.precio : getDefaultPrice(asset_id);
+}
+
+function obtenerVariacionPrecioAsset(asset_id) {
+	var marketAsset = marketData.find(function(item) {
+			return item.clave.slice(0, -3) === asset_id;
+	});
+	return marketAsset ? marketAsset.variacion : null;
 }
 
 
