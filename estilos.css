@@ -109,3 +109,21 @@ input[type="number"]::-webkit-outer-spin-button {
 .text-center {
 	text-align:center;
 }
+
+.marketChange {
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+	font-size: 10px;
+	float: right;
+    height: 35px;
+}
+
+.marketChange span {
+	text-align: right;
+	font-weight: bold;
+}
+
+.contenedor-asset {
+
+}	
