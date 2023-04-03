@@ -1,7 +1,7 @@
 
 
 body {
-	font-family: Rubik;
+	font-family: Rubik,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 	color: white;
 	background-color: #1D293F;
 }
@@ -15,7 +15,6 @@ body {
 }
 
 h1.cabecera {
-	height: 75px;
 	line-height: 75px;
 }
 h4.cabecera {
@@ -28,6 +27,13 @@ h4.cabecera {
 	margin-bottom: 20px;
 }
 
+#myFarm_wrapper {
+	max-width: 1000px;
+}
+
+#myBalance_wrapper {
+	max-width: 800px;
+}
 #myFarm_filter.dataTables_filter, #myBalance_filter.dataTables_filter {
 	color:white;
 	padding: 4px 0px;
@@ -74,6 +80,15 @@ table#myFarm.dataTable tfoot, table#myBalance.dataTable tfoot {
 	background-color: #FFCC32;
 }
 
+.importe {
+	text-align: right;
+}
+
+.quantity {
+  float: right;
+  text-align: right;
+}
+
 .importe.rojo {
 	color:red;
 }
@@ -89,7 +104,7 @@ table#myFarm.dataTable tfoot, table#myBalance.dataTable tfoot {
 }
 
 input.editable {
-	width:30px;
+	width:35px;
 }
 
 input[type="number"]::-webkit-inner-spin-button, 
@@ -124,6 +139,56 @@ input[type="number"]::-webkit-outer-spin-button {
 	font-weight: bold;
 }
 
-.contenedor-asset {
 
-}	
+
+table#myFarm th.name {
+    width: 100px !important;
+}
+
+table#myFarm th.category {
+    width: 75px !important;
+}
+
+table#myFarm th.price {
+    width: 90px !important;
+}
+
+table#myFarm th.amount {
+    width: 50px !important;
+}
+
+table#myFarm th.volume {
+    width: 70px !important;
+}
+
+table#myFarm th.daily_production {
+    width: 110px !important;
+}
+
+table#myFarm th.daily_consumption {
+    width: 145px !important;
+}
+
+table#myFarm th.grazing_fee {
+    width: 35px !important;
+}
+
+table#myFarm th.grazing_fee {
+    width: 35px !important;
+}
+
+table#myFarm th.grazing_active {
+    width: 20px !important;
+}
+
+table#myFarm th.profitability {
+    width: 50px !important;
+}
+
+table#myFarm th.quant {
+    width: 30px !important;
+}
+
+table#myFarm th.totalProfitability {
+    width: 60px !important;
+}
