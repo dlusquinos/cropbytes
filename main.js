@@ -307,20 +307,77 @@ $(document).ready(function() {
 			},
 			
 			{ "data": "name",
+			  "className" : "name",
 			  "render": function (data, type, row, meta) {
 				return data;
 			  }
 			},
-					
 			
 			{ "data": "category",
+			  "className" : "category",
 			  "render": function (data, type, row, meta) {
 				  return data;
 			  }
 			},
+				
+			{ "data": "daily_production",
+			  "className" : "daily_production",
+			  "orderable": false,
+			  "render": function (data, type, row, meta) {
+				  
+				  if(row.type == "feed_mill") {
+					  return '<input type="number" class="editable daily_production" contenteditable="true" value="'+ row.default_prod.quant +'" /><span> ' + row.default_prod.type + '</span>';
+				  } else {
+					  return data;
+				  }
+			  }
+			},
+			
+			{ "data": "daily_consumption",
+			  "className" : "daily_consumption",
+			  "orderable": false,
+			  "render": function (data, type, row, meta) {
+				 if(row.type == "feed_mill") {
+					  return '<input type="number" class="editable daily_consumption" contenteditable="true" value="'+ row.default_cons.quant +'" /><span> ' + row.default_cons.type + '</span>';
+				  } else {
+					  return data;
+				  }
+			  }
+			},
+				
+			
+			{ "data": "grazing_fee",
+			  "className" : "grazing_fee",
+			  "render": function (data, type, row, meta) {
+				  if(type == "display") {
+					 return data ? data + " cbx" : ""					 
+				  } else {
+					  return data;
+				  } 				  
+			  }
+			},
+			
+			{ "data": "grazing_active",	
+			  "className": "grazing_active text-center",
+			  "orderable" : false,
+			  "render": function (data, type, row, meta) {
+				  if(type == "display") {
+					  if(row.grazing_fee) {
+						   var checked = data ? "checked" : "";
+						   return '<input type="checkbox" tabindex="-1" class="grazing-checkbox" ' + checked + '>';
+					  } else {
+						  return "";
+					  }
+				  } else {
+					  return data;
+				  } 	
+					 
+				 
+			  }
+			},
 
 			{ "data": "price",
-			  "width": "10%",
+			  "className" : "price",
 			  "render": function (data, type, row, meta) {
 				if (type == 'display') {
 					 var precio = data ? data + " CBX": "";
@@ -341,76 +398,22 @@ $(document).ready(function() {
 			},
 			
 			{ "data": "amount",
-			  "width": "5%",
+			  "className" : "amount importe",
 			  "render": function (data, type, row, meta) {
 				return data;
 			  }
 			},
 			
 			{ "data": "volume",
-			  "width": "5%",
+			  "className" : "volume importe",
 			  "render": function (data, type, row, meta) {
 				return data;
 			  }
-			},		
-			
-			{ "data": "daily_production",
-			  "width": "10%",
-			  "orderable": false,
-			  "render": function (data, type, row, meta) {
-				  
-				  if(row.type == "feed_mill") {
-					  return '<input type="number" class="editable daily_production" contenteditable="true" value="'+ row.default_prod.quant +'" /><span> ' + row.default_prod.type + '</span>';
-				  } else {
-					  return data;
-				  }
-			  }
-			},
-			
-			{ "data": "daily_consumption",
-			  "width": "10%",
-			  "orderable": false,
-			  "render": function (data, type, row, meta) {
-				 if(row.type == "feed_mill") {
-					  return '<input type="number" class="editable daily_consumption" contenteditable="true" value="'+ row.default_cons.quant +'" /><span> ' + row.default_cons.type + '</span>';
-				  } else {
-					  return data;
-				  }
-			  }
-			},
+			},								
 
-			{ "data": "grazing_fee",
-			  "render": function (data, type, row, meta) {
-				  if(type == "display") {
-					 return data ? data + " cbx" : ""					 
-				  } else {
-					  return data;
-				  } 				  
-			  }
-			},
-			
-			{ "data": "grazing_active",	
-			  "orderable" : false,
-			  "width": "20px",
-			  "className": "text-center",
-			  "render": function (data, type, row, meta) {
-				  if(type == "display") {
-					  if(row.grazing_fee) {
-						   var checked = data ? "checked" : "";
-						   return '<input type="checkbox" tabindex="-1" class="grazing-checkbox" ' + checked + '>';
-					  } else {
-						  return "";
-					  }
-				  } else {
-					  return data;
-				  } 	
-					 
-				 
-			  }
-			},
-			
 			{ 
                 "data": "profitability",
+				"className": "profitability",
                 "render": function (data, type, row, meta) {
 					var colorClass = '';
 					if(data != 0) {
@@ -422,7 +425,7 @@ $(document).ready(function() {
 			
 			{ 
                 "data": "quantity",
-				"width": "40px",
+				"className": "quant",
                 "render": function (data, type, row, meta) {
 					if(type == "display") {
 						return '<input type="number" class="editable quantity" contenteditable="true" value="'+ data +'" />';
@@ -435,7 +438,7 @@ $(document).ready(function() {
 			
 			{ 
                 "data": "totalProfitability",
-				"width": "auto",
+				"className": "totalProfitability",
                 "render": function (data, type, row, meta) {
 					var colorClass = '';
 					if(data != 0) {
@@ -616,10 +619,8 @@ $(document).ready(function() {
 	    },
 		
 		
-		 footerCallback: function(row, data, start, end, display) {
-			//Para que esto funcione hay que hacer un preprocesado de los datos y pasar objetos con la columna rentabilidad ya calculada
-			
-			// Calcular el sumatorio de la columna 9
+		 footerCallback: function(row, data, start, end, display) {			
+			// Calcular el sumatorio de la columna 12
 			var sumatorio = this.api()
 			  .column(12, { page: 'current'})
 			  .data()
@@ -674,24 +675,28 @@ $(document).ready(function() {
 			},
 			
 			{ "data": "amount",
+			  "className" : "amount importe",
 			  "render": function (data, type, row, meta) {
 				return data;
 			  }
 			},
 			
 			{ "data": "volume",
+			  "className" : "volume importe",
 			  "render": function (data, type, row, meta) {
 				return data;
 			  }
 			},
 
             { "data": "production",
+			  "className" : "production importe",
 			  "render": function (data, type, row, meta) {
 				return data;
 			  }
 			},
 			
 			{ "data": "consumption",
+			  "className" : "consumption importe",
 			  "searchable": true,
 			  "render": function (data, type, row, meta) {
 				  return data;
@@ -699,6 +704,7 @@ $(document).ready(function() {
 			},
 			
 			{ "data": "balance",
+			  "className" : "balance importe",
 			  "render": function (data, type, row, meta) {
 				  var colorClass = '';
 					if(data != 0) {
@@ -709,6 +715,8 @@ $(document).ready(function() {
 			},
 			
 			{ "data": "balance_cbx",
+			  "className" : "balance_cbx importe",
+			  "visible": false,
 			  "render": function (data, type, row, meta) {
 				 var colorClass = '';
 					if(data != 0) {
