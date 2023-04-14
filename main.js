@@ -380,8 +380,9 @@ $(document).ready(function() {
 			  "className" : "price",
 			  "render": function (data, type, row, meta) {
 				if (type == 'display') {
-					 var precio = data ? data + " CBX": "";
 					 var variacion = row.price_change_percent ? row.price_change_percent : ""; 
+					 var currency = row.priceCurrency;
+					 var precio = data ? data + " " + currency: "";
 					 var varClass = variacion.includes("+") ? "verde" : "rojo";
 					 var html = '<div class="contenedor-asset">' +									
 									'<div class="marketChange">' +
@@ -853,6 +854,7 @@ function construirData() {
 		bean.grazing_active = farmAsset.grazing_active ? farmAsset.grazing_active : false;
 		bean.weekly_formula = {};
 		bean.price = obtenerPrecioAsset(bean.asset_id);
+		bean.priceCurrency = getDefaultPriceCurrency(bean.asset_id);
 		bean.price_change_percent = obtenerVariacionPrecioAsset(bean.asset_id); 
 		bean.volume = obtenerVolumenAsset(bean.asset_id);
 		bean.amount = obtenerTransaccionesAsset(bean.asset_id);
@@ -1392,6 +1394,14 @@ function getDefaultPrice(asset_id) {
 	return asset.defaultPrice ? asset.defaultPrice : null;
 }
 
+function getDefaultPriceCurrency(asset_id) {
+	var assets = assetsData.data.assets;
+	var asset = assets.find(function(item) {
+		return item.id === asset_id;
+	}); 	
+	return asset.defaultPriceCurrency;
+}
+
 
 function getNombre(asset_id) {
 	var assets = assetsData.data.assets;
@@ -1453,5 +1463,3 @@ function obtenerTransaccionesAsset(asset_id) {
 	});
 	return marketAsset ?  Math.floor(marketAsset.transacciones) : null;
 }
-
-
