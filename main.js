@@ -427,7 +427,7 @@ $(document).ready(function() {
 			
 			{ 
                 "data": "profitability_price",
-				"className": "profitability",
+				"className": "profitability_price",
                 "render": function (data, type, row, meta) {
 					var colorClass = '';
 					var cbxPrice = row.priceCurrency == 'usdt' ? row.price/cbxValue : row.price;
