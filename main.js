@@ -10,6 +10,7 @@
   var grindFees = [];
   var storages = [];
   var landCrops = [];
+  var cbxValue = 0;
 
   var farm = [
 	/***********
@@ -425,6 +426,17 @@ $(document).ready(function() {
             },
 			
 			{ 
+                "data": "profitability_price",
+				"className": "profitability",
+                "render": function (data, type, row, meta) {
+					var colorClass = '';
+					var cbxPrice = row.priceCurrency == 'usdt' ? row.price/cbxValue : row.price;
+					var result = row.profitability > 0 ? roundResult(1/(row.profitability/cbxPrice)) : "";					
+					return '<div class="importe '+ colorClass +'" ="true">' + result + '</div>';
+                }
+            },
+			
+			{ 
                 "data": "quantity",
 				"className": "quant",
                 "render": function (data, type, row, meta) {
@@ -751,6 +763,7 @@ $(document).ready(function() {
 	grindFees = confAssetsData.data.cropConfigV2.grindings;
 	storages = confAssetsData.data.storages;
 	landCrops = confAssetsData.data.cropConfigV2.landCrops;
+	cbxValue = obtenerValorCBX();
 	
 	var data = construirData();
 	myFarmTable.clear().rows.add(data).draw();
@@ -793,7 +806,7 @@ function obtenerPreciosMarketAPI() {
 	var atributos = Object.keys(marketData);
 	var filteredCBX = [];
 	for (var i = 0; i < atributos.length; i++) { 
-		if(atributos[i].endsWith('cbx')) {
+		if(atributos[i].endsWith('cbx') || atributos[i] == 'cbxusdt') {
 			var elto = marketData[atributos[i]];
 			var item = {clave: atributos[i], 
 						precio : elto.ticker.last, 
@@ -1462,4 +1475,12 @@ function obtenerTransaccionesAsset(asset_id) {
 			return item.clave.slice(0, -3) === asset_id;
 	});
 	return marketAsset ?  Math.floor(marketAsset.transacciones) : null;
+}
+
+
+function obtenerValorCBX() {
+	var marketAsset = marketData.find(function(item) {
+			return item.clave === 'cbxusdt';
+	});
+	return  marketAsset.precio;
 }
