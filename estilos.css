@@ -28,7 +28,7 @@ h4.cabecera {
 }
 
 #myFarm_wrapper {
-	max-width: 1000px;
+	max-width: 1050px;
 }
 
 #myBalance_wrapper {
@@ -183,6 +183,10 @@ table#myFarm th.grazing_active {
 }
 
 table#myFarm th.profitability {
+    width: 50px !important;
+}
+
+table#myFarm th.profitability_price {
     width: 50px !important;
 }
 
