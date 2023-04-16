@@ -635,14 +635,14 @@ $(document).ready(function() {
 		 footerCallback: function(row, data, start, end, display) {			
 			// Calcular el sumatorio de la columna 12
 			var sumatorio = this.api()
-			  .column(12, { page: 'current'})
+			  .column(13, { page: 'current'})
 			  .data()
 			  .reduce(function(a, b) {
 				return Number(a) + Number(b);
 			  }, 0);
 			
 			// Añadir el sumatorio al pie de la tabla
-			$(this.api().column(12).footer()).html(roundResult(sumatorio));
+			$(this.api().column(13).footer()).html(roundResult(sumatorio));
 			
 		 }
 		
