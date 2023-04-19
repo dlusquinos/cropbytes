@@ -66,6 +66,10 @@ table#myFarm.dataTable tbody tr.even, table#myBalance.dataTable tbody tr.even {
     background-color: #f0e0af;
 }
 
+table#myFarm.dataTable tbody tr.odd, table#myBalance.dataTable tbody tr.odd {
+    background-color: white;
+}
+
 table#myFarm.dataTable tbody th, table#myFarm.dataTable tbody td, table#myBalance.dataTable tbody th, table#myBalance.dataTable tbody td  {
     padding: 0px 3px;
 	border-right: 1px solid #1d293f;
@@ -210,4 +214,16 @@ max-width: 1070px;
 
 .contenedor-cbx-supply {
 	margin: -10px 0 10px;	
+}
+
+.fila-desplegada {
+	padding-left: 40px;
+	background-color: #1D293F;
+	color:white;
+	opacity:0.8;
+}
+
+.pointer {
+	cursor:pointer;
+	cursor:hand;
 }
