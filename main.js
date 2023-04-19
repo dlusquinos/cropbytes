@@ -290,6 +290,9 @@
     }
   ]
   
+  const mineCbxData = [
+	{week:67, supply:60560586}, {week:68, supply:61401705}, {week:69, supply:62242824}
+  ]
 
 
 $(document).ready(function() {
@@ -765,10 +768,14 @@ $(document).ready(function() {
 	landCrops = confAssetsData.data.cropConfigV2.landCrops;
 	cbxValue = obtenerValorCBX();
 	
+	
 	var data = construirData();
 	myFarmTable.clear().rows.add(data).draw();
 	var balance = construirBalance(data);
 	myBalanceTable.clear().rows.add(balance).draw();
+	
+	
+	obtenerMiningCBXDataAPI();
 
 });
 
@@ -791,6 +798,36 @@ function obtenerConfAssetsAPI () {
 	
 	return JSON.parse(assetConfJSON);
 }
+
+
+function obtenerMiningCBXDataAPI() {
+	$.ajax({
+	  url: "https://api.cropbytes.com/api/v1/game/assets/mine_stats",
+	  dataType: "json",
+	  async: true,
+	  success: function(response) {
+		var week = response.data.week;
+		var totalMine = response.data.totalMine;
+		var totalBurned = response.data.totalBurn;
+		var dif = response.data.difficulty;
+		var price = response.data.price + " USDT";
+		var objective = mineCbxData.find(function(item) {
+			return item.week === week;
+		});
+		var nextDif = (totalMine/objective.supply)**5;
+		
+		
+		$("#current_price").text(price);
+		$("#dif").text(dif);
+		$("#week").text(week);
+		$("#next_dif").text(roundResult(nextDif));
+		$("#total_mined").text(roundResult(totalMine));
+		$("#total_burned").text(roundResult(totalBurned));
+		
+	  }
+	});
+}
+
 
 function obtenerPreciosMarketAPI() {
 	var marketJSON = $.ajax({
