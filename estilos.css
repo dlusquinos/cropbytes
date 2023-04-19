@@ -1,30 +1,31 @@
 
 
 body {
-	font-family: Rubik,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-	color: white;
-	background-color: #1D293F;
+	font-family: Rubik,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;
+	color: white !important;
+	background-color: #1D293F !important;
 }
 
 .cabecera {
 	background: white;
-    margin: -8px;
     padding: 8px;
-    color: #1D293F;
-    
+    color: #1D293F; 
 }
 
 h1.cabecera {
+	font-weight: 700;
+	font-size:32px;
 	line-height: 75px;
 }
 h4.cabecera {
-	height:40px;
-	line-height: 40px;
+	font-size: 18px;
+	font-weight: 700;
 }
 
 #myFarm_wrapper, #myBalance_wrapper {
 	margin-top: 15px;
 	margin-bottom: 20px;
+	padding: 0px 5px;
 }
 
 #myFarm_wrapper {
@@ -68,12 +69,13 @@ table#myFarm.dataTable tbody tr.even, table#myBalance.dataTable tbody tr.even {
 table#myFarm.dataTable tbody th, table#myFarm.dataTable tbody td, table#myBalance.dataTable tbody th, table#myBalance.dataTable tbody td  {
     padding: 0px 3px;
 	border-right: 1px solid #1d293f;
+    vertical-align: middle;
 }
 
 table#myFarm.dataTable tfoot th, table.dataTable tfoot td, table#myBalance.dataTable tfoot th{
     border-top: 1px solid #1d293f;
 	padding: 10px 3px;
-    text-align: left;
+    text-align: left !important;
 }
 
 table#myFarm.dataTable tfoot, table#myBalance.dataTable tfoot {
@@ -191,9 +193,21 @@ table#myFarm th.profitability_price {
 }
 
 table#myFarm th.quant {
-    width: 30px !important;
+    width: 45px !important;
 }
 
 table#myFarm th.totalProfitability {
     width: 60px !important;
+}
+
+.supply-data{
+max-width: 1070px;	
+}
+
+.supply-data .valor{
+	color: #8BF99C;
+}
+
+.contenedor-cbx-supply {
+	margin: -10px 0 10px;	
 }
