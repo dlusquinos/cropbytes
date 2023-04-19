@@ -306,7 +306,7 @@ $(document).ready(function() {
 			  "width": "35px",
 			  "orderable": false,
 			  "render": function (data, type, row, meta) {				  
-				  	 return '<img src="' + data + '" width="35">';
+				  	 return '<img class="pointer" src="' + data + '" width="35">';
 			  }
 			},
 			
@@ -776,6 +776,78 @@ $(document).ready(function() {
 	
 	
 	obtenerMiningCBXDataAPI();
+	
+	
+	//Eventos
+	
+	$('#myFarm').on('click', 'img', function() {
+	  // Obtener la instancia de la fila
+	  
+	  var tr = $(this).closest('tr');
+	  var tabla = $('#myFarm').DataTable();
+	  var fila = myFarmTable.row(tr);
+	  
+	  // Si la fila ya está expandida, ocultar la fila hija
+	  if (fila.child.isShown()) {
+		fila.child.hide();
+	  }
+	  // De lo contrario, mostrar la fila hija con los datos
+	  else {
+		var datos = fila.data();  
+		var miningInfo = obtenerMininAssetDataAPI(datos.asset_id);  
+		  
+		// Crear el contenido de la fila hija utilizando los datos de la fila
+		
+		var contenido =""
+		if(miningInfo.success) {
+			var data = miningInfo.data;
+			var price = data.price;
+			var dif = data.difficulty ? data.difficulty : "--";
+			var week = data.week ? data.week : "--";
+			var totalSupply = data.totalSupply;
+			var circulatingSupply = data.circulatingSupply;
+			var minedSupply = data.minedSupply ? data.minedSupply : "--";
+			contenido = '<div class="fila-desplegada supply-data">' + 
+							'<div class="row">' + 
+								'<div class="col-sm-2">' + 
+									'<div>Precio</div>' + 
+									'<div class ="valor">' + price + '</div>' +
+								'</div>' +
+								'<div class="col-sm-2">' + 
+									'<div>Dificultad</div>' + 
+									'<div class ="valor">' + dif + '</div>' +
+								'</div>' +	
+								'<div class="col-sm-2">' + 
+									'<div>Semana</div>' + 
+									'<div class ="valor">' + week + '</div>' +
+								'</div>' +													
+							'</div>' + 
+							'<div class="row">' + 
+								'<div class="col-sm-2">' + 	
+									'<div>Total Supply</div>' + 
+									'<div class ="valor">' + totalSupply + '</div>' +
+								'</div>' +	
+								'<div class="col-sm-2">' + 
+									'<div>Total Circulante</div>' + 
+									'<div class ="valor">' + circulatingSupply + '</div>' +
+								'</div>' +
+								'<div class="col-sm-2">' + 
+									'<div>Total Minado</div>' + 
+									'<div class ="valor">' + minedSupply + '</div>' +
+								'</div>' +	
+							'</div>' +
+						'</div>';
+			
+		} else {
+			contenido = '<p>Sin datos que mostrar</p><ul>';
+		}
+		// Mostrar la fila hija
+		
+		fila.child(contenido).show();
+		
+	  }
+	});
+	
 
 });
 
@@ -799,6 +871,16 @@ function obtenerConfAssetsAPI () {
 	return JSON.parse(assetConfJSON);
 }
 
+function obtenerMininAssetDataAPI(asset_id) {
+	var obtenerMininJSON = $.ajax({
+	  url: "https://api.cropbytes.com/api/v1/game/assets-supply/mine_stats?currency="+asset_id,
+	  dataType: "json",
+	  async: false
+	}).responseText;
+	
+	return JSON.parse(obtenerMininJSON);	
+	
+}
 
 function obtenerMiningCBXDataAPI() {
 	$.ajax({
