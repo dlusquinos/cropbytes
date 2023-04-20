@@ -1,298 +1,7 @@
 
-  const GREASE_COST_PER_UNIT = 10;
-  var marketData = [];
-  var assetsData = [];
-  var confAssetsData = [];
-  var extractList = [];
-  var seedList = [];
-  var feedConfig = [];
-  var treeCrops = [];
-  var grindFees = [];
-  var storages = [];
-  var landCrops = [];
-  var cbxValue = 0;
-
-  var farm = [
-	/***********
-	 **ANIMALS**
-	 ***********/
   
-	{
-      "asset_id": "br",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "egr",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "ph",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "rr",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "bs",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "mg",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "pcg",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "pg",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "wg",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "bb",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "hgc",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "pc",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "bsh",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "zing",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "mud",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "pp",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "spky",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "dor",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "ds",
-	  "quantity": 0
-    },
-	
-	/*******
-	 **HAM**
-	 *******/
-	
-	{
-      "asset_id": "lake",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "spw",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "sw",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "well",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "wtw",
-	  "quantity": 0
-    },
-
-	/*********
-	 **TREES**
-	 *********/
-	{
-      "asset_id": "at",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "bt",
-	  "quantity": 0
-    },
-	
-	{
-      "asset_id": "ort",
-	  "quantity": 0
-    },
-	
-	/**************
-	 **CROP LANDS**
-	 **************/
-	
-	{
-      "asset_id": "fcl",
-	  "quantity": 0,
-	  "srcAsset": "cos",
-	  "extract": "cof"
-    },
-	
-	{
-      "asset_id": "ocl",
-	  "quantity": 0,
-	  "srcAsset": "cos",
-	  "extract": "cof"
-    },
-	
-	{
-      "asset_id": "scl",
-	  "quantity": 0,
-	  "srcAsset": "cos",
-	  "extract": "cof"
-    },
-	
-	{
-      "asset_id": "fcl",
-	  "quantity": 0,
-	  "srcAsset": "cas",
-	  "extract": "caf"
-    },
-	
-	{
-      "asset_id": "ocl",
-	  "quantity": 0,
-	  "srcAsset": "cas",
-	  "extract": "caf"
-    },
-	
-	{
-      "asset_id": "scl",
-	  "quantity": 0,
-	  "srcAsset": "cas",
-	  "extract": "caf"
-    },
-	
-	/*******
-	 **SH***
-	 *******/
-	
-	{
-      "asset_id": "chi",
-	  "quantity": 0,
-	  "extract": "pow",
-	  "bonus": {
-		  "cantidad": 15,
-		  "tipo": "%"
-	  }
-    },
-	
-	{
-      "asset_id": "wtl",
-	  "quantity": 0,
-	  "extract": "water",
-	  "bonus": {
-		  "cantidad": 10,
-		  "tipo": "%"
-	  }
-    },
-	
-	{
-      "asset_id": "grn",
-	  "quantity": 0,
-	  "extract": "cof|caf",
-	  "bonus": {
-		  "cantidad": 2,
-		  "tipo": ""
-	  }
-    },
-	
-	{
-      "asset_id": "hlr",
-	  "quantity": 0,
-	  "extract": "",
-	  "bonus": {
-		  "cantidad": "",
-		  "tipo": "",
-		  "descripcion": "Helps in recovering animal health quickly",
-	  }
-    },
-	
-	{
-      "asset_id": "ss",
-	  "quantity": 0,
-	  "extract": "",
-	  "bonus": {
-		  "cantidad": "",
-		  "tipo": "",
-		  "descripcion": "Automatically feeds your animals"
-	  }
-    },
-	
-	{
-      "asset_id": "bls",
-	  "quantity": 0,
-	  "extract": "",
-	  "bonus": {
-		  "cantidad": "",
-		  "tipo": "",
-		  "descripcion": "Automatically feeds your animals"
-	  }
-    },
-	
-	/**************
-	 **FEED MILL***
-	 **************/
-	{
-      "asset_id": "fm",
-	  "quantity": 0,
-	  "default_prod":{
-		  "quant": 0,
-		  "type": "cbx"
-	   },
-	  
-	  "default_cons":{
-		  "quant": 0,
-		  "type": "pow"
-	  }
-    }
-  ]
   
-  const mineCbxData = [
-	{week:67, supply:60560586}, {week:68, supply:61401705}, {week:69, supply:62242824}
-  ]
+  
 
 
 $(document).ready(function() {
@@ -767,6 +476,7 @@ $(document).ready(function() {
 	storages = confAssetsData.data.storages;
 	landCrops = confAssetsData.data.cropConfigV2.landCrops;
 	cbxValue = obtenerValorCBX();
+	pmixValue = obtenerPrecioAsset('pmix');
 	
 	
 	var data = construirData();
@@ -807,39 +517,122 @@ $(document).ready(function() {
 			var totalSupply = data.totalSupply;
 			var circulatingSupply = data.circulatingSupply;
 			var minedSupply = data.minedSupply ? data.minedSupply : "--";
-			contenido = '<div class="fila-desplegada supply-data">' + 
-							'<div class="row">' + 
-								'<div class="col-sm-2">' + 
-									'<div>Precio</div>' + 
-									'<div class ="valor">' + price + '</div>' +
+			
+			
+			var assetRequirements = miningAssetRequirements[datos.asset_id];
+			var actualReqs = {
+				pmix: "--",
+				cbx: "--",
+				games: "--",
+				total: "--"
+			}
+			
+			var nextReqs = {
+				pmix: "--",
+				cbx: "--",
+				games: "--",
+				total: "--"
+			}
+			if(assetRequirements) {
+					var pmixValue = obtenerPrecioAsset('pmix');
+					
+					//Semana actual 
+					var actualRequirements = assetRequirements.find(function(item) {
+						return item.week === week-1;
+					});
+					var actualDif = dif > 1 ? dif : 1;
+					actualReqs.pmix = roundResult(actualDif*actualRequirements.mixBase);
+					actualReqs.cbx = roundResult(actualDif*(actualRequirements.cbxBase/cbxValue));
+					actualReqs.games = roundResult(actualDif*(actualRequirements.miniGames));
+					actualReqs.total = roundResult(actualReqs.cbx + actualReqs.pmix*pmixValue);
+					
+					//Semana siguiente
+					var nextRequirements = assetRequirements.find(function(item) {
+						return item.week === week;
+					});
+					var nextDifFormula = (minedSupply/nextRequirements.supply)**5;
+					var nextDif = nextDifFormula > 1 ? nextDifFormula : 1;
+					nextReqs.pmix = roundResult(nextDif*nextRequirements.mixBase);
+					nextReqs.cbx = roundResult(nextDif*(nextRequirements.cbxBase/cbxValue));
+					nextReqs.games = roundResult(nextDif*nextRequirements.miniGames);
+					nextReqs.total = roundResult(nextReqs.cbx + nextReqs.pmix*pmixValue);
+					
+			}
+
+			contenido = '<div class="row fila-desplegada supply-info">' + 
+							'<div class="col-sm-6 supply-asset-data">' +
+								'<div class="row">' + 
+									'<div class="col-sm-4">' + 
+										'<div>Precio</div>' + 
+										'<div class ="valor">' + price + '</div>' +
+									'</div>' +
+									'<div class="col-sm-4">' + 
+										'<div>Dificultad</div>' + 
+										'<div class ="valor">' + dif + '</div>' +
+									'</div>' +	
+									'<div class="col-sm-4">' + 
+										'<div>Semana</div>' + 
+										'<div class ="valor">' + week + '</div>' +
+									'</div>' +																	
+								'</div>' + 
+								'<div class="row">' + 
+									'<div class="col-sm-4">' + 	
+										'<div>Total Supply</div>' + 
+										'<div class ="valor">' + totalSupply + '</div>' +
+									'</div>' +	
+									'<div class="col-sm-4">' + 
+										'<div>Total Circulante</div>' + 
+										'<div class ="valor">' + circulatingSupply + '</div>' +
+									'</div>' +
+									'<div class="col-sm-4">' + 
+										'<div>Total Minado</div>' + 
+										'<div class ="valor">' + minedSupply + '</div>' +
+									'</div>' +							
 								'</div>' +
-								'<div class="col-sm-2">' + 
-									'<div>Dificultad</div>' + 
-									'<div class ="valor">' + dif + '</div>' +
-								'</div>' +	
-								'<div class="col-sm-2">' + 
-									'<div>Semana</div>' + 
-									'<div class ="valor">' + week + '</div>' +
-								'</div>' +													
-							'</div>' + 
-							'<div class="row">' + 
-								'<div class="col-sm-2">' + 	
-									'<div>Total Supply</div>' + 
-									'<div class ="valor">' + totalSupply + '</div>' +
-								'</div>' +	
-								'<div class="col-sm-2">' + 
-									'<div>Total Circulante</div>' + 
-									'<div class ="valor">' + circulatingSupply + '</div>' +
-								'</div>' +
-								'<div class="col-sm-2">' + 
-									'<div>Total Minado</div>' + 
-									'<div class ="valor">' + minedSupply + '</div>' +
-								'</div>' +	
 							'</div>' +
+							
+							'<div class="supply-asset-data col-sm-6 py-2">' +
+								'<table class="tabla-minado">' + 						  
+									 '<thead>' +
+										'<tr>' +
+										  '<th>SEM</th>' +
+										  '<th>PMIX</th>' +
+										  '<th>CBX</th>' +
+										  '<th>JUEGOS</th>' +
+										  '<th>TOTAL CBX</th>' +
+										'</tr>' +
+									  '</thead>' +
+									  '<tbody>' +
+										'<tr>' +
+										  '<td>' + week + '</td>' +
+										  '<td>' + actualReqs.pmix + '</td>' +
+										  '<td>' + actualReqs.cbx + '</td>' +
+										  '<td>' + actualReqs.games + '</td>' +
+										  '<td>' + actualReqs.total+ '</td>' +
+										'</tr>' +
+										'<tr>' +
+										  '<td>' + (week + 1) + '</td>' +
+										  '<td>' + nextReqs.pmix + '</td>' +
+										  '<td>' + nextReqs.cbx + '</td>' +
+										  '<td>' + nextReqs.games + '</td>' +
+										  '<td>' + nextReqs.total+ '</td>' +
+										'</tr>' +
+									  '</tbody>' +
+								'</table>' +
+							
+							'</div>' +
+							
 						'</div>';
+						
+						
+				
+				
+						
 			
 		} else {
-			contenido = '<p>Sin datos que mostrar</p><ul>';
+			contenido = '<div class="fila-desplegada supply-data">' +
+							'Sin datos que mostrar'
+						'</div>';
 		}
 		// Mostrar la fila hija
 		
