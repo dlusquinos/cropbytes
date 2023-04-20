@@ -204,13 +204,27 @@ table#myFarm th.totalProfitability {
     width: 60px !important;
 }
 
-.supply-data{
-max-width: 1070px;	
+.supply-info{
+	max-width: 1070px;	
+	
 }
 
-.supply-data .valor{
-	color: #8BF99C;
+.supply-asset-data {
+	width:50%;
+	display:inline-block;
 }
+
+.tabla-minado th {
+	background-color: #ffcc32;
+}
+
+.tabla-minado {
+	color: #1D293F;
+}
+
+.valor{
+	color: #8BF99C;
+}	
 
 .contenedor-cbx-supply {
 	margin: -10px 0 10px;	
