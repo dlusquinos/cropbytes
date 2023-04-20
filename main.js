@@ -1,13 +1,6 @@
 
-  
-  
-  
-
-
 $(document).ready(function() {
-	
-	
-	
+
     var myFarmTable = $('#myFarm').DataTable({
         data: [],
         "columns": [
@@ -589,40 +582,39 @@ $(document).ready(function() {
 										'<div class ="valor">' + minedSupply + '</div>' +
 									'</div>' +							
 								'</div>' +
-							'</div>' +
-							
-							'<div class="supply-asset-data col-sm-6 py-2">' +
-								'<table class="tabla-minado">' + 						  
-									 '<thead>' +
-										'<tr>' +
-										  '<th>SEM</th>' +
-										  '<th>PMIX</th>' +
-										  '<th>CBX</th>' +
-										  '<th>JUEGOS</th>' +
-										  '<th>TOTAL CBX</th>' +
-										'</tr>' +
-									  '</thead>' +
-									  '<tbody>' +
-										'<tr>' +
-										  '<td>' + week + '</td>' +
-										  '<td>' + actualReqs.pmix + '</td>' +
-										  '<td>' + actualReqs.cbx + '</td>' +
-										  '<td>' + actualReqs.games + '</td>' +
-										  '<td>' + actualReqs.total+ '</td>' +
-										'</tr>' +
-										'<tr>' +
-										  '<td>' + (week + 1) + '</td>' +
-										  '<td>' + nextReqs.pmix + '</td>' +
-										  '<td>' + nextReqs.cbx + '</td>' +
-										  '<td>' + nextReqs.games + '</td>' +
-										  '<td>' + nextReqs.total+ '</td>' +
-										'</tr>' +
-									  '</tbody>' +
-								'</table>' +
-							
-							'</div>' +
-							
-						'</div>';
+							'</div>';
+					if(assetRequirements) {		
+					  contenido +=	'<div class="supply-asset-data col-sm-6 py-2">' +
+										'<table class="tabla-minado">' + 						  
+											 '<thead>' +
+												'<tr>' +
+												  '<th>SEM</th>' +
+												  '<th>PMIX</th>' +
+												  '<th>CBX</th>' +
+												  '<th>JUEGOS</th>' +
+												  '<th>TOTAL CBX</th>' +
+												'</tr>' +
+											  '</thead>' +
+											  '<tbody>' +
+												'<tr>' +
+												  '<td>' + week + '</td>' +
+												  '<td>' + actualReqs.pmix + '</td>' +
+												  '<td>' + actualReqs.cbx + '</td>' +
+												  '<td>' + actualReqs.games + '</td>' +
+												  '<td>' + actualReqs.total+ '</td>' +
+												'</tr>' +
+												'<tr>' +
+												  '<td>' + (week + 1) + '</td>' +
+												  '<td>' + nextReqs.pmix + '</td>' +
+												  '<td>' + nextReqs.cbx + '</td>' +
+												  '<td>' + nextReqs.games + '</td>' +
+												  '<td>' + nextReqs.total+ '</td>' +
+												'</tr>' +
+											  '</tbody>' +
+										'</table>' +
+									'</div>';
+					}		
+					contenido +='</div>';
 						
 						
 				
