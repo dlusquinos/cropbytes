@@ -555,6 +555,7 @@ $(document).ready(function() {
 					actualReqs.cbx = roundResult(actualDif*(actualRequirements.cbxBase/cbxValue));
 					actualReqs.games = roundResult(actualDif*(actualRequirements.miniGames));
 					actualReqs.total = roundResult(actualReqs.cbx + actualReqs.pmix*pmixValue);
+					actualReqs.totalGames = actualReqs.total + actualReqs.games*3.75;
 					
 					//Semana siguiente
 					var nextRequirements = assetRequirements.find(function(item) {
@@ -566,6 +567,7 @@ $(document).ready(function() {
 					nextReqs.cbx = roundResult(nextDif*(nextRequirements.cbxBase/cbxValue));
 					nextReqs.games = roundResult(nextDif*nextRequirements.miniGames);
 					nextReqs.total = roundResult(nextReqs.cbx + nextReqs.pmix*pmixValue);
+					nextReqs.totalGames = nextReqs.total + nextReqs.games*3.75;
 					
 			}
 
@@ -616,11 +618,12 @@ $(document).ready(function() {
 										'<table class="tabla-minado">' + 						  
 											 '<thead>' +
 												'<tr>' +
-												  '<th>SEM</th>' +
-												  '<th>PMIX</th>' +
+												  '<th>SEMANA</th>' +
+												  '<th>PROMIX</th>' +
 												  '<th>CBX</th>' +
-												  '<th>JUE.</th>' +
-												  '<th>TOTAL CBX</th>' +
+												  '<th>JUEGOS</th>' +
+												  '<th>TOTAL SIN JUEGOS</th>' +
+												  '<th>TOTAL CON JUEGOS</th>' +
 												'</tr>' +
 											  '</thead>' +
 											  '<tbody>' +
@@ -630,6 +633,7 @@ $(document).ready(function() {
 												  '<td>' + actualReqs.cbx + '</td>' +
 												  '<td>' + actualReqs.games + '</td>' +
 												  '<td>' + actualReqs.total+ '</td>' +
+												  '<td>' + actualReqs.totalGames+ '</td>' +
 												'</tr>' +
 												'<tr>' +
 												  '<td>' + (week + 1) + '</td>' +
@@ -637,6 +641,7 @@ $(document).ready(function() {
 												  '<td>' + nextReqs.cbx + '</td>' +
 												  '<td>' + nextReqs.games + '</td>' +
 												  '<td>' + nextReqs.total+ '</td>' +
+												  '<td>' + nextReqs.totalGames+ '</td>' +
 												'</tr>' +
 											  '</tbody>' +
 										'</table>' +
