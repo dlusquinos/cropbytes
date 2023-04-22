@@ -498,11 +498,15 @@ $(document).ready(function() {
 	  else {
 		var datos = fila.data();  
 		var miningInfo = obtenerMininAssetDataAPI(datos.asset_id);  
+		 
 		  
 		// Crear el contenido de la fila hija utilizando los datos de la fila
 		
 		var contenido =""
 		if(miningInfo.success) {
+			
+
+			//Info
 			var data = miningInfo.data;
 			var price = data.price;
 			var dif = data.difficulty ? data.difficulty : "--";
@@ -512,7 +516,7 @@ $(document).ready(function() {
 			var minedSupply = data.minedSupply ? data.minedSupply : "--";
 			
 			
-			var assetRequirements = miningAssetRequirements[datos.asset_id];
+			var assetRequirements = miningAssetRequirements[datos.asset_id];		
 			var actualReqs = {
 				pmix: "--",
 				cbx: "--",
@@ -526,7 +530,20 @@ $(document).ready(function() {
 				games: "--",
 				total: "--"
 			}
+			var minedThisWeek = "--";
+			var minedToday = "--";
 			if(assetRequirements) {
+				
+					//Stats
+					var miningStatsResp = obtenerMininAssetStatsAPI(datos.asset_id);
+					var miningStats = miningStatsResp.data.values.mine;				
+					minedThisWeek= 0;			
+					minedToday = miningStats[miningStats.length-1];				
+					for(var i=0; i< miningStats.length; i++) {
+						var stat = miningStats[i];
+						minedThisWeek+=stat;
+					}
+				
 					var pmixValue = obtenerPrecioAsset('pmix');
 					
 					//Semana actual 
@@ -553,7 +570,7 @@ $(document).ready(function() {
 			}
 
 			contenido = '<div class="row fila-desplegada supply-info">' + 
-							'<div class="col-sm-6 supply-asset-data">' +
+							'<div class="col-sm-6 supply-asset-data py-1">' +
 								'<div class="row">' + 
 									'<div class="col-sm-4">' + 
 										'<div>Precio</div>' + 
@@ -569,6 +586,20 @@ $(document).ready(function() {
 									'</div>' +																	
 								'</div>' + 
 								'<div class="row">' + 
+									'<div class="col-sm-4">' + 
+										'<div>Total Minado</div>' + 
+										'<div class ="valor">' + minedSupply + '</div>' +
+									'</div>' +
+									'<div class="col-sm-4">' + 	
+										'<div>Min. hoy</div>' + 
+										'<div class ="valor">' + minedToday + '</div>' +
+									'</div>' +	
+									'<div class="col-sm-4">' + 
+										'<div>Min. ult. 7 dias</div>' + 
+										'<div class ="valor">' + minedThisWeek + '</div>' +
+									'</div>' +															
+								'</div>' +
+								'<div class="row">' + 
 									'<div class="col-sm-4">' + 	
 										'<div>Total Supply</div>' + 
 										'<div class ="valor">' + totalSupply + '</div>' +
@@ -576,22 +607,19 @@ $(document).ready(function() {
 									'<div class="col-sm-4">' + 
 										'<div>Total Circulante</div>' + 
 										'<div class ="valor">' + circulatingSupply + '</div>' +
-									'</div>' +
-									'<div class="col-sm-4">' + 
-										'<div>Total Minado</div>' + 
-										'<div class ="valor">' + minedSupply + '</div>' +
-									'</div>' +							
-								'</div>' +
+									'</div>' +																
+								'</div>' +								
 							'</div>';
 					if(assetRequirements) {		
-					  contenido +=	'<div class="supply-asset-data col-sm-6 py-2">' +
+					  contenido +=	'<div class="supply-asset-data col-sm-6">' +
+										'<div class="py-1">Requerimientos de minado semanales:</div>' + 
 										'<table class="tabla-minado">' + 						  
 											 '<thead>' +
 												'<tr>' +
 												  '<th>SEM</th>' +
 												  '<th>PMIX</th>' +
 												  '<th>CBX</th>' +
-												  '<th>JUEGOS</th>' +
+												  '<th>JUE.</th>' +
 												  '<th>TOTAL CBX</th>' +
 												'</tr>' +
 											  '</thead>' +
@@ -662,9 +690,16 @@ function obtenerMininAssetDataAPI(asset_id) {
 	  dataType: "json",
 	  async: false
 	}).responseText;
-	
 	return JSON.parse(obtenerMininJSON);	
-	
+}
+
+function obtenerMininAssetStatsAPI(asset_id) {
+	var obtenerMininStatsJSON = $.ajax({
+	  url: "https://api.cropbytes.com/api/v1/game/assets-supply/chart_stats?currency="+asset_id,
+	  dataType: "json",
+	  async: false
+	}).responseText;
+	return JSON.parse(obtenerMininStatsJSON);	
 }
 
 function obtenerMiningCBXDataAPI() {
