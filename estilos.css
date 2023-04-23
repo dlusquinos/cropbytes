@@ -29,7 +29,7 @@ h4.cabecera {
 }
 
 #myFarm_wrapper {
-	max-width: 1065px;
+	max-width: 1075px;
 }
 
 #myBalance_wrapper {
@@ -199,7 +199,7 @@ table#myFarm th.profitability {
 }
 
 table#myFarm th.profitability_price {
-    width: 65px !important;
+    width: 70px !important;
 }
 
 table#myFarm th.quant {
@@ -211,7 +211,7 @@ table#myFarm th.totalProfitability {
 }
 
 .supply-info{
-	max-width: 1070px;	
+	max-width: 1075px;	
 	
 }
 
@@ -250,4 +250,11 @@ table#myFarm th.totalProfitability {
 .pointer {
 	cursor:pointer;
 	cursor:hand;
+}
+
+.logo {
+	top: 10px;
+    position: absolute;
+    right: 5px;
+	height: 65px;
 }
