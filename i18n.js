@@ -1,4 +1,4 @@
-﻿
+
 var etiqueta = {
 	en: {
 		'page.title': "Cropbytes calculator",
@@ -113,6 +113,65 @@ var etiqueta = {
 		'weeklyBalance.consumption' : 'Consumo',
 		'weeklyBalance.balance' : 'Balance'
 
+	},
+	
+	
+	nl: {
+	  'page.title': "Cropbytes calculator",
+
+	  'cbxSupply.title': 'Cbx-aanbod',
+	  'cbxSupply.actualPrice': 'Huidige prijs',
+	  'cbxSupply.difficulty': 'Moeilijkheid',
+	  'cbxSupply.week': 'Week',
+	  'cbxSupply.nextDiff': 'Volgende moeil.',
+	  'cbxSupply.totalMined': 'Totaal gewonnen',
+	  'cbxSupply.totalBurned': 'Totaal verbrand',
+
+	  'weeklyProfit.title': 'Wekelijkse winstgevendheid',
+	  'weeklyProfit.asset': 'Product',
+	  'weeklyProfit.dailyInput': 'Dagelijkse in-/uitvoer',
+	  'weeklyProfit.grazing': 'Grazing',
+	  'weeklyProfit.market24h': 'Markt 24 uur',
+	  'weeklyProfit.weeklyProfitCbx': 'Wekelijkse winst (CBX)',
+	  'weeklyProfit.asset.name': 'Naam',
+	  'weeklyProfit.asset.category': 'Categorie',
+	  'weeklyProfit.dailyInput.production': 'Productie',
+	  'weeklyProfit.dailyInput.consumption': 'Verbruik',
+	  'weeklyProfit.grazing.fee': 'Fee',
+	  'weeklyProfit.grazing.active': 'Actief',
+	  'weeklyProfit.market24h.price': 'Prijs',
+	  'weeklyProfit.market24h.transactions': 'Trans.',
+	  'weeklyProfit.market24h.volCbx': 'Vol.CBX',
+	  'weeklyProfit.weeklyProfitCbx.individual': 'Indiv.',
+	  'weeklyProfit.weeklyProfitCbx.roi': 'ROI-weken',
+	  'weeklyProfit.weeklyProfitCbx.quantity': 'Aantal',
+	  'weeklyProfit.weeklyProfitCbx.total': 'Totaal',
+	  'weeklyProfit.footer.totalFarmProfit': 'Totale winstgevendheid op de boerderij',
+
+	  'assetMining.price': 'Prijs',
+	  'assetMining.diff': 'Moeilijkheid',
+	  'assetMining.week': 'Week',
+	  'assetMining.totalMined': 'Totaal gewonnen',
+	  'assetMining.minedToday': 'Vandaag gewonnen',
+	  'assetMining.minedLastDays': 'Laatste 7 dagen gewon.',	  
+	  'assetMining.totalSupply' : 'Totale aanbod',
+      'assetMining.circulatingSupply' : 'Circulerend aanbod',
+	  'assetMining.miningRequirements' : 'Wekelijkse mijneisen:',
+	  'assetMining.promix' : 'Promix',
+	  'assetMining.cbx' : 'Cbx',
+	  'assetMining.games' : 'Spellen',
+	  'assetMining.total' : 'Totaal zonder spellen',
+	  'assetMining.totalGames' : 'Totaal met spellen',
+	  
+	  'weeklyBalance.title': 'Wekelijks saldo',
+	  'weeklyBalance.extract': 'Uittreksel',
+	  'weeklyBalance.price': 'Prijs',
+	  'weeklyBalance.transactions': 'Transacties',
+	  'weeklyBalance.volCbx': 'Vol.CBX',
+	  'weeklyBalance.production' : 'Productie',
+	  'weeklyBalance.consumption' : 'Consumptie',
+	  'weeklyBalance.balance' : 'Balans'
+	  
 	}
 	
 }
