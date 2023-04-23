@@ -555,7 +555,7 @@ $(document).ready(function() {
 					actualReqs.cbx = roundResult(actualDif*(actualRequirements.cbxBase/cbxValue));
 					actualReqs.games = roundResult(actualDif*(actualRequirements.miniGames));
 					actualReqs.total = roundResult(actualReqs.cbx + actualReqs.pmix*pmixValue);
-					actualReqs.totalGames = actualReqs.total + actualReqs.games*3.75;
+					actualReqs.totalGames = roundResult(actualReqs.total + actualReqs.games*3.75);
 					
 					//Semana siguiente
 					var nextRequirements = assetRequirements.find(function(item) {
@@ -567,7 +567,7 @@ $(document).ready(function() {
 					nextReqs.cbx = roundResult(nextDif*(nextRequirements.cbxBase/cbxValue));
 					nextReqs.games = roundResult(nextDif*nextRequirements.miniGames);
 					nextReqs.total = roundResult(nextReqs.cbx + nextReqs.pmix*pmixValue);
-					nextReqs.totalGames = nextReqs.total + nextReqs.games*3.75;
+					nextReqs.totalGames = roundResult(nextReqs.total + nextReqs.games*3.75);
 					
 			}
 
