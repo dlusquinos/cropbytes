@@ -1,5 +1,7 @@
 
 $(document).ready(function() {
+	
+	utilidades.translateLabels();
 
     var myFarmTable = $('#myFarm').DataTable({
         data: [],
@@ -14,6 +16,7 @@ $(document).ready(function() {
 			
 			{ "data": "name",
 			  "className" : "name",
+			  'title': utilidades.i18n('weeklyProfit.asset.name'),
 			  "render": function (data, type, row, meta) {
 				return data;
 			  }
@@ -21,6 +24,7 @@ $(document).ready(function() {
 			
 			{ "data": "category",
 			  "className" : "category",
+			  'title': utilidades.i18n('weeklyProfit.asset.category'),
 			  "render": function (data, type, row, meta) {
 				  return data;
 			  }
@@ -29,6 +33,7 @@ $(document).ready(function() {
 			{ "data": "daily_production",
 			  "className" : "daily_production",
 			  "orderable": false,
+			  'title': utilidades.i18n('weeklyProfit.dailyInput.production'),
 			  "render": function (data, type, row, meta) {
 				  
 				  if(row.type == "feed_mill") {
@@ -42,6 +47,7 @@ $(document).ready(function() {
 			{ "data": "daily_consumption",
 			  "className" : "daily_consumption",
 			  "orderable": false,
+			  'title': utilidades.i18n('weeklyProfit.dailyInput.consumption'),
 			  "render": function (data, type, row, meta) {
 				 if(row.type == "feed_mill") {
 					  return '<input type="number" class="editable daily_consumption" contenteditable="true" value="'+ row.default_cons.quant +'" /><span> ' + row.default_cons.type + '</span>';
@@ -54,6 +60,7 @@ $(document).ready(function() {
 			
 			{ "data": "grazing_fee",
 			  "className" : "grazing_fee",
+			  'title': utilidades.i18n('weeklyProfit.grazing.fee'),
 			  "render": function (data, type, row, meta) {
 				  if(type == "display") {
 					 return data ? data + " cbx" : ""					 
@@ -66,6 +73,7 @@ $(document).ready(function() {
 			{ "data": "grazing_active",	
 			  "className": "grazing_active text-center",
 			  "orderable" : false,
+			  'title': utilidades.i18n('weeklyProfit.grazing.active'),
 			  "render": function (data, type, row, meta) {
 				  if(type == "display") {
 					  if(row.grazing_fee) {
@@ -84,6 +92,7 @@ $(document).ready(function() {
 
 			{ "data": "price",
 			  "className" : "price",
+			  'title': utilidades.i18n('weeklyProfit.market24h.price'),
 			  "render": function (data, type, row, meta) {
 				if (type == 'display') {
 					 var variacion = row.price_change_percent ? row.price_change_percent : ""; 
@@ -106,6 +115,7 @@ $(document).ready(function() {
 			
 			{ "data": "amount",
 			  "className" : "amount importe",
+			  'title': utilidades.i18n('weeklyProfit.market24h.transactions'),
 			  "render": function (data, type, row, meta) {
 				return data;
 			  }
@@ -113,6 +123,7 @@ $(document).ready(function() {
 			
 			{ "data": "volume",
 			  "className" : "volume importe",
+			  'title': utilidades.i18n('weeklyProfit.market24h.volCbx'),
 			  "render": function (data, type, row, meta) {
 				return data;
 			  }
@@ -121,6 +132,7 @@ $(document).ready(function() {
 			{ 
                 "data": "profitability",
 				"className": "profitability",
+				'title': utilidades.i18n('weeklyProfit.weeklyProfitCbx.individual'),
                 "render": function (data, type, row, meta) {
 					var colorClass = '';
 					if(data != 0) {
@@ -133,6 +145,7 @@ $(document).ready(function() {
 			{ 
                 "data": "profitability_price",
 				"className": "profitability_price",
+				'title': utilidades.i18n('weeklyProfit.weeklyProfitCbx.roi'),
                 "render": function (data, type, row, meta) {
 					var colorClass = '';
 					var cbxPrice = row.priceCurrency == 'usdt' ? row.price/cbxValue : row.price;
@@ -144,6 +157,7 @@ $(document).ready(function() {
 			{ 
                 "data": "quantity",
 				"className": "quant",
+				'title': utilidades.i18n('weeklyProfit.weeklyProfitCbx.quantity'),
                 "render": function (data, type, row, meta) {
 					if(type == "display") {
 						return '<input type="number" class="editable quantity" contenteditable="true" value="'+ data +'" />';
@@ -157,6 +171,7 @@ $(document).ready(function() {
 			{ 
                 "data": "totalProfitability",
 				"className": "totalProfitability",
+				'title': utilidades.i18n('weeklyProfit.weeklyProfitCbx.total'),
                 "render": function (data, type, row, meta) {
 					var colorClass = '';
 					if(data != 0) {
@@ -367,12 +382,14 @@ $(document).ready(function() {
 			},
 			
 			{ "data": "name",
+			  "title": utilidades.i18n('weeklyBalance.extract'),
 			  "render": function (data, type, row, meta) {
 				return data;
 			  }
 			},
 			
 			{ "data": "price",
+			  "title": utilidades.i18n('weeklyBalance.price'),
 			  "render": function (data, type, row, meta) {
 				if (type == 'display') {
 					 var precio = data ? data + " CBX": "";
@@ -394,6 +411,7 @@ $(document).ready(function() {
 			
 			{ "data": "amount",
 			  "className" : "amount importe",
+			  "title": utilidades.i18n('weeklyBalance.transactions'),
 			  "render": function (data, type, row, meta) {
 				return data;
 			  }
@@ -401,6 +419,7 @@ $(document).ready(function() {
 			
 			{ "data": "volume",
 			  "className" : "volume importe",
+			  "title": utilidades.i18n('weeklyBalance.volCbx'),
 			  "render": function (data, type, row, meta) {
 				return data;
 			  }
@@ -408,6 +427,7 @@ $(document).ready(function() {
 
             { "data": "production",
 			  "className" : "production importe",
+			  "title": utilidades.i18n('weeklyBalance.production'),
 			  "render": function (data, type, row, meta) {
 				return data;
 			  }
@@ -415,6 +435,7 @@ $(document).ready(function() {
 			
 			{ "data": "consumption",
 			  "className" : "consumption importe",
+			  "title": utilidades.i18n('weeklyBalance.consumption'),
 			  "searchable": true,
 			  "render": function (data, type, row, meta) {
 				  return data;
@@ -423,6 +444,7 @@ $(document).ready(function() {
 			
 			{ "data": "balance",
 			  "className" : "balance importe",
+			  "title": utilidades.i18n('weeklyBalance.balance'),
 			  "render": function (data, type, row, meta) {
 				  var colorClass = '';
 					if(data != 0) {
@@ -575,55 +597,55 @@ $(document).ready(function() {
 							'<div class="col-sm-6 supply-asset-data py-1">' +
 								'<div class="row">' + 
 									'<div class="col-sm-4">' + 
-										'<div>Precio</div>' + 
+										'<div>'+ utilidades.i18n('assetMining.price') +'</div>' + 
 										'<div class ="valor">' + price + '</div>' +
 									'</div>' +
 									'<div class="col-sm-4">' + 
-										'<div>Dificultad</div>' + 
+										'<div>'+ utilidades.i18n('assetMining.diff') +'</div>' + 
 										'<div class ="valor">' + dif + '</div>' +
 									'</div>' +	
 									'<div class="col-sm-4">' + 
-										'<div>Semana</div>' + 
+										'<div>'+ utilidades.i18n('assetMining.week') +'</div>' + 
 										'<div class ="valor">' + week + '</div>' +
 									'</div>' +																	
 								'</div>' + 
 								'<div class="row">' + 
 									'<div class="col-sm-4">' + 
-										'<div>Total Minado</div>' + 
+										'<div>'+ utilidades.i18n('assetMining.totalMined') +'</div>' + 
 										'<div class ="valor">' + minedSupply + '</div>' +
 									'</div>' +
 									'<div class="col-sm-4">' + 	
-										'<div>Min. hoy</div>' + 
+										'<div>'+ utilidades.i18n('assetMining.minedToday') +'</div>' + 
 										'<div class ="valor">' + minedToday + '</div>' +
 									'</div>' +	
 									'<div class="col-sm-4">' + 
-										'<div>Min. ult. 7 dias</div>' + 
+										'<div>'+ utilidades.i18n('assetMining.minedLastDays') +'</div>' + 
 										'<div class ="valor">' + minedThisWeek + '</div>' +
 									'</div>' +															
 								'</div>' +
 								'<div class="row">' + 
 									'<div class="col-sm-4">' + 	
-										'<div>Total Supply</div>' + 
+										'<div>'+ utilidades.i18n('assetMining.totalSupply') +'</div>' + 
 										'<div class ="valor">' + totalSupply + '</div>' +
 									'</div>' +	
 									'<div class="col-sm-4">' + 
-										'<div>Total Circulante</div>' + 
+										'<div>'+ utilidades.i18n('assetMining.circulatingSupply') +'</div>' + 
 										'<div class ="valor">' + circulatingSupply + '</div>' +
 									'</div>' +																
 								'</div>' +								
 							'</div>';
 					if(assetRequirements) {		
 					  contenido +=	'<div class="supply-asset-data col-sm-6">' +
-										'<div class="py-1">Requerimientos de minado semanales:</div>' + 
+										'<div class="py-1">' + utilidades.i18n('assetMining.miningRequirements') +'</div>' + 
 										'<table class="tabla-minado">' + 						  
 											 '<thead>' +
 												'<tr>' +
-												  '<th>SEMANA</th>' +
-												  '<th>PROMIX</th>' +
-												  '<th>CBX</th>' +
-												  '<th>JUEGOS</th>' +
-												  '<th>TOTAL SIN JUEGOS</th>' +
-												  '<th>TOTAL CON JUEGOS</th>' +
+												  '<th>'+ utilidades.i18n('assetMining.week') +'</th>' +
+												  '<th>'+ utilidades.i18n('assetMining.promix') +'</th>' +
+												  '<th>'+ utilidades.i18n('assetMining.cbx') +'</th>' +
+												  '<th>'+ utilidades.i18n('assetMining.games') +'</th>' +
+												  '<th>'+ utilidades.i18n('assetMining.total') +'</th>' +
+												  '<th>'+ utilidades.i18n('assetMining.totalGames') +'</th>' +
 												'</tr>' +
 											  '</thead>' +
 											  '<tbody>' +
