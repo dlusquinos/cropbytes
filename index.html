@@ -15,35 +15,36 @@
 </head>
  </head>
   <body >
-    <h1 class="cabecera">Calculadora de Cropbytes <img src="https://ik.imagekit.io/cbytes/tr:w-396/cb-logo-color_eTMorxlcjz.png" class="pg-logo__img" alt="CropBytes"></h1>
+    <h1 data-i18n='page.title' class="i18n cabecera">Cropbytes calculator</h1>
+	<img class='logo' src="https://ik.imagekit.io/cbytes/tr:w-396/cb-logo-color_eTMorxlcjz.png" class="pg-logo__img" alt="CropBytes">
 	
 	<!--CBX supply/dif -->
 	<div class="contenedor-cbx-supply" > 
-		<h4 class="cabecera">Supply de cbx</h4>
+		<h4 data-i18n='cbxSupply.title' class="i18n cabecera">Cbx supply</h4>
 		<div class="row supply-info px-2">
 			<div class="col-sm-2">
-				<div>Precio actual</div>
+				<div data-i18n='cbxSupply.actualPrice' class='i18n'>Actual price</div>
 				<div class ="valor" id="current_price">--</div>
 			</div>
 			<div class="col-sm-2">
-				<div>Dificultad</div>
+				<div data-i18n='cbxSupply.difficulty' class='i18n'>Difficulty</div>
 				<div class ="valor" id="dif">--</div>
 			</div>
 			<div class="col-sm-2">
-				<div>Semana</div>
+				<div  data-i18n='cbxSupply.week' class='i18n'>Week</div>
 				<div class ="valor" id="week">--</div>
 			</div>
 			<div class="col-sm-2">
-				<div>Dif. próx.</div>
+				<div data-i18n='cbxSupply.nextDiff' class='i18n'>Next diff.</div>
 				<div class ="valor" id="next_dif">--</div>
 			</div>
 			
 			<div class="col-sm-2">
-				<div>Total minado</div>
+				<div data-i18n='cbxSupply.totalMined' class='i18n' >Total mined</div>
 				<div class ="valor" id="total_mined">--</div>
 			</div>
 			<div class="col-sm-2">
-				<div>Total quemado</div>
+				<div data-i18n='cbxSupply.totalBurned' class='i18n'>Total burned</div>
 				<div class ="valor" id="total_burned">--</div>
 			</div>
 			
@@ -51,30 +52,30 @@
 	</div>
 	<!-- Tabla de rentabilidad -->
 	<div class="contenedor-tabla-myFarm" style="visibility:hidden">
-		<h4 class="cabecera">Rentabilidad semanal</h4>
+		<h4 class="cabecera i18n" data-i18n='weeklyProfit.title' >Weekly profitability</h4>
 		<table id="myFarm" class="table" style="width:100%">
 			<thead>
 				<tr class="cabecera-superior">
-					<th colspan="3">Asset</th>					
-					<th colspan="2">Input/Output diario</th>
-					<th colspan="2">Grazing</th>
-					<th colspan="3">Mercado 24h</th>
-					<th colspan="4">Rentabilidad semanal (CBX)</th>
+					<th data-i18n='weeklyProfit.asset' class='i18n' colspan="3">Asset</th>					
+					<th data-i18n='weeklyProfit.dailyInput' class='i18n' colspan="2">Daily input/output</th>
+					<th data-i18n='weeklyProfit.grazing' class='i18n'colspan="2">Grazing</th>
+					<th data-i18n='weeklyProfit.market24h' class='i18n' colspan="3">Market 24h</th>
+					<th data-i18n='weeklyProfit.weeklyProfitCbx' class='i18n'colspan="4">Weekly profit (CBX)</th>
 				</tr>	
 				<tr class="cabecera-inferior">
 					<th></th>
-					<th>Nombre</th>
-					<th>Categoría</th>
-					<th>Producción</th>
-					<th>Consumo</th>
+					<th>Name</th>
+					<th>Category</th>
+					<th>Production</th>
+					<th>Consumption</th>
 					<th>Fee</th>													
 					<th>Act.</th>
-					<th>Precio</th>
+					<th>Price</th>
 					<th>Trans.</th>
 					<th>Vol. CBX</th>																												
 					<th>Indiv.</th>
-					<th>ROI sem.</th>
-					<th>Cant.</th>
+					<th>ROI weeks</th>
+					<th>Quant.</th>
 					<th>Total</th>
 				</tr>
 			</thead>
@@ -82,7 +83,7 @@
 			</tbody>
 			<tfoot>
 			  <tr>
-				<th colspan="13">Rentabilidad total de la granja</th>
+				<th data-i18n='weeklyProfit.footer.totalFarmProfit' class='i18n' colspan="13">Total farm profitability</th>
 				<th></th>
 			  </tr>
 			</tfoot>
@@ -90,25 +91,27 @@
 	</div>
 	<!-- Tabla de balance -->
 	<div class="contenedor-tabla-myBalance" style="visibility:hidden">
-		<h4 class="cabecera">Balance semanal</h4>
+		<h4 data-i18n='weeklyBalance.title' class="i18n cabecera">Weekly balance</h4>
 		<table id="myBalance" class="table">
 			<thead>
 				<tr class="cabecera-inferior">
 					<th></th>
-					<th>Extracto</th>
-					<th>Precio</th>
+					<th>Extract</th>
+					<th>Price</th>
 					<th>Trans.</th>
-					<th>Vol. CBX</th>					
-					<th>Producción</th>
-					<th>Consumo</th>
+					<th>Vol.CBX</th>					
+					<th>Production</th>
+					<th>Consumption</th>
 					<th>Balance</th>
-					<th>Balance en CBX</th>					
+					<th>CBX Balance</th>					
 				</tr>
 			</thead>
 			<tbody>
 			</tbody>		
 		</table>
 	</div>
+	<script src="i18n.js"></script>
+	<script src="utilidades.js"></script>
 	<script src="datos.js"></script>
     <script src="main.js"></script>
   </body>
