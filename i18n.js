@@ -2,6 +2,8 @@
 var etiqueta = {
 	en: {
 		'page.title': "Cropbytes calculator",
+		'page.army.join': "Join our army! Click ",
+		'page.army.join.here': "here ", 
 		
 		'cbxSupply.title': 'Cbx supply',
 		'cbxSupply.actualPrice' : 'Actual price', 
@@ -59,6 +61,8 @@ var etiqueta = {
 	
 	es: {
 		'page.title': 'Calculadora Cropbytes',
+		'page.army.join': "Únete a nuestro Army! Pulsa ", 
+		'page.army.join.here': "aquí",
 		
 		'cbxSupply.title': 'Supply de cbx',
 		'cbxSupply.actualPrice' : 'Precio actual',
@@ -118,6 +122,8 @@ var etiqueta = {
 	
 	nl: {
 	  'page.title': "Cropbytes calculator",
+	  'page.army.join': "Sluit je aan bij ons Army! Klik ", 
+	  'page.army.join.here': "hier",
 
 	  'cbxSupply.title': 'Cbx-aanbod',
 	  'cbxSupply.actualPrice': 'Huidige prijs',
