@@ -252,9 +252,31 @@ table#myFarm th.totalProfitability {
 	cursor:hand;
 }
 
-.logo {
-	top: 10px;
+
+
+.army-container {
+	color: #1D293F;
+	position: absolute;
+    right: 0;
+    height: 100px;
+	display:flex;	
+}
+
+.army-container  .logo {
+	height: 100px;
+	position: absolute;
+    right: 200px;
+	margin-top:5px;
+}
+
+.army-container .text {
+	width: 180px;
     position: absolute;
-    right: 5px;
-	height: 65px;
+    right: 0px;
+	padding-top: 20px;
+}
+
+.cabecera-container {
+	background-color:white;
+	padding-right:0px;
 }
