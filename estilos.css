@@ -33,7 +33,7 @@ h4.cabecera {
 }
 
 #myBalance_wrapper {
-	max-width: 840px;
+	max-width: 900px;
 }
 #myFarm_filter.dataTables_filter, #myBalance_filter.dataTables_filter {
 	color:white;
