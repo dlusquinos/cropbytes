@@ -10,6 +10,8 @@
   var storages = [];
   var landCrops = [];
   var cbxValue = 0;
+  var weekActual=0;
+  var difActual=0;
 
   var farm = [
 	/***********
@@ -289,6 +291,7 @@
     }
   ]
 
+const conversionInicialExtractos = {egg: 8, milk:4, pow : 1, hhr: 1, trf: 3, wool: 6, fur: 2, ftr: 1};
 
 const mineCbxData = [
 	{week:67, supply:60560586}, {week:68, supply:61401705}, {week:69, supply:62242824}, {week:70, supply:63083943}, {week:71, supply:63905946},
