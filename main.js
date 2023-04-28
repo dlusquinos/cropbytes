@@ -1,9 +1,12 @@
 
+var myFarmTable;
+var myBalanceTable;
+
 $(document).ready(function() {
 	
 	utilidades.translateLabels();
 
-    var myFarmTable = $('#myFarm').DataTable({
+    myFarmTable = $('#myFarm').DataTable({
         data: [],
         "columns": [
             { "data": "image_url",
@@ -369,7 +372,7 @@ $(document).ready(function() {
     });
 	
 	
-	var myBalanceTable = $('#myBalance').DataTable({
+	myBalanceTable = $('#myBalance').DataTable({
         data: [],
         "columns": [
 		
@@ -750,7 +753,7 @@ function obtenerMiningCBXDataAPI() {
 	$.ajax({
 	  url: "https://api.cropbytes.com/api/v1/game/assets/mine_stats",
 	  dataType: "json",
-	  async: false,
+	  async: true,
 	  success: function(response) {
 		weekActual = response.data.week;
 		var totalMine = response.data.totalMine;
@@ -769,6 +772,11 @@ function obtenerMiningCBXDataAPI() {
 		$("#next_dif").text(roundResult(nextDif));
 		$("#total_mined").text(roundResult(totalMine));
 		$("#total_burned").text(roundResult(totalBurned));
+		
+		
+		//Pintamos la tabla de balance
+		var balance = construirBalance(myFarmTable.data());
+		myBalanceTable.clear().rows.add(balance).draw();
 		
 	  }
 	});
@@ -1597,11 +1605,15 @@ function obtenerValorCBX() {
 }
 
 function obtenerValorMinadoV1(asset_id) {
-	var cantidadExtractosCbx = conversionInicialExtractos[asset_id];	
-	var numDefl = Math.floor((weekActual-1)/10); 
-	var ratioDfl = (1.10)**numDefl; 
-	var ratioFixed = ratioDfl.toFixed(2);
-	var valor_v1 = 1/(cantidadExtractosCbx*ratioFixed*difActual);
-	
-	return valor_v1.toFixed(6);
+	if(weekActual != 0) {
+		var cantidadExtractosCbx = conversionInicialExtractos[asset_id];	
+		var numDefl = Math.floor((weekActual-1)/10); 
+		var ratioDfl = (1.10)**numDefl; 
+		var ratioFixed = ratioDfl.toFixed(2);
+		var valor_v1 = 1/(cantidadExtractosCbx*ratioFixed*difActual);
+		
+		return valor_v1.toFixed(6);
+	} else {
+		return ""
+	}	
 }
