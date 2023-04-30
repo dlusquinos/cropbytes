@@ -1,6 +1,7 @@
 
 var myFarmTable;
 var myBalanceTable;
+var myV2MiningTable;
 
 $(document).ready(function() {
 	
@@ -496,6 +497,120 @@ $(document).ready(function() {
 		
     });
 	
+	
+	
+	myV2MiningTable = $('#v2Mining').DataTable({
+        data: [],
+        "columns": [
+		
+
+			{ "data": "name",
+			  "title": utilidades.i18n('v2Mining.name'),
+			  "render": function (data, type, row, meta) {
+				return data;
+			  }
+			},
+			
+			{ "data": "recipe",
+			  "className" : "recipe",
+			  "title": utilidades.i18n('v2Mining.ingredients'),
+			  "render": function (data, type, row, meta) {
+				    
+				    var html = "<div class='row'>";
+					
+					for(var i=0; i < data.length; i++) {
+						var el = data[i];
+						var quant = el.quant.toFixed(2);
+						var image  = getImageUrl(el.name);
+						html+= "<div class='col-2 ingredient-element'>" + 
+									'<img src="' + image + '" width="35">' + 
+									'<span>' + quant + '</span>' + 
+								"</div>";
+					}
+										
+					html+="</div>"
+					return html;					
+
+			  }
+			},
+	
+			{ "data": "totalV1",
+			  "className" : "price importe",
+			  "title": utilidades.i18n('v2Mining.price_v1'),
+			  "render": function (data, type, row, meta) {
+				if (type == 'display') {
+					 var v1 = data ? data.toFixed(2) : "--";
+					 var market = row.totalMarket ? row.totalMarket.toFixed(2) : "--";
+					 var v2 = row.totalV2 ?  row.totalV2.toFixed(2) : "--";
+					 
+					 var colorClass="";
+					 if(v1 > market && v1 > v2) {
+						 colorClass = 'verde';
+					 }
+					 
+					 
+					 return '<div class="importe '+ colorClass +'" ="true">' + v1 + '</div>';
+				  } else {
+					  return data;
+				  }
+			  }
+			},
+			
+			{ "data": "totalV2",
+			  "className" : "price importe",
+			  "title": utilidades.i18n('v2Mining.price_v2'),
+			  "render": function (data, type, row, meta) {
+				if (type == 'display') {
+					 var v2 = data ? data.toFixed(2) : "--";
+					 var market = row.totalMarket ? row.totalMarket.toFixed(2) : "--";
+				     var v1 = row.totalV1 ?  row.totalV1.toFixed(2) : "--"; 
+					 
+					 var colorClass="";
+					 if(v2 > v1 && v2 > market) {
+						 colorClass = 'verde';
+					 }
+					 					 
+					 return '<div class="importe '+ colorClass +'" ="true">' + v2 + '</div>';
+				  } else {
+					  return data;
+				  }
+			  }
+			},
+			
+			{ "data": "totalMarket",
+			  "className" : "price importe",
+			  "title": utilidades.i18n('v2Mining.price_market'),
+			  "render": function (data, type, row, meta) {
+				if (type == 'display') {
+					 var market = data ? data.toFixed(2) : "--";					 
+					 var v1 = row.totalV1 ?  row.totalV1.toFixed(2) : "--";
+					 var v2 = row.totalV2 ?  row.totalV2.toFixed(2) : "--";  
+					 
+					 var colorClass="";
+					 if(market > v1 && market > v2) {
+						 colorClass = 'verde';
+					 }					 					 
+					 return '<div class="importe '+ colorClass +'" ="true">' + market + '</div>';
+				  } else {
+					  return data;
+				  }
+			  }
+			}
+
+        ],
+        "paging": false,
+        "info": false,
+		"filter": false,
+		//"order": [[ 0, 'asc' ]],
+		
+		drawCallback: function(settings) {	
+			$('.contenedor-tabla-minadoV2').css("visibility", "visible");
+			$('#v2Mining').DataTable().columns.adjust();	
+		}
+		
+    });
+	
+	
 	//Datos del api
 	marketData = obtenerPreciosMarketAPI();
 	assetsData = obtenerAssetsAPI();
@@ -777,6 +892,11 @@ function obtenerMiningCBXDataAPI() {
 		//Pintamos la tabla de balance
 		var balance = construirBalance(myFarmTable.data());
 		myBalanceTable.clear().rows.add(balance).draw();
+		
+		
+		//Pintamos la tabla de minado v2
+		var v2Data = construirMinadoV2(myFarmTable.data());
+		myV2MiningTable.clear().rows.add(v2Data).draw();
 		
 	  }
 	});
@@ -1086,6 +1206,46 @@ function construirBalance(data) {
 	
 		
 	return balance;
+}
+
+
+function construirMinadoV2 (data) {
+	var minadoV2Data = [];
+	
+	for(var i = 0; i < v2_objects.length; i++) {
+		var object = v2_objects[i];
+		var composition = object.composition;
+		var v2Object = {};
+		var recipe = [];
+		v2Object.name = object.name;
+		for(var j=0; j < composition.length; j++) {
+			var ingredient = composition[j];
+			var ingredientId = ingredient.name;
+			var ingredientFactor = ingredient.percent/100;
+			var ingredientValue = object.price*ingredientFactor;
+			var ingredientV1Price = obtenerValorMinadoV1(ingredientId);
+			var ingredientQuant = ingredientValue/ingredientV1Price;
+			var recipeObject = {name: ingredientId, quant: ingredientQuant};
+			recipe.push(recipeObject);
+		}
+		v2Object.recipe = recipe;
+		
+		
+		v2Object.totalV1 = object.price;
+		v2Object.totalV2 = object.price*(1 + object.bonus/100);
+		
+		var totalMarket = 0;
+		for(k=0; k < recipe.length; k++){
+			var recipeIngredient = recipe[k];
+			totalMarket+= recipeIngredient.quant* obtenerPrecioAsset(recipeIngredient.name);
+		}
+		v2Object.totalMarket = totalMarket;
+
+		minadoV2Data.push(v2Object);
+	}
+	
+	return minadoV2Data;
+	
 }
 
 function getExtractConsumption(data, extract) {	
