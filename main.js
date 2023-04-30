@@ -520,7 +520,7 @@ $(document).ready(function() {
 					
 					for(var i=0; i < data.length; i++) {
 						var el = data[i];
-						var quant = el.quant.toFixed(2);
+						var quant = el.quant ? el.quant.toFixed(2) : "--";
 						var image  = getImageUrl(el.name);
 						html+= "<div class='col-2 ingredient-element'>" + 
 									'<img src="' + image + '" width="35">' + 
@@ -636,6 +636,10 @@ $(document).ready(function() {
 	//Pintamos la tabla de balance
 	var balance = construirBalance(data);
 	myBalanceTable.clear().rows.add(balance).draw();
+	
+	//Pintamos la tabla de minado v2
+	var v2Data = construirMinadoV2(myFarmTable.data());
+	myV2MiningTable.clear().rows.add(v2Data).draw();
 
 	
 	//Eventos
@@ -1224,7 +1228,7 @@ function construirMinadoV2 (data) {
 			var ingredientFactor = ingredient.percent/100;
 			var ingredientValue = object.price*ingredientFactor;
 			var ingredientV1Price = obtenerValorMinadoV1(ingredientId);
-			var ingredientQuant = ingredientValue/ingredientV1Price;
+			var ingredientQuant = ingredientV1Price ? ingredientValue/ingredientV1Price : "";
 			var recipeObject = {name: ingredientId, quant: ingredientQuant};
 			recipe.push(recipeObject);
 		}
