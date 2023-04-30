@@ -200,12 +200,12 @@ var etiqueta = {
 	  'weeklyBalance.consumption' : 'Consumptie',
 	  'weeklyBalance.balance' : 'Balans',
 	  
-	  'v2Mining.title' : 'CBX mining comparison',	  
-	  'v2Mining.recipe' : 'Recipe',
-	  'v2Mining.totalCbxValue' : 'Total CBX Value',
-	  'v2Mining.name' : 'Name',
-	  'v2Mining.ingredients' : 'Ingredients',
-	  'v2Mining.price_market': 'Market',
+	  'v2Mining.title' : 'CBX-vergelijking',	  
+	  'v2Mining.recipe' : 'Recept',
+	  'v2Mining.totalCbxValue' : 'Totale CBX-waarde',
+	  'v2Mining.name' : 'Naam',
+	  'v2Mining.ingredients' : 'Ingrediënten',
+	  'v2Mining.price_market': 'Markt',
 	  'v2Mining.price_v1': 'V1',
 	  'v2Mining.price_v2': 'V2'
 	  
