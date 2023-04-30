@@ -57,7 +57,17 @@ var etiqueta = {
 		'weeklyBalance.volCbx': 'Vol.CBX',
 		'weeklyBalance.production' : 'Production',
 		'weeklyBalance.consumption' : 'Consumption',
-		'weeklyBalance.balance' : 'Balance'
+		'weeklyBalance.balance' : 'Balance',
+		
+	  'v2Mining.title' : 'CBX mining comparison',	  
+	  'v2Mining.recipe' : 'Recipe',
+	  'v2Mining.totalCbxValue' : 'Total CBX Value',
+	  'v2Mining.name' : 'Name',
+	  'v2Mining.ingredients' : 'Ingredients',
+	  'v2Mining.price_market': 'Market',
+	  'v2Mining.price_v1': 'V1',
+	  'v2Mining.price_v2': 'V2'
+		
 	},
 	
 	es: {
@@ -117,7 +127,16 @@ var etiqueta = {
 		'weeklyBalance.volCbx': 'Vol.CBX',
 		'weeklyBalance.production' : 'Producción',
 		'weeklyBalance.consumption' : 'Consumo',
-		'weeklyBalance.balance' : 'Balance'
+		'weeklyBalance.balance' : 'Balance',
+		
+		'v2Mining.title' : 'Comparación minado de cbx',
+		'v2Mining.name' : 'Nombre',
+		'v2Mining.recipe' : 'Receta',
+		'v2Mining.ingredients' : 'Ingredientes',
+		 'v2Mining.totalCbxValue' : 'Valor total en CBX',
+		'v2Mining.price_market': 'Mercado',
+		'v2Mining.price_v1': 'V1',
+		'v2Mining.price_v2': 'V2'
 
 	},
 	
@@ -179,7 +198,18 @@ var etiqueta = {
 	  'weeklyBalance.volCbx': 'Vol.CBX',
 	  'weeklyBalance.production' : 'Productie',
 	  'weeklyBalance.consumption' : 'Consumptie',
-	  'weeklyBalance.balance' : 'Balans'
+	  'weeklyBalance.balance' : 'Balans',
+	  
+	  'v2Mining.title' : 'CBX mining comparison',	  
+	  'v2Mining.recipe' : 'Recipe',
+	  'v2Mining.totalCbxValue' : 'Total CBX Value',
+	  'v2Mining.name' : 'Name',
+	  'v2Mining.ingredients' : 'Ingredients',
+	  'v2Mining.price_market': 'Market',
+	  'v2Mining.price_v1': 'V1',
+	  'v2Mining.price_v2': 'V2'
+	  
+	  
 	  
 	}
 	
