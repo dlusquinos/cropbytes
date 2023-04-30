@@ -298,6 +298,17 @@ const mineCbxData = [
 	{week:72, supply:64727949},	{week:73, supply:65549952}, {week:74, supply:66371955}, {week:75, supply:67193958}, {week:76, supply:68015961}
 ]
 
+const v2_objects = [
+		{name: 'pastry', price: 5, bonus: 12.35, composition: [{name: 'pow', percent: 33.333}, {name: 'egg', percent: 33.333}, {name: 'milk', percent: 33.333}]},
+		{name: 'tent', price: 30, bonus: 24.71, composition: [{name: 'pow', percent: 20}, {name: 'wool', percent: 20}, {name: 'ftr', percent: 20}, {name: 'fur', percent: 20}, {name: 'hhr', percent: 20} ]},		
+		{name: 'cake', price: 30, bonus: 24.71, composition: [{name: 'pow', percent: 25}, {name: 'milk', percent: 25}, {name: 'egg', percent: 25}, {name: 'trf', percent: 25} ]},
+		{name: 'cookies', price: 12, bonus: 17.29, composition: [{name: 'pow', percent: 25}, {name: 'milk', percent: 25}, {name: 'egg', percent: 25}, {name: 'trf', percent: 25} ]},
+		{name: 'hammock', price: 15, bonus: 17.29, composition: [{name: 'pow', percent: 20}, {name: 'wool', percent: 20}, {name: 'ftr', percent: 20}, {name: 'fur', percent: 20}, {name: 'hhr', percent: 20} ]},
+		{name: 'rope', price: 10, bonus: 14.82, composition: [{name: 'pow', percent: 33.333}, {name: 'fur', percent: 33.333}, {name: 'hhr', percent: 33.333} ]},
+		{name: 'pillow', price: 5, bonus: 12.35, composition: [{name: 'pow', percent: 33.333}, {name: 'wool', percent: 33.333}, {name: 'ftr', percent: 33.333}]},
+]
+
+
 
 
 const miningAssetRequirements = {
