@@ -723,7 +723,7 @@ $(document).ready(function() {
 	myFarmTable.clear().rows.add(data).draw();
 	
 	//Pintamos los datos de minado de cbx
-	obtenerMiningCBXDataAPI();
+	pintarDatosEstaticos();
 
 	//Pintamos la tabla de balance
 	var balance = construirBalance(data);
@@ -965,7 +965,7 @@ function obtenerMininAssetStatsAPI(asset_id) {
 	return JSON.parse(obtenerMininStatsJSON);	
 }
 
-function obtenerMiningCBXDataAPI() {
+function pintarDatosEstaticos() {
 	$.ajax({
 	  url: "https://api.cropbytes.com/api/v1/game/assets/mine_stats",
 	  dataType: "json",
@@ -988,7 +988,7 @@ function obtenerMiningCBXDataAPI() {
 		$("#next_dif").text(roundResult(nextDif));
 		$("#total_mined").text(roundResult(totalMine));
 		$("#total_burned").text(roundResult(totalBurned));
-		$("#pmix_price").text(pmixValue + 'CBX');
+		$("#pmix_price").text(pmixValue + ' CBX');
 		
 		//Pintamos la tabla de balance
 		var balance = construirBalance(myFarmTable.data());
@@ -1684,7 +1684,13 @@ function rellenarConfiguracion(data) {
 		var shBonus = getSHBonus(data, cropLand.extract);
 		
 		var cropTime = cropLandConf.harvestTime/24;
-		daily_production = landSize*((cropLandConf.cropsProduced + shBonus)/cropTime);			
+			
+		if(landSize > 1) {
+			daily_production = landSize*((cropLandConf.cropsProduced + shBonus)/cropTime);
+		} else {
+			daily_production = (landSize*cropLandConf.cropsProduced + shBonus)/cropTime;
+		}
+		
 		var weekly_production = "7*" + daily_production + "*" + cropLand.extract;
 
 		var seed = seedList.find(function(item) {
