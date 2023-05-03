@@ -41,7 +41,7 @@ h4.cabecera {
 }
 
 #promix_wrapper {
-	max-width: 550px;
+	max-width: 650px;
 }
 
 
@@ -295,4 +295,23 @@ table#v2Mining th.recipe {
 
 .ingredient-element {
 	width:20% !important;
+}
+
+.nav li {
+	padding: 2px;
+    border: 1px solid black;
+    background-color: #FFCC32;
+    border-radius: 5px 5px 0px 0px;
+    min-width: 55px;
+    text-align: center;
+	border-left: none;
+}
+
+.nav li a {
+	color: #1D293F; 
+	text-decoration: none;
+}
+
+.nav li a.active {
+	font-weight: bold
 }
