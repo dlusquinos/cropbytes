@@ -308,6 +308,25 @@ const v2_objects = [
 		{name: 'pillow', price: 5, bonus: 12.35, composition: [{name: 'pow', percent: 33.333}, {name: 'wool', percent: 33.333}, {name: 'ftr', percent: 33.333}]},
 ]
 
+const pro_mix_recipe = {
+	normal_extracts: [
+						{name:'milk', units:40}, 
+						{name:'egg', units:80}, 
+						{name:'trf', units:30},
+						{name:'fur', units:20},
+						{name:'ftr', units:10}, 
+						{name:'hhr', units:10},
+						{name:'wool', units: 60} 
+					],   
+	pro_extracts: [
+						{id: 'be', name: 'Black Egg', unit_cost: '(6*(2*caf + 2*water) + 2*frf + 2*water)/(7*2)', units: 1},
+						{id: 'de',name: 'Duck Egg', unit_cost: '(6*(1*caf + 1*water) + 1*frf + 1*water)/(7*2)', units:2},
+						{id: 'ptrf',name: 'Pro Truffle', unit_cost: '(6*(4*caf + 3*water) + 3*frf + 3*water)/(7*4)', units:1},
+						{id: 'pmilk',name: 'Pro Milk', unit_cost: '(6*(4*caf + 3*water) + 3*frf + 3*water)/(7*4)', units:1}
+				   ],
+	fruit: 10,
+	units: 10
+};
 
 
 
