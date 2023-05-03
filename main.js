@@ -6,6 +6,10 @@ var myPromixTable;
 
 $(document).ready(function() {
 	
+	 $(".nav-tabs a").click(function(){
+		$(this).tab('show');
+	});
+	
 	utilidades.translateLabels();
 
     myFarmTable = $('#myFarm').DataTable({
@@ -688,6 +692,13 @@ $(document).ready(function() {
 			  "render": function (data, type, row, meta) {
 				 return data ? data.toFixed(3) : "--";
 			  }
+			},
+			
+			{ "data": "totalSBFCost",
+			  "className" : "price importe",			 
+			  "render": function (data, type, row, meta) {
+				 return data ? data.toFixed(3) : "--";
+			  }
 			}
 
         ],
@@ -716,6 +727,7 @@ $(document).ready(function() {
 	landCrops = confAssetsData.data.cropConfigV2.landCrops;
 	cbxValue = obtenerValorCBX();
 	pmixValue = obtenerPrecioAsset('pmix');
+	sbfValue = obtenerPrecioAsset('sbf');
 	
 	
 	//Construimos los datos de la tabla principal
@@ -734,11 +746,10 @@ $(document).ready(function() {
 	myV2MiningTable.clear().rows.add(v2Data).draw();
 	
 	
-	//Pintamos la tabla de promix
+	//Pintamos la tabla de PMIX/SBF
 	var promixData = construirPromixData();
 	myPromixTable.clear().rows.add(promixData).draw();
 
-	
 	//Eventos
 	
 	$('#myFarm').on('click', 'img', function() {
@@ -801,8 +812,6 @@ $(document).ready(function() {
 						var stat = miningStats[i];
 						minedThisWeek+=stat;
 					}
-				
-					var pmixValue = obtenerPrecioAsset('pmix');
 					
 					//Semana actual 
 					var actualRequirements = assetRequirements.find(function(item) {
@@ -989,6 +998,7 @@ function pintarDatosEstaticos() {
 		$("#total_mined").text(roundResult(totalMine));
 		$("#total_burned").text(roundResult(totalBurned));
 		$("#pmix_price").text(pmixValue + ' CBX');
+		$("#sbf_price").text(sbfValue + ' CBX');
 		
 		//Pintamos la tabla de balance
 		var balance = construirBalance(myFarmTable.data());
@@ -1355,10 +1365,20 @@ function construirPromixData() {
 		var data = {};
 		var pro_extract = pro_mix_recipe.pro_extracts[i];
 		data.name = pro_extract.name;
-		data.image_url = getImageUrl(pro_extract.id)
-		for(var j=0; j < pro_mix_recipe.normal_extracts.length; j++) {
-			var normal_extract = pro_mix_recipe.normal_extracts[j];
-			var formula = '(' + normal_extract.units + '*' +  normal_extract.name + ' + ' + pro_extract.units + '*' + pro_extract.id +  ' + '  + pro_mix_recipe.fruit + '*frf)/' + pro_mix_recipe.units		
+		data.image_url = getImageUrl(pro_extract.id);
+		
+		//SBF
+		if(pro_extract.units_sbf > 0 ) {
+			var proExtractCostSBF = pro_extract.units_sbf + '*' + pro_extract.unit_cost;
+			var formulaSBF = pro_mix_recipe.sbf_formula.replace('pro_extract', proExtractCostSBF);
+			data.totalSBFCost = getAssetProfitability(formulaSBF);
+		}
+
+		
+		//Promix
+		for(var j=0; j < pro_mix_recipe.p_mix_normal_extracts.length; j++) {
+			var normal_extract = pro_mix_recipe.p_mix_normal_extracts[j];
+			var formula = '(' + normal_extract.units + '*' +  normal_extract.name + ' + ' + pro_extract.units + '*' + pro_extract.id +  ' + '  + pro_mix_recipe.pmix_fruit + '*frf)/' + pro_mix_recipe.pmix_units		
 			formula = formula.replace(pro_extract.id, pro_extract.unit_cost);
 			data[normal_extract.name] = getAssetProfitability(formula);	
 		}
@@ -1366,6 +1386,7 @@ function construirPromixData() {
 	}
 	return pro_mix_data;
 }
+
 
 function getExtractConsumption(data, extract) {	
 	var extractConsumption = 0;
