@@ -40,6 +40,10 @@ h4.cabecera {
 	max-width: 550px;
 }
 
+#promix_wrapper {
+	max-width: 550px;
+}
+
 
 #myFarm_filter.dataTables_filter, #myBalance_filter.dataTables_filter,  {
 	color:white;
@@ -51,51 +55,47 @@ h4.cabecera {
 	background-color: white;
 }
 
-table#myFarm.dataTable, table#myBalance.dataTable, table#v2Mining.dataTable {
+table.dataTable {
 	font-size: 12px;
 	color: #1D293F;
 	width: 100% !important;
 }
 
-table#myFarm.dataTable thead, table#myBalance.dataTable thead, table#v2Mining.dataTable thead{
+table.dataTable thead{
 	background-color: #FFCC32;
 }
-
-table#myFarm.dataTable thead th, table#myBalance.dataTable thead th, table#v2Mining.dataTable thead th, table.dataTable thead td {
-	padding: 10px 3px;
-    border-bottom: 1px solid #1d293f;
-	border-right: 1px solid #1d293f;
+table.dataTable thead th, table.dataTable thead td {
+	padding: 10px 3px !important;
+    border-bottom: 1px solid #1d293f !important;
+	border-right: 1px solid #1d293f !important;
 }
 
 
-table#myFarm.dataTable tbody tr.even, table#myBalance.dataTable tbody tr.even, table#v2Mining.dataTable tbody tr.even {
+table.dataTable tbody tr.even {
     background-color: #f0e0af;
 }
 
-table#myFarm.dataTable tbody tr.odd, table#myBalance.dataTable tbody tr.odd, table#v2Mining.dataTable tbody tr.odd {
+table.dataTable tbody tr.odd {
     background-color: white;
 }
 
-table#myFarm.dataTable tbody tr, table#myBalance.dataTable tbody tr, table#v2Mining.dataTable tbody tr {
-    background-color: white;
+table#myFarm.dataTable tbody tr {
 	border-bottom: 1px solid #ded1d1;
 }
 
-
-table#myFarm.dataTable tbody th, table#myFarm.dataTable tbody td, table#myBalance.dataTable tbody th, table#myBalance.dataTable tbody td,
- table#v2Mining.dataTable tbody th, table#v2Mining.dataTable tbody td  {
-    padding: 0px 3px;
+table.dataTable tbody th, table.dataTable tbody td  {
+    padding: 0px 3px !important;
 	border-right: 1px solid #1d293f;
     vertical-align: middle;
 }
 
-table#myFarm.dataTable tfoot th, table.dataTable tfoot td, table#myBalance.dataTable tfoot th{
+table.dataTable tfoot th, table.dataTable tfoot td{
     border-top: 1px solid #1d293f;
 	padding: 10px 3px;
     text-align: left !important;
 }
 
-table#myFarm.dataTable tfoot, table#myBalance.dataTable tfoot {
+table.dataTable tfoot {
 	background-color: #FFCC32;
 }
 
