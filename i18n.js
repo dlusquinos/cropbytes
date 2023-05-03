@@ -59,14 +59,27 @@ var etiqueta = {
 		'weeklyBalance.consumption' : 'Consumption',
 		'weeklyBalance.balance' : 'Balance',
 		
-	  'v2Mining.title' : 'CBX mining comparison',	  
-	  'v2Mining.recipe' : 'Recipe',
-	  'v2Mining.totalCbxValue' : 'Total CBX Value',
-	  'v2Mining.name' : 'Name',
-	  'v2Mining.ingredients' : 'Ingredients',
-	  'v2Mining.price_market': 'Market',
-	  'v2Mining.price_v1': 'V1',
-	  'v2Mining.price_v2': 'V2'
+	    'v2Mining.title' : 'CBX mining comparison',	  
+	    'v2Mining.recipe' : 'Recipe',
+	    'v2Mining.totalCbxValue' : 'Total CBX Value',
+	    'v2Mining.name' : 'Name',
+	    'v2Mining.ingredients' : 'Ingredients',
+	    'v2Mining.price_market': 'Market',
+	    'v2Mining.price_v1': 'V1',
+	    'v2Mining.price_v2': 'V2',
+			  
+		'promix.title': 'Promix production costs',	
+		'promix.price' : 'Promix price:',		  
+		'promix.proExtract' : 'Pro Extract',
+		'promix.normalExtracts' : 'Normal Extract',
+		'promix.name' : 'Nombre',
+		'promix.milk' : 'Milk',
+		'promix.egg' : 'Egg',
+		'promix.truffle' : 'Truffle',
+		'promix.fur' : 'Fur',
+		'promix.feather' : 'Feather',
+		'promix.horseHair' : 'Horse hair',
+		'promix.wool' : 'Wool'
 		
 	},
 	
@@ -133,10 +146,23 @@ var etiqueta = {
 		'v2Mining.name' : 'Nombre',
 		'v2Mining.recipe' : 'Receta',
 		'v2Mining.ingredients' : 'Ingredientes',
-		 'v2Mining.totalCbxValue' : 'Valor total en CBX',
+		'v2Mining.totalCbxValue' : 'Valor total en CBX',
 		'v2Mining.price_market': 'Mercado',
 		'v2Mining.price_v1': 'V1',
-		'v2Mining.price_v2': 'V2'
+		'v2Mining.price_v2': 'V2',
+		
+		'promix.title': 'Costos de producción de Promix',
+		'promix.price' : 'Precio promix:',
+		'promix.proExtract' : 'Extracto Pro',
+		'promix.normalExtracts' : 'Extractos normales',
+		'promix.name' : 'Nombre',
+		'promix.milk' : 'Milk',
+		'promix.egg' : 'Egg',
+		'promix.truffle' : 'Truffle',
+		'promix.fur' : 'Fur',
+		'promix.feather' : 'Feather',
+		'promix.horseHair' : 'Horse hair',
+		'promix.wool' : 'Wool'
 
 	},
 	
@@ -207,9 +233,20 @@ var etiqueta = {
 	  'v2Mining.ingredients' : 'Ingrediënten',
 	  'v2Mining.price_market': 'Markt',
 	  'v2Mining.price_v1': 'V1',
-	  'v2Mining.price_v2': 'V2'
+	  'v2Mining.price_v2': 'V2',
 	  
-	  
+	  'promix.title': 'Promix productiekosten',
+	  'promix.price' : 'Promix prijs:',
+	  'promix.proExtract' : 'Pro uittreksel',
+	  'promix.normalExtracts' : 'Normal uittreksel',
+	  'promix.name' : 'Naam',
+	  'promix.milk' : 'Milk',
+	  'promix.egg' : 'Egg',
+	  'promix.truffle' : 'Truffle',
+	  'promix.fur' : 'Fur',
+	  'promix.feather' : 'Feather',
+	  'promix.horseHair' : 'Horse hair',
+	  'promix.wool' : 'Wool'
 	  
 	}
 	
