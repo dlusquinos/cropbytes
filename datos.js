@@ -10,6 +10,8 @@
   var storages = [];
   var landCrops = [];
   var cbxValue = 0;
+  var pmixValue = 0;
+  var sbfValue = 0;
   var weekActual=0;
   var difActual=0;
 
@@ -309,7 +311,10 @@ const v2_objects = [
 ]
 
 const pro_mix_recipe = {
-	normal_extracts: [
+	pmix_fruit: 10,
+	pmix_units: 10,
+	
+	p_mix_normal_extracts: [
 						{name:'milk', units:40}, 
 						{name:'egg', units:80}, 
 						{name:'trf', units:30},
@@ -319,15 +324,15 @@ const pro_mix_recipe = {
 						{name:'wool', units: 60} 
 					],   
 	pro_extracts: [
-						{id: 'be', name: 'Black Egg', unit_cost: '(6*(2*caf + 2*water) + 2*frf + 2*water)/(7*2)', units: 1},
-						{id: 'de',name: 'Duck Egg', unit_cost: '(6*(1*caf + 1*water) + 1*frf + 1*water)/(7*2)', units:2},
-						{id: 'ptrf',name: 'Pro Truffle', unit_cost: '(6*(4*caf + 3*water) + 3*frf + 3*water)/(7*4)', units:1},
-						{id: 'pmilk',name: 'Pro Milk', unit_cost: '(6*(4*caf + 3*water) + 3*frf + 3*water)/(7*4)', units:1}
+						{id: 'be', name: 'Black Egg', unit_cost: '(6*(2*caf + 2*water) + 2*frf + 2*water)/(7*2)', units: 1, units_sbf: 4},
+						{id: 'de',name: 'Duck Egg', unit_cost: '(6*(1*caf + 1*water) + 1*frf + 1*water)/(7*2)', units:2, units_sbf: 0 },
+						{id: 'ptrf',name: 'Pro Truffle', unit_cost: '(6*(4*caf + 3*water) + 3*frf + 3*water)/(7*4)', units:1, units_sbf: 2},
+						{id: 'pmilk',name: 'Pro Milk', unit_cost: '(6*(4*caf + 3*water) + 3*frf + 3*water)/(7*4)', units:1, units_sbf: 2}
 				   ],
-	fruit: 10,
-	units: 10
-};
+				   
+	sbf_formula: '10*milk + 10*trf + 10*trf + 25*cof + pro_extract'
 
+};
 
 
 const miningAssetRequirements = {
