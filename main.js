@@ -2,6 +2,7 @@
 var myFarmTable;
 var myBalanceTable;
 var myV2MiningTable;
+var promixDataTable;
 
 $(document).ready(function() {
 	
@@ -266,7 +267,7 @@ $(document).ready(function() {
 					
 					datosFila.weekly_formula.principal = formula;
 					datosFila.daily_production = this.value + " " + datosFila.default_prod.type;
-					datosFila.profitability = getAssetProfitability(datosFila, formula); 
+					datosFila.profitability = getAssetProfitability(formula); 
 					datosFila.totalProfitability = datosFila.quantity * datosFila.profitability;
 					datosFila.gives_weekly = 7*this.value;
 		
@@ -304,7 +305,7 @@ $(document).ready(function() {
 					
 					datosFila.weekly_formula.principal = formula;
 					datosFila.daily_consumption = this.value + " " + datosFila.default_cons.type;
-					datosFila.profitability = getAssetProfitability(datosFila, formula); 
+					datosFila.profitability = getAssetProfitability(formula); 
 					datosFila.totalProfitability = datosFila.quantity * datosFila.profitability;
 					datosFila.takes_weekly[datosFila.default_cons.type] = 7*this.value;
 
@@ -338,7 +339,7 @@ $(document).ready(function() {
 					localStorage.setItem("farm", JSON.stringify(farm));
 					
 					datosFila.grazing_active = checkValue;
-					datosFila.profitability = datosFila.grazing_active ? datosFila.weekly_formula.grazing : getAssetProfitability(datosFila, datosFila.weekly_formula.principal);	
+					datosFila.profitability = datosFila.grazing_active ? datosFila.weekly_formula.grazing : getAssetProfitability(datosFila.weekly_formula.principal);	
 					datosFila.totalProfitability = datosFila.quantity * datosFila.profitability;
 					
 					//Repintar fila		
@@ -611,6 +612,97 @@ $(document).ready(function() {
     });
 	
 	
+	myPromixTable = $('#promix').DataTable({
+        data: [],
+        "columns": [
+		
+		
+			
+			{ "data": "image_url",
+			  "width": "35px",
+			  "orderable": false,
+			  "render": function (data, type, row, meta) {				  
+				  	 return '<img src="' + data + '" width="35">';
+			  }
+			},
+
+			{ "data": "name",
+			  "title": utilidades.i18n('promix.name'),
+			  "render": function (data, type, row, meta) {
+				return data;
+			  }
+			},
+			
+
+			{ "data": "milk",
+			  "className" : "price importe",
+			  "title": utilidades.i18n('promix.milk'),
+			  "render": function (data, type, row, meta) {
+					  return data ? data.toFixed(3) : "--";
+			  }
+			},
+			
+			{ "data": "egg",
+			  "className" : "price importe",
+			  "title": utilidades.i18n('promix.egg'),
+			  "render": function (data, type, row, meta) {
+				 return data ? data.toFixed(3) : "--";
+			  }
+			},
+			
+			{ "data": "trf",
+			  "className" : "price importe",
+			  "title": utilidades.i18n('promix.truffle'),
+			  "render": function (data, type, row, meta) {
+				 return data ? data.toFixed(3) : "--";
+			  }
+			},
+			
+			{ "data": "fur",
+			  "className" : "price importe",
+			  "title": utilidades.i18n('promix.fur'),
+			  "render": function (data, type, row, meta) {
+				 return data ? data.toFixed(3) : "--";
+			  }
+			},
+			
+			{ "data": "ftr",
+			  "className" : "price importe",
+			  "title": utilidades.i18n('promix.feather'),
+			  "render": function (data, type, row, meta) {
+				 return data ? data.toFixed(2) : "--";
+			  }
+			},
+			
+			{ "data": "hhr",
+			  "className" : "price importe",
+			  "title": utilidades.i18n('promix.horseHair'),
+			  "render": function (data, type, row, meta) {
+				 return data ? data.toFixed(3) : "--";
+			  }
+			},
+			
+			{ "data": "wool",
+			  "className" : "price importe",
+			  "title": utilidades.i18n('promix.wool'),
+			  "render": function (data, type, row, meta) {
+				 return data ? data.toFixed(3) : "--";
+			  }
+			}
+
+        ],
+        "paging": false,
+        "info": false,
+		"filter": false,
+		"order": [[ 1, 'asc' ]],
+		
+		drawCallback: function(settings) {	
+			$('.contenedor-tabla-promix').css("visibility", "visible");
+			$('#promix').DataTable().columns.adjust();	
+		}
+		
+    });
+	
 	//Datos del api
 	marketData = obtenerPreciosMarketAPI();
 	assetsData = obtenerAssetsAPI();
@@ -640,6 +732,11 @@ $(document).ready(function() {
 	//Pintamos la tabla de minado v2
 	var v2Data = construirMinadoV2(myFarmTable.data());
 	myV2MiningTable.clear().rows.add(v2Data).draw();
+	
+	
+	//Pintamos la tabla de promix
+	var promixData = construirPromixData();
+	myPromixTable.clear().rows.add(promixData).draw();
 
 	
 	//Eventos
@@ -891,7 +988,7 @@ function obtenerMiningCBXDataAPI() {
 		$("#next_dif").text(roundResult(nextDif));
 		$("#total_mined").text(roundResult(totalMine));
 		$("#total_burned").text(roundResult(totalBurned));
-		
+		$("#pmix_price").text(pmixValue + 'CBX');
 		
 		//Pintamos la tabla de balance
 		var balance = construirBalance(myFarmTable.data());
@@ -1252,6 +1349,24 @@ function construirMinadoV2 (data) {
 	
 }
 
+function construirPromixData() {
+	var pro_mix_data = [];
+	for(var i=0; i < pro_mix_recipe.pro_extracts.length; i++) {
+		var data = {};
+		var pro_extract = pro_mix_recipe.pro_extracts[i];
+		data.name = pro_extract.name;
+		data.image_url = getImageUrl(pro_extract.id)
+		for(var j=0; j < pro_mix_recipe.normal_extracts.length; j++) {
+			var normal_extract = pro_mix_recipe.normal_extracts[j];
+			var formula = '(' + normal_extract.units + '*' +  normal_extract.name + ' + ' + pro_extract.units + '*' + pro_extract.id +  ' + '  + pro_mix_recipe.fruit + '*frf)/' + pro_mix_recipe.units		
+			formula = formula.replace(pro_extract.id, pro_extract.unit_cost);
+			data[normal_extract.name] = getAssetProfitability(formula);	
+		}
+		pro_mix_data.push(data);
+	}
+	return pro_mix_data;
+}
+
 function getExtractConsumption(data, extract) {	
 	var extractConsumption = 0;
 	for(var i=0; i < data.length; i++) {
@@ -1416,7 +1531,7 @@ function rellenarConfiguracion(data) {
 			var descripcion = asset.extract ? asset.extract : asset.bonus.descripcion;
 			asset.daily_production = cantidad + asset.bonus.tipo + " " + descripcion;
 			asset.daily_consumption = other[0].count + " " + other[0].assetId + " / " + other[1].count + " " + other[1].assetId;
-			asset.profitability = getAssetProfitability(asset, formula);
+			asset.profitability = getAssetProfitability(formula);
 			asset.totalProfitability = asset.quantity * asset.profitability;
 		
 		}
@@ -1466,7 +1581,7 @@ function rellenarConfiguracion(data) {
 			asset.weekly_formula.grazing = -(takes.hibernation_fee/2);
 			asset.daily_production = eval(quant) + " " + extract;
 			asset.daily_consumption = other[0].count + " " + other[0].assetId + " / " + other[1].count + " " + other[1].assetId;
-			asset.profitability = asset.grazing_active ? -(takes.hibernation_fee/2) : getAssetProfitability(asset, formula);	
+			asset.profitability = asset.grazing_active ? -(takes.hibernation_fee/2) : getAssetProfitability(formula);	
 			asset.totalProfitability = asset.quantity * asset.profitability;
 		}
 
@@ -1507,7 +1622,7 @@ function rellenarConfiguracion(data) {
 		asset.weekly_formula.principal = formula;
 		asset.daily_production = daily_production + " " + treeCrop.produceAsset;
 		asset.daily_consumption = roundResult(treeCrop.waterRequired/extractTime) + " water";
-		asset.profitability = getAssetProfitability(asset, formula);
+		asset.profitability = getAssetProfitability(formula);
 		asset.totalProfitability = asset.quantity * asset.profitability;
 		
 	}
@@ -1549,7 +1664,7 @@ function rellenarConfiguracion(data) {
 		asset.weekly_formula.principal = formula;
 		asset.daily_production = daily_production + " " + storage.produceAsset;
 		asset.daily_consumption = roundResult(eval(daily_consumption)) + " " + consumption_extract;
-		asset.profitability = getAssetProfitability(asset, formula);
+		asset.profitability = getAssetProfitability(formula);
 		asset.totalProfitability = asset.quantity * asset.profitability;
 		
 	}
@@ -1598,7 +1713,7 @@ function rellenarConfiguracion(data) {
 		cropLand.weekly_formula.principal = formula;
 		cropLand.daily_production = roundResult(daily_production) + " " + cropLand.extract;
 		cropLand.daily_consumption = roundResult(Math.round(landSize)*cropLandConf.waterRequired/cropTime) + " water" + " / " + roundResult(Math.round(landSize)/cropTime) + " " + cropType;
-		cropLand.profitability = getAssetProfitability(cropLand, formula);
+		cropLand.profitability = getAssetProfitability(formula);
 		cropLand.totalProfitability = cropLand.quantity * cropLand.profitability;
 	}
 	
@@ -1622,7 +1737,7 @@ function rellenarConfiguracion(data) {
 		feedMill.weekly_formula.principal = formula;
 		feedMill.daily_production = feedMill.default_prod.quant + " " + feedMill.default_prod.type;
 		feedMill.daily_consumption = feedMill.default_cons.quant + " " + feedMill.default_cons.type;
-		feedMill.profitability = getAssetProfitability(feedMill, formula); 
+		feedMill.profitability = getAssetProfitability(formula); 
 		feedMill.totalProfitability = feedMill.quantity * feedMill.profitability;
 	}
 	
@@ -1643,7 +1758,7 @@ function roundResult(number) {
 	return parseFloat(num.toFixed(3));
 }
 
-function getAssetProfitability(asset, formula) {
+function getAssetProfitability(formula) {
 	
 	var marketExtracts = [];
 	for(var i=0; i < extractList.length; i++) {
