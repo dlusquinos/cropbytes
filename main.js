@@ -2,7 +2,7 @@
 var myFarmTable;
 var myBalanceTable;
 var myV2MiningTable;
-var promixDataTable;
+var myPromixTable;
 
 $(document).ready(function() {
 	
