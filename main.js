@@ -1200,10 +1200,10 @@ function construirBalance(data) {
 		name: getNombre("egg"),
 		image_url: getImageUrl("egg")
 	};
-	egg.production = "--";
-	egg.consumption = "--";
-	egg.balance = "--"
-	egg.balance_cbx = "--"
+	egg.production = getExtractProduction(data, 'egg');
+	egg.consumption = 0;
+	egg.balance = egg.production - egg.consumption;
+	egg.balance_cbx = roundResult(egg.balance*obtenerPrecioAsset("egg"));
 	egg.price = obtenerPrecioAsset(egg.asset_id);
 	egg.price_v1 = obtenerValorMinadoV1(egg.asset_id);
 	egg.price_change_percent = obtenerVariacionPrecioAsset(egg.asset_id);
@@ -1217,10 +1217,10 @@ function construirBalance(data) {
 		name: getNombre("milk"),
 		image_url: getImageUrl("milk")
 	};
-	milk.production = "--";
-	milk.consumption = "--";
-	milk.balance = "--"
-	milk.balance_cbx = "--"
+	milk.production = getExtractProduction(data, 'milk');
+	milk.consumption = 0;
+	milk.balance = milk.production - milk.consumption;
+	milk.balance_cbx = roundResult(milk.balance*obtenerPrecioAsset("milk"));
 	milk.price = obtenerPrecioAsset(milk.asset_id);
 	milk.price_v1 = obtenerValorMinadoV1(milk.asset_id);
 	milk.price_change_percent = obtenerVariacionPrecioAsset(milk.asset_id);
@@ -1235,10 +1235,10 @@ function construirBalance(data) {
 		name: getNombre("hhr"),
 		image_url: getImageUrl("hhr")
 	};
-	hhr.production = "--";
-	hhr.consumption = "--";
-	hhr.balance = "--"
-	hhr.balance_cbx = "--"
+	hhr.production = getExtractProduction(data, 'hhr');
+	hhr.consumption = 0;
+	hhr.balance = hhr.production - hhr.consumption;
+	hhr.balance_cbx = roundResult(hhr.balance*obtenerPrecioAsset("hhr"));
 	hhr.price = obtenerPrecioAsset(hhr.asset_id);
 	hhr.price_v1 = obtenerValorMinadoV1(hhr.asset_id);
 	hhr.price_change_percent = obtenerVariacionPrecioAsset(hhr.asset_id);
@@ -1252,10 +1252,10 @@ function construirBalance(data) {
 		name: getNombre("trf"),
 		image_url: getImageUrl("trf")
 	};
-	trf.production = "--";
-	trf.consumption = "--";
-	trf.balance = "--"
-	trf.balance_cbx = "--"
+	trf.production = getExtractProduction(data, 'trf');
+	trf.consumption = 0;
+	trf.balance = trf.production - trf.consumption;
+	trf.balance_cbx = roundResult(trf.balance*obtenerPrecioAsset("trf"));
 	trf.price = obtenerPrecioAsset(trf.asset_id);
 	trf.price_v1 = obtenerValorMinadoV1(trf.asset_id);
 	trf.price_change_percent = obtenerVariacionPrecioAsset(trf.asset_id);
@@ -1270,10 +1270,10 @@ function construirBalance(data) {
 		name: getNombre("wool"),
 		image_url: getImageUrl("wool")
 	};
-	wool.production = "--";
-	wool.consumption = "--";
-	wool.balance = "--"
-	wool.balance_cbx = "--"
+	wool.production = getExtractProduction(data, 'wool');
+	wool.consumption = 0;
+	wool.balance = wool.production - wool.consumption;
+	wool.balance_cbx = roundResult(wool.balance*obtenerPrecioAsset("wool"));
 	wool.price = obtenerPrecioAsset(wool.asset_id);
 	wool.price_v1 = obtenerValorMinadoV1(wool.asset_id);
 	wool.price_change_percent = obtenerVariacionPrecioAsset(wool.asset_id);
@@ -1287,10 +1287,10 @@ function construirBalance(data) {
 		name: getNombre("fur"),
 		image_url: getImageUrl("fur")
 	};
-	fur.production = "--";
-	fur.consumption = "--";
-	fur.balance = "--"
-	fur.balance_cbx = "--"
+	fur.production = getExtractProduction(data, 'fur');
+	fur.consumption = 0;
+	fur.balance = fur.production - fur.consumption;
+	fur.balance_cbx = roundResult(fur.balance*obtenerPrecioAsset("fur"));
 	fur.price = obtenerPrecioAsset(fur.asset_id);
 	fur.price_v1 = obtenerValorMinadoV1(fur.asset_id);
 	fur.price_change_percent = obtenerVariacionPrecioAsset(fur.asset_id);
@@ -1304,10 +1304,10 @@ function construirBalance(data) {
 		name: getNombre("ftr"),
 		image_url: getImageUrl("ftr")
 	};
-	ftr.production = "--";
-	ftr.consumption = "--";
-	ftr.balance = "--"
-	ftr.balance_cbx = "--"
+	ftr.production = getExtractProduction(data, 'ftr');
+	ftr.consumption = 0;
+	ftr.balance = ftr.production - ftr.consumption;
+	ftr.balance_cbx = roundResult(ftr.balance*obtenerPrecioAsset("ftr"));
 	ftr.price = obtenerPrecioAsset(ftr.asset_id);
 	ftr.price_v1 = obtenerValorMinadoV1(ftr.asset_id);
 	ftr.price_change_percent = obtenerVariacionPrecioAsset(ftr.asset_id);
@@ -1398,6 +1398,19 @@ function getExtractConsumption(data, extract) {
 		} 
 	}
 	return extractConsumption;
+}
+
+function getExtractProduction(data, extract) {	
+	var extractProductors = data.filter(item => item.extract == extract);
+	var extractProduction = 0;
+	for(var i=0; i < extractProductors.length; i++) {
+		var d = extractProductors[i];
+		if(!d.grazing_active) {
+			var weekly_production = d.gives_weekly*d.quantity;
+			extractProduction+=weekly_production;
+		} 
+	}
+	return extractProduction;
 }
 
 function getCafProduction(data) {
