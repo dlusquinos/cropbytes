@@ -609,6 +609,7 @@ $(document).ready(function() {
 		//"order": [[ 0, 'asc' ]],
 		
 		drawCallback: function(settings) {	
+			$('.contenedor-tabla-minadoV2').css("display", "none"); //TODO: eliminar cuando cropbytes haga su trabajo
 			$('.contenedor-tabla-minadoV2').css("visibility", "visible");
 			$('#v2Mining').DataTable().columns.adjust();	
 		}
