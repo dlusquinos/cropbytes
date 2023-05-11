@@ -609,7 +609,7 @@ $(document).ready(function() {
 		//"order": [[ 0, 'asc' ]],
 		
 		drawCallback: function(settings) {	
-			$('.contenedor-tabla-minadoV2').css("display", "none"); //TODO: eliminar cuando cropbytes haga su trabajo
+			//$('.contenedor-tabla-minadoV2').css("display", "none");
 			$('.contenedor-tabla-minadoV2').css("visibility", "visible");
 			$('#v2Mining').DataTable().columns.adjust();	
 		}
@@ -1927,7 +1927,7 @@ function obtenerValorCBX() {
 function obtenerValorMinadoV1(asset_id) {
 	if(weekActual != 0) {
 		var cantidadExtractosCbx = conversionInicialExtractos[asset_id];	
-		var numDefl = Math.floor((weekActual-1)/10); 
+		var numDefl = Math.floor((weekActual-2)/10); //En realidad sería weekActual -1 pero el juego actualiza la v2 una semana más tarde
 		var ratioDfl = (1.10)**numDefl; 
 		var ratioFixed = ratioDfl.toFixed(2);
 		var valor_v1 = 1/(cantidadExtractosCbx*ratioFixed*difActual);
