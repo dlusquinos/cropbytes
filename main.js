@@ -1723,7 +1723,7 @@ function rellenarConfiguracion(data) {
 		if(landSize > 1) {
 			daily_production = landSize*((cropLandConf.cropsProduced + shBonus)/cropTime);
 		} else {
-			daily_production = (landSize*cropLandConf.cropsProduced + shBonus)/cropTime;
+			daily_production = (Math.round(landSize*cropLandConf.cropsProduced) + shBonus)/cropTime;
 		}
 		
 		var weekly_production = "7*" + daily_production + "*" + cropLand.extract;
