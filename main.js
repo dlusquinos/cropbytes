@@ -545,16 +545,7 @@ $(document).ready(function() {
 			  "render": function (data, type, row, meta) {
 				if (type == 'display') {
 					 var v1 = data ? data.toFixed(2) : "--";
-					 var market = row.totalMarket ? row.totalMarket.toFixed(2) : "--";
-					 var v2 = row.totalV2 ?  row.totalV2.toFixed(2) : "--";
-					 
-					 var colorClass="";
-					 if(v1 > market && v1 > v2) {
-						 colorClass = 'verde';
-					 }
-					 
-					 
-					 return '<div class="importe '+ colorClass +'" ="true">' + v1 + '</div>';
+					 return '<div class="importe">' + v1 + '</div>';
 				  } else {
 					  return data;
 				  }
@@ -566,36 +557,8 @@ $(document).ready(function() {
 			  "title": utilidades.i18n('v2Mining.price_v2'),
 			  "render": function (data, type, row, meta) {
 				if (type == 'display') {
-					 var v2 = data ? data.toFixed(2) : "--";
-					 var market = row.totalMarket ? row.totalMarket.toFixed(2) : "--";
-				     var v1 = row.totalV1 ?  row.totalV1.toFixed(2) : "--"; 
-					 
-					 var colorClass="";
-					 if(v2 > v1 && v2 > market) {
-						 colorClass = 'verde';
-					 }
-					 					 
-					 return '<div class="importe '+ colorClass +'" ="true">' + v2 + '</div>';
-				  } else {
-					  return data;
-				  }
-			  }
-			},
-			
-			{ "data": "totalMarket",
-			  "className" : "price importe",
-			  "title": utilidades.i18n('v2Mining.price_market'),
-			  "render": function (data, type, row, meta) {
-				if (type == 'display') {
-					 var market = data ? data.toFixed(2) : "--";					 
-					 var v1 = row.totalV1 ?  row.totalV1.toFixed(2) : "--";
-					 var v2 = row.totalV2 ?  row.totalV2.toFixed(2) : "--";  
-					 
-					 var colorClass="";
-					 if(market > v1 && market > v2) {
-						 colorClass = 'verde';
-					 }					 					 
-					 return '<div class="importe '+ colorClass +'" ="true">' + market + '</div>';
+					 var v2 = data ? data.toFixed(2) : "--";					 			 
+					 return '<div class="importe">' + v2 + '</div>';
 				  } else {
 					  return data;
 				  }
@@ -730,13 +693,13 @@ $(document).ready(function() {
 	pmixValue = obtenerPrecioAsset('pmix');
 	sbfValue = obtenerPrecioAsset('sbf');
 	
+	//Pintamos los datos de minado de cbx
+	pintarDatosEstaticos();
 	
 	//Construimos los datos de la tabla principal
 	var data = construirData();
 	myFarmTable.clear().rows.add(data).draw();
 	
-	//Pintamos los datos de minado de cbx
-	pintarDatosEstaticos();
 
 	//Pintamos la tabla de balance
 	var balance = construirBalance(data);
@@ -979,7 +942,7 @@ function pintarDatosEstaticos() {
 	$.ajax({
 	  url: "https://api.cropbytes.com/api/v1/game/assets/mine_stats",
 	  dataType: "json",
-	  async: true,
+	  async: false,
 	  success: function(response) {
 		weekActual = response.data.week;
 		var totalMine = response.data.totalMine;
@@ -1345,13 +1308,6 @@ function construirMinadoV2 (data) {
 		
 		v2Object.totalV1 = object.price;
 		v2Object.totalV2 = object.price*(1 + object.bonus/100);
-		
-		var totalMarket = 0;
-		for(k=0; k < recipe.length; k++){
-			var recipeIngredient = recipe[k];
-			totalMarket+= recipeIngredient.quant* obtenerPrecioAsset(recipeIngredient.name);
-		}
-		v2Object.totalMarket = totalMarket;
 
 		minadoV2Data.push(v2Object);
 	}
@@ -1812,7 +1768,14 @@ function getAssetProfitability(formula) {
 		
 		if(marketExtract) {
 			marketExtracts.push(marketExtract);
-		}		
+		}	else{
+			console.log(extract);
+			var valorMinado = obtenerValorMinadoV1(extract)
+			
+			if(valorMinado) {
+				marketExtracts.push({clave: marketExtractName, precio: valorMinado});
+			}
+		}	
 	}
 
 	marketExtracts.push({clave: "greasecbx", precio: GREASE_COST_PER_UNIT});
@@ -1925,15 +1888,13 @@ function obtenerValorCBX() {
 }
 
 function obtenerValorMinadoV1(asset_id) {
-	if(weekActual != 0) {
-		var cantidadExtractosCbx = conversionInicialExtractos[asset_id];	
-		var numDefl = Math.floor((weekActual-2)/10); //En realidad sería weekActual -1 pero el juego actualiza la v2 una semana más tarde
-		var ratioDfl = (1.10)**numDefl; 
-		var ratioFixed = ratioDfl.toFixed(2);
-		var valor_v1 = 1/(cantidadExtractosCbx*ratioFixed*difActual);
-		
+		var cantidadExtractosCbx = conversionInicialExtractos[asset_id];
+		if(cantidadExtractosCbx) {			
+			var numDefl = Math.floor((weekActual-2)/10); //En realidad sería weekActual -1 pero el juego actualiza la v2 una semana más tarde
+			var ratioDfl = (1.10)**numDefl; 
+			var ratioFixed = ratioDfl.toFixed(2);
+			var valor_v1 = 1/(cantidadExtractosCbx*ratioFixed*difActual);
+			
 		return valor_v1.toFixed(6);
-	} else {
-		return ""
-	}	
+		}
 }
