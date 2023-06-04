@@ -1,7 +1,7 @@
 
 var etiqueta = {
 	en: {
-		'page.title': "Cropbytes calculator",
+		'page.title': "Monte Alto calculator",
 		'page.army.join': "Join our army! Click ",
 		'page.army.join.here': "here ", 
 		
@@ -86,7 +86,7 @@ var etiqueta = {
 	},
 	
 	es: {
-		'page.title': 'Calculadora Cropbytes',
+		'page.title': 'Calculadora Monte Alto',
 		'page.army.join': "Únete a nuestro Army! Pulsa ", 
 		'page.army.join.here': "aquí",
 		
@@ -172,7 +172,7 @@ var etiqueta = {
 	
 	
 	nl: {
-	  'page.title': "Cropbytes calculator",
+	  'page.title': "Monte Alto calculator",
 	  'page.army.join': "Sluit je aan bij ons Army! Klik ", 
 	  'page.army.join.here': "hier",
 
