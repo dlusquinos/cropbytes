@@ -152,13 +152,28 @@ $(document).ready(function() {
             },
 			
 			{ 
+                "data": "profitability_v2",
+				"className": "profitability",
+				'title': utilidades.i18n('weeklyProfit.weeklyProfitCbx.v2'),
+                "render": function (data, type, row, meta) {
+					var profit_v2 = data ? roundResult(data) : "--";
+					var colorClass = '';
+					if(profit_v2 != "--") {
+						colorClass = data > 0 ? 'verde' : 'rojo';
+					}
+					return '<div class="importe '+ colorClass +'" ="true">' + profit_v2 + '</div>';
+                }
+            },
+			
+			{ 
                 "data": "profitability_price",
 				"className": "profitability_price",
 				'title': utilidades.i18n('weeklyProfit.weeklyProfitCbx.roi'),
                 "render": function (data, type, row, meta) {
 					var colorClass = '';
+					var profitability = row.profitability_v2 ? row.profitability_v2 : row.profitability;
 					var cbxPrice = row.priceCurrency == 'usdt' ? row.price/cbxValue : row.price;
-					var result = row.profitability > 0 ? roundResult(1/(row.profitability/cbxPrice)) : "";					
+					var result = profitability > 0 ? roundResult(1/(profitability/cbxPrice)) : "";					
 					return '<div class="importe '+ colorClass +'" ="true">' + result + '</div>';
                 }
             },
@@ -364,14 +379,14 @@ $(document).ready(function() {
 		 footerCallback: function(row, data, start, end, display) {			
 			// Calcular el sumatorio de la columna 12
 			var sumatorio = this.api()
-			  .column(13, { page: 'current'})
+			  .column(14, { page: 'current'})
 			  .data()
 			  .reduce(function(a, b) {
 				return Number(a) + Number(b);
 			  }, 0);
 			
 			// Añadir el sumatorio al pie de la tabla
-			$(this.api().column(13).footer()).html(roundResult(sumatorio));
+			$(this.api().column(14).footer()).html(roundResult(sumatorio));
 			
 		 }
 		
@@ -1555,8 +1570,11 @@ function rellenarConfiguracion(data) {
 			var extract = gives[0].extractId;
 			var quant = "(" + gives[0].count + "/" + conf.extractTime + ")";
 			var weekly_production = "7*" + quant + "*" + extract;
+			var weekly_production_v2 = weekly_production + "*" + v2_max_bonus_factor;
+			
 			
 			var formula = weekly_production + "-" + weekly_consumption;
+			var formula_v2 = weekly_production_v2 + "-" + weekly_consumption;
 			
 			asset.extract = extract;
 			asset.gives_weekly = 7*eval(quant);
@@ -1572,8 +1590,9 @@ function rellenarConfiguracion(data) {
 			asset.weekly_formula.grazing = -(takes.hibernation_fee/2);
 			asset.daily_production = eval(quant) + " " + extract;
 			asset.daily_consumption = other[0].count + " " + other[0].assetId + " / " + other[1].count + " " + other[1].assetId;
-			asset.profitability = asset.grazing_active ? -(takes.hibernation_fee/2) : getAssetProfitability(formula);	
-			asset.totalProfitability = asset.quantity * asset.profitability;
+			asset.profitability = asset.grazing_active ? -(takes.hibernation_fee/2) : getAssetProfitability(formula);
+			asset.profitability_v2 = asset.grazing_active ? -(takes.hibernation_fee/2) : getAssetProfitability(formula_v2);			
+			asset.totalProfitability = asset.quantity * asset.profitability_v2;
 		}
 
 	}
@@ -1769,7 +1788,6 @@ function getAssetProfitability(formula) {
 		if(marketExtract) {
 			marketExtracts.push(marketExtract);
 		}	else{
-			console.log(extract);
 			var valorMinado = obtenerValorMinadoV1(extract)
 			
 			if(valorMinado) {
