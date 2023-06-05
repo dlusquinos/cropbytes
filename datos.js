@@ -310,6 +310,8 @@ const v2_objects = [
 		{name: 'pillow', price: 5, bonus: 12.35, composition: [{name: 'pow', percent: 33.333}, {name: 'wool', percent: 33.333}, {name: 'ftr', percent: 33.333}]},
 ]
 
+const v2_max_bonus_factor = 1.2471;
+
 const pro_mix_recipe = {
 	pmix_fruit: 10,
 	pmix_units: 10,
