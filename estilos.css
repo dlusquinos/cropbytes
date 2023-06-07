@@ -221,12 +221,6 @@ table#v2Mining th.recipe {
 	width: 200px !important;
 }
 
-
-.supply-info{
-	max-width: 1075px;	
-	
-}
-
 .supply-asset-data {
 	width:50%;
 	display:inline-block;
