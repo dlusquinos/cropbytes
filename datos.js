@@ -305,7 +305,7 @@ const v2_objects = [
 		{name: 'tent', price: 30, bonus: 24.71, composition: [{name: 'pow', percent: 20}, {name: 'wool', percent: 20}, {name: 'ftr', percent: 20}, {name: 'fur', percent: 20}, {name: 'hhr', percent: 20} ]},		
 		{name: 'cake', price: 30, bonus: 24.71, composition: [{name: 'pow', percent: 25}, {name: 'milk', percent: 25}, {name: 'egg', percent: 25}, {name: 'trf', percent: 25} ]},
 		{name: 'cookies', price: 12, bonus: 17.29, composition: [{name: 'pow', percent: 25}, {name: 'milk', percent: 25}, {name: 'egg', percent: 25}, {name: 'trf', percent: 25} ]},
-		{name: 'hammock', price: 15, bonus: 17.29, composition: [{name: 'pow', percent: 20}, {name: 'wool', percent: 20}, {name: 'ftr', percent: 20}, {name: 'fur', percent: 20}, {name: 'hhr', percent: 20} ]},
+		{name: 'hammock', price: 12, bonus: 17.29, composition: [{name: 'pow', percent: 20}, {name: 'wool', percent: 20}, {name: 'ftr', percent: 20}, {name: 'fur', percent: 20}, {name: 'hhr', percent: 20} ]},
 		{name: 'rope', price: 10, bonus: 14.82, composition: [{name: 'pow', percent: 33.333}, {name: 'fur', percent: 33.333}, {name: 'hhr', percent: 33.333} ]},
 		{name: 'pillow', price: 5, bonus: 12.35, composition: [{name: 'pow', percent: 33.333}, {name: 'wool', percent: 33.333}, {name: 'ftr', percent: 33.333}]},
 ]
