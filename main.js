@@ -794,7 +794,7 @@ $(document).ready(function() {
 					
 					//Semana actual 
 					var actualRequirements = assetRequirements.find(function(item) {
-						return item.week === week-1;
+						return item.week === week;
 					});
 					var actualDif = dif > 1 ? dif : 1;
 					actualReqs.pmix = roundResult(actualDif*actualRequirements.mixBase);
@@ -805,7 +805,7 @@ $(document).ready(function() {
 					
 					//Semana siguiente
 					var nextRequirements = assetRequirements.find(function(item) {
-						return item.week === week;
+						return item.week === week+1;
 					});
 					var nextDifFormula = (minedSupply/nextRequirements.supply)**5;
 					var nextDif = nextDifFormula > 1 ? nextDifFormula : 1;
