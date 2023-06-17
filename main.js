@@ -156,7 +156,7 @@ $(document).ready(function() {
 				"className": "profitability",
 				'title': utilidades.i18n('weeklyProfit.weeklyProfitCbx.v2'),
                 "render": function (data, type, row, meta) {
-					var profit_v2 = data ? roundResult(data) : "--";
+					var profit_v2 = data && !row.pro? roundResult(data) : "--";
 					var colorClass = '';
 					if(profit_v2 != "--") {
 						colorClass = data > 0 ? 'verde' : 'rojo';
@@ -171,7 +171,7 @@ $(document).ready(function() {
 				'title': utilidades.i18n('weeklyProfit.weeklyProfitCbx.roi'),
                 "render": function (data, type, row, meta) {
 					var colorClass = '';
-					var profitability = row.profitability_v2 ? row.profitability_v2 : row.profitability;
+					var profitability = row.profitability;
 					var cbxPrice = row.priceCurrency == 'usdt' ? row.price/cbxValue : row.price;
 					var result = profitability > 0 ? roundResult(1/(profitability/cbxPrice)) : "";					
 					return '<div class="importe '+ colorClass +'" ="true">' + result + '</div>';
@@ -697,6 +697,8 @@ $(document).ready(function() {
 	marketData = obtenerPreciosMarketAPI();
 	assetsData = obtenerAssetsAPI();
 	confAssetsData = obtenerConfAssetsAPI();
+	pmixValue = obtenerPrecioAsset('pmix');
+	sbfValue = obtenerPrecioAsset('sbf');
 	extractList = obtenerExtractos();
 	seedList = obtenerSemillas();
 	feedConfig = confAssetsData.data.feedConfigNew;
@@ -705,8 +707,7 @@ $(document).ready(function() {
 	storages = confAssetsData.data.storages;
 	landCrops = confAssetsData.data.cropConfigV2.landCrops;
 	cbxValue = obtenerValorCBX();
-	pmixValue = obtenerPrecioAsset('pmix');
-	sbfValue = obtenerPrecioAsset('sbf');
+	
 	
 	//Pintamos los datos de minado de cbx
 	pintarDatosEstaticos();
@@ -1072,6 +1073,7 @@ function construirData() {
 		bean.price_change_percent = obtenerVariacionPrecioAsset(bean.asset_id); 
 		bean.volume = obtenerVolumenAsset(bean.asset_id);
 		bean.amount = obtenerTransaccionesAsset(bean.asset_id);
+		bean.pro = farmAsset.pro ? true : false;
 		
 		data.push(bean);
 	}
@@ -1592,7 +1594,8 @@ function rellenarConfiguracion(data) {
 			asset.daily_consumption = other[0].count + " " + other[0].assetId + " / " + other[1].count + " " + other[1].assetId;
 			asset.profitability = asset.grazing_active ? -(takes.hibernation_fee/2) : getAssetProfitability(formula);
 			asset.profitability_v2 = asset.grazing_active ? -(takes.hibernation_fee/2) : getAssetProfitability(formula_v2);			
-			asset.totalProfitability = asset.quantity * asset.profitability_v2;
+			asset.totalProfitability = asset.quantity * asset.profitability;
+ 
 		}
 
 	}
@@ -1777,6 +1780,7 @@ function roundResult(number) {
 function getAssetProfitability(formula) {
 	
 	var marketExtracts = [];
+	anadirExtractosPRO(marketExtracts);
 	for(var i=0; i < extractList.length; i++) {
 		var extract = extractList[i];
 		var marketExtractName = extract + "cbx";
@@ -1797,8 +1801,8 @@ function getAssetProfitability(formula) {
 	}
 
 	marketExtracts.push({clave: "greasecbx", precio: GREASE_COST_PER_UNIT});
-	marketExtracts.push({clave: "cbxcbx", precio: 1});
-
+	marketExtracts.push({clave: "cbxcbx", precio: 1});	
+	console.log(formula)
 	for(var i=0; i < marketExtracts.length; i++) { 
 		var extract = marketExtracts[i];
 		var clave = extract.clave.slice(0, -3);
@@ -1806,8 +1810,24 @@ function getAssetProfitability(formula) {
 		
 		formula = formula.replaceAll(clave, precio);
 	}
-
+	
 	return eval(formula);
+}
+
+function anadirExtractosPRO(marketExtracts) {
+	for(var i=0; i < pro_mix_recipe.pro_extracts.length; i++) {
+		var proExtract = pro_mix_recipe.pro_extracts[i];
+		var clave = proExtract.id;
+		var formula = "(" + pro_mix_recipe.pro_extract_value + ")/" + proExtract.units;
+		
+		formula = formula.replaceAll("pmix", obtenerPrecioAsset('pmix'));
+		formula = formula.replaceAll("frf", obtenerPrecioAsset('frf'));
+		formula = formula.replaceAll("milk", obtenerValorMinadoV1('milk'));
+		var precio = eval(formula);
+		
+		marketExtracts.push({clave: clave + "cbx", precio: precio});
+		
+	}
 }
 
 
