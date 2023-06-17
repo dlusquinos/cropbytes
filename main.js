@@ -1183,7 +1183,7 @@ function construirBalance(data) {
 	egg.consumption = 0;
 	egg.balance = egg.production - egg.consumption;
 	egg.balance_cbx = roundResult(egg.balance*obtenerPrecioAsset("egg"));
-	egg.price = obtenerPrecioAsset(egg.asset_id);
+	egg.price = 0;
 	egg.price_v1 = obtenerValorMinadoV1(egg.asset_id);
 	egg.price_change_percent = obtenerVariacionPrecioAsset(egg.asset_id);
 	egg.volume = obtenerVolumenAsset(egg.asset_id);
@@ -1200,7 +1200,7 @@ function construirBalance(data) {
 	milk.consumption = 0;
 	milk.balance = milk.production - milk.consumption;
 	milk.balance_cbx = roundResult(milk.balance*obtenerPrecioAsset("milk"));
-	milk.price = obtenerPrecioAsset(milk.asset_id);
+	milk.price = 0;
 	milk.price_v1 = obtenerValorMinadoV1(milk.asset_id);
 	milk.price_change_percent = obtenerVariacionPrecioAsset(milk.asset_id);
 	milk.volume = obtenerVolumenAsset(milk.asset_id);
@@ -1218,7 +1218,7 @@ function construirBalance(data) {
 	hhr.consumption = 0;
 	hhr.balance = hhr.production - hhr.consumption;
 	hhr.balance_cbx = roundResult(hhr.balance*obtenerPrecioAsset("hhr"));
-	hhr.price = obtenerPrecioAsset(hhr.asset_id);
+	hhr.price = 0;
 	hhr.price_v1 = obtenerValorMinadoV1(hhr.asset_id);
 	hhr.price_change_percent = obtenerVariacionPrecioAsset(hhr.asset_id);
 	hhr.volume = obtenerVolumenAsset(hhr.asset_id);
@@ -1235,7 +1235,7 @@ function construirBalance(data) {
 	trf.consumption = 0;
 	trf.balance = trf.production - trf.consumption;
 	trf.balance_cbx = roundResult(trf.balance*obtenerPrecioAsset("trf"));
-	trf.price = obtenerPrecioAsset(trf.asset_id);
+	trf.price = 0;
 	trf.price_v1 = obtenerValorMinadoV1(trf.asset_id);
 	trf.price_change_percent = obtenerVariacionPrecioAsset(trf.asset_id);
 	trf.volume = obtenerVolumenAsset(trf.asset_id);
@@ -1253,7 +1253,7 @@ function construirBalance(data) {
 	wool.consumption = 0;
 	wool.balance = wool.production - wool.consumption;
 	wool.balance_cbx = roundResult(wool.balance*obtenerPrecioAsset("wool"));
-	wool.price = obtenerPrecioAsset(wool.asset_id);
+	wool.price = 0;
 	wool.price_v1 = obtenerValorMinadoV1(wool.asset_id);
 	wool.price_change_percent = obtenerVariacionPrecioAsset(wool.asset_id);
 	wool.volume = obtenerVolumenAsset(wool.asset_id);
@@ -1270,7 +1270,7 @@ function construirBalance(data) {
 	fur.consumption = 0;
 	fur.balance = fur.production - fur.consumption;
 	fur.balance_cbx = roundResult(fur.balance*obtenerPrecioAsset("fur"));
-	fur.price = obtenerPrecioAsset(fur.asset_id);
+	fur.price = 0;
 	fur.price_v1 = obtenerValorMinadoV1(fur.asset_id);
 	fur.price_change_percent = obtenerVariacionPrecioAsset(fur.asset_id);
 	fur.volume = obtenerVolumenAsset(fur.asset_id);
@@ -1287,7 +1287,7 @@ function construirBalance(data) {
 	ftr.consumption = 0;
 	ftr.balance = ftr.production - ftr.consumption;
 	ftr.balance_cbx = roundResult(ftr.balance*obtenerPrecioAsset("ftr"));
-	ftr.price = obtenerPrecioAsset(ftr.asset_id);
+	ftr.price = 0;
 	ftr.price_v1 = obtenerValorMinadoV1(ftr.asset_id);
 	ftr.price_change_percent = obtenerVariacionPrecioAsset(ftr.asset_id);
 	ftr.volume = obtenerVolumenAsset(ftr.asset_id);
