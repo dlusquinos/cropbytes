@@ -1582,11 +1582,18 @@ function rellenarConfiguracion(data) {
 			asset.gives_weekly = 7*eval(quant);
 			asset.takes_weekly = {
 				water: 6*other[1].count + sunday[1].count,
-				cof: 6*other[0].count,
+				cof: 0,
 				caf: 0,
 				frf: sunday[0].count,
 				pow: 0
 			}
+			
+			if(asset.pro) {
+				asset.takes_weekly['caf'] = 6*other[0].count;
+			} else {
+				asset.takes_weekly['cof'] = 6*other[0].count;
+			}
+			
 			asset.grazing_fee = takes.hibernation_fee;
 			asset.weekly_formula.principal = formula;
 			asset.weekly_formula.grazing = -(takes.hibernation_fee/2);
