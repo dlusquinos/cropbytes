@@ -116,6 +116,66 @@
     },
 	
 	/*******
+	 **PRO**
+	 *******/
+	 
+	{
+      "asset_id": "atx",
+	  "quantity": 0,
+	  "pro": true
+    },
+	
+	{
+      "asset_id": "aty",
+	  "quantity": 0,
+	  "pro": true
+    },
+	
+	{
+      "asset_id": "md",
+	  "quantity": 0,
+	  "pro": true
+    },
+	
+	{
+      "asset_id": "blb",
+	  "quantity": 0,
+	  "pro": true
+    },
+	
+	{
+      "asset_id": "mp",
+	  "quantity": 0,
+	  "pro": true
+    },
+	
+	{
+      "asset_id": "oak",
+	  "quantity": 0,
+	  "pro": true
+    },
+	
+	{
+      "asset_id": "bp",
+	  "quantity": 0,
+	  "pro": true
+    },
+	
+	{
+      "asset_id": "hh",
+	  "quantity": 0,
+	  "pro": true
+    },
+	
+	{
+      "asset_id": "plp",
+	  "quantity": 0,
+	  "pro": true
+    },
+	
+	
+	
+	/*******
 	 **HAM**
 	 *******/
 	
@@ -331,6 +391,8 @@ const pro_mix_recipe = {
 						{id: 'ptrf',name: 'Pro Truffle', unit_cost: '(6*(4*caf + 3*water) + 3*frf + 3*water)/(7*4)', units:1, units_sbf: 2},
 						{id: 'pmilk',name: 'Pro Milk', unit_cost: '(6*(4*caf + 3*water) + 3*frf + 3*water)/(7*4)', units:1, units_sbf: 2}
 				   ],
+	
+	pro_extract_value: '10*pmix-10*frf-40*milk',
 				   
 	sbf_formula: '10*milk + 10*egg + 10*trf + 25*cof + pro_extract'
 
