@@ -357,7 +357,8 @@ const conversionInicialExtractos = {egg: 8, milk:4, pow : 1, hhr: 1, trf: 3, woo
 
 const mineCbxData = [
 	{week:67, supply:60560586}, {week:68, supply:61401705}, {week:69, supply:62242824}, {week:70, supply:63083943}, {week:71, supply:63905946},
-	{week:72, supply:64727949},	{week:73, supply:65549952}, {week:74, supply:66371955}, {week:75, supply:67193958}, {week:76, supply:68015961}
+	{week:72, supply:64727949},	{week:73, supply:65549952}, {week:74, supply:66371955}, {week:75, supply:67193958}, {week:76, supply:68015961},
+	{week:77, supply:68837964}, {week:78, supply:69659967}, {week:79, supply:70481970}, {week:80, supply:71303972}, {week:81, supply:72106859}
 ]
 
 const v2_objects = [
