@@ -1809,7 +1809,7 @@ function getAssetProfitability(formula) {
 
 	marketExtracts.push({clave: "greasecbx", precio: GREASE_COST_PER_UNIT});
 	marketExtracts.push({clave: "cbxcbx", precio: 1});	
-	console.log(formula)
+
 	for(var i=0; i < marketExtracts.length; i++) { 
 		var extract = marketExtracts[i];
 		var clave = extract.clave.slice(0, -3);
