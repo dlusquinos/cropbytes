@@ -1935,7 +1935,7 @@ function obtenerValorCBX() {
 function obtenerValorMinadoV1(asset_id) {
 		var cantidadExtractosCbx = conversionInicialExtractos[asset_id];
 		if(cantidadExtractosCbx) {			
-			var numDefl = Math.floor((weekActual-2)/10); //En realidad sería weekActual -1 pero el juego actualiza la v2 una semana más tarde
+			var numDefl = Math.floor((weekActual-1)/10);
 			var ratioDfl = (1.10)**numDefl; 
 			var ratioFixed = ratioDfl.toFixed(2);
 			var valor_v1 = 1/(cantidadExtractosCbx*ratioFixed*difActual);
