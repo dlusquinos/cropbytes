@@ -291,6 +291,23 @@ table#v2Mining th.recipe {
 	width:20% !important;
 }
 
+.ingredient-element-v2 {
+	width:25% !important;
+	display: block;
+    text-align: center;
+}
+
+.ingredient-element-v2 span{
+	display: block;
+    text-align: center;
+	font-size: 10px;
+}
+
+.balance-extractos-contenedor {
+	width: 400px !important;
+    height: 200px;	
+}
+
 .nav li {
 	padding: 2px;
     border: 1px solid black;
