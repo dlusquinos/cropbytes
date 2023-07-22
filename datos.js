@@ -374,6 +374,28 @@ const v2_objects = [
 		{name: 'picnic basket', price: 30, bonus: 25.33, composition: [{name: 'pow', percent: 12.5}, {name: 'wool', percent: 12.5}, {name: 'ftr', percent: 12.5}, {name: 'fur', percent: 12.5}, {name: 'hhr', percent: 12.5}, {name: 'milk', percent: 12.5}, {name: 'egg', percent: 12.5}, {name: 'trf', percent: 12.5} ]}
 ]
 
+var v2_extracts = [
+		{name: 'pow'},
+		{name: 'wool'},
+		{name: 'ftr'},
+		{name: 'fur'},
+		{name: 'milk'},
+		{name: 'egg'},
+		{name: 'trf'},
+		{name: 'hhr'}
+];
+
+var v2_objects_quant = [
+		{name: 'pastry', quantity: 0},
+		{name: 'tent', quantity: 0},
+		{name: 'cake', quantity: 0},
+		{name: 'cookies', quantity: 0},
+		{name: 'hammock', quantity: 0},
+		{name: 'rope', quantity: 0},
+		{name: 'pillow', quantity: 0},
+		{name: 'picnic basket', quantity: 0}
+];
+
 const v2_max_bonus_factor = 1.2533;
 
 const pro_mix_recipe = {
