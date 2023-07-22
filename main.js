@@ -256,6 +256,9 @@ $(document).ready(function() {
 					var balance = construirBalance(tabla.data());
 					myBalanceTable.clear().rows.add(balance).draw();
 					
+					//Repintamos el balance de v2
+					pintarBalanceV2();
+					
 				}
 			});
 			
@@ -297,6 +300,8 @@ $(document).ready(function() {
 					var balance = construirBalance(tabla.data());
 					myBalanceTable.clear().rows.add(balance).draw();
 					
+					//Repintamos el balance de v2
+					pintarBalanceV2();
 				}
 			});
 			
@@ -336,6 +341,9 @@ $(document).ready(function() {
 					//Repintamos la tabla de balance
 					var balance = construirBalance(tabla.data());
 					myBalanceTable.clear().rows.add(balance).draw();
+					
+					//Repintamos el balance de v2
+					pintarBalanceV2();
 					
 				}
 			});
@@ -578,9 +586,25 @@ $(document).ready(function() {
 					  return data;
 				  }
 			  }
-			}
+			},
+			
+			{ 
+                "data": "quantity",
+				"className": "quant",
+				'title': utilidades.i18n('weeklyProfit.weeklyProfitCbx.quantity'),
+                "render": function (data, type, row, meta) {
+					if(type == "display") {
+						return '<input type="number" class="editable quantity" contenteditable="true" value="'+ data +'" />';
+					} else {
+						return data;
+					}
+                    
+                }
+            },
+			
 
         ],
+		
         "paging": false,
         "info": false,
 		"filter": false,
@@ -590,6 +614,37 @@ $(document).ready(function() {
 			//$('.contenedor-tabla-minadoV2').css("display", "none");
 			$('.contenedor-tabla-minadoV2').css("visibility", "visible");
 			$('#v2Mining').DataTable().columns.adjust();	
+			
+			
+			//Eventos celda Cantidad
+			$('#v2Mining tbody .quantity').off('change');
+			$('#v2Mining tbody .quantity').on('change', function(event) {
+				event.stopPropagation();
+				
+				var tr = $(this).closest('tr');
+				var tabla = $('#v2Mining').DataTable();
+				var datosFila = tabla.row(tr).data();
+				
+				
+				var index = v2_objects_quant.findIndex(function(asset) {
+					return asset.name === datosFila.name
+				});
+				
+				if (index !== -1) {
+					v2_objects_quant[index].quantity = this.value;
+					localStorage.setItem("minado_v2_quant", JSON.stringify(v2_objects_quant));
+
+					//Repintar fila
+					datosFila.quantity = this.value;					
+					tabla.row(tr).data(datosFila);
+					tabla.draw();
+					
+					//Repintamos el cuadro de extractos
+					pintarBalanceV2();
+				}
+			});
+			
+			
 		}
 		
     });
@@ -724,6 +779,7 @@ $(document).ready(function() {
 	//Pintamos la tabla de minado v2
 	var v2Data = construirMinadoV2(myFarmTable.data());
 	myV2MiningTable.clear().rows.add(v2Data).draw();
+	pintarBalanceV2();
 	
 	
 	//Pintamos la tabla de PMIX/SBF
@@ -993,6 +1049,58 @@ function pintarDatosEstaticos() {
 	});
 }
 
+function pintarBalanceV2() {
+	var datosBalance = myBalanceTable.data();
+	var datosV2 = myV2MiningTable.data();
+	
+	var listaExtractosV2 = [];
+	for(var i=0; i < datosBalance.length; i++) {
+		var balanceExtract = datosBalance[i];
+		
+		var extrV2 = v2_extracts.find(function(item) {
+			return item.name === balanceExtract.asset_id;
+		});
+		
+		if(extrV2) {
+			listaExtractosV2.push(balanceExtract);
+		}
+	}
+	 
+	var html=""; 
+	for(var i=0; i < listaExtractosV2.length; i++) {
+		var ext = listaExtractosV2[i];
+		var balance = ext.balance - getCantidadExtractoConsumidoV2(ext.asset_id);
+		
+		html+= "<div class='col-2 ingredient-element-v2'>" + 
+									'<img src="' + ext.image_url + '" width="35">' + 
+									'<span>' + roundResult(balance) + '</span>' + 
+			   "</div>";	
+	} 	 
+	$('.balance-extractos').html(html); 
+}
+
+function getCantidadExtractoConsumidoV2(assetId) {
+	var datosBalance = myBalanceTable.data();
+	var datosV2 = myV2MiningTable.data();
+	
+	var consumption = 0;
+	for(var i=0; i < datosV2.length; i++) {
+		var element = datosV2[i];
+		var recipe = element.recipe;
+		
+		if(element.quantity > 0) {
+			var elto = recipe.find(function(item) {
+				return item.name === assetId;
+			});	
+			if(elto) {
+				consumption+= elto.quant*element.quantity;
+			}				
+		}		
+	}
+	return consumption;
+	
+}
+
 
 function obtenerPreciosMarketAPI() {
 	var marketJSON = $.ajax({
@@ -1021,6 +1129,7 @@ function obtenerPreciosMarketAPI() {
 	}
 	return filteredCBX;
 }
+
 
 
 function construirData() {
@@ -1302,7 +1411,29 @@ function construirBalance(data) {
 
 
 function construirMinadoV2 (data) {
+	
 	var minadoV2Data = [];
+	var savedData = localStorage.getItem("minado_v2_quant");
+	
+	if(!savedData) {
+		 localStorage.setItem('minado_v2_quant', JSON.stringify(v2_objects_quant));
+	} else {
+		savedData = JSON.parse(savedData);
+		for(var i=0; i < v2_objects.length; i++) { 
+			var myRecipe = v2_objects[i];
+			var quant = savedData.find(function(item) {
+				return item.name === myRecipe.name;
+			});
+			
+			if(!quant) { 
+				 var itemQuant = {name: myRecipe.name, quantity: 0};
+				 savedData.push(itemQuant);
+				 localStorage.setItem('minado_v2_quant', JSON.stringify(savedData));
+			}
+		}
+	}
+	
+	var quantities = JSON.parse(localStorage.getItem("minado_v2_quant"));
 	
 	for(var i = 0; i < v2_objects.length; i++) {
 		var object = v2_objects[i];
@@ -1325,8 +1456,15 @@ function construirMinadoV2 (data) {
 		
 		v2Object.totalV1 = object.price;
 		v2Object.totalV2 = object.price*(1 + object.bonus/100);
+		
+		//Obtenemos la cantidad guardada
+		var savedQuant = quantities.find(function(item) {
+				return item.name === v2Object.name;
+		});
+		v2Object.quantity = savedQuant.quantity;
 
 		minadoV2Data.push(v2Object);
+		
 	}
 	
 	return minadoV2Data;
