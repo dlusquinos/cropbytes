@@ -496,7 +496,7 @@ $(document).ready(function() {
 					if(data != 0) {
 						colorClass = data > 0 ? 'verde' : 'rojo';
 					}
-					return '<div class="importe '+ colorClass +'" ="true">' + data + '</div>';
+					return '<div class="importe '+ colorClass +'" ="true">' + roundResult(data) + '</div>';
 			  }
 			},
 			
