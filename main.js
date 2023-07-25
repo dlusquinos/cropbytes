@@ -484,7 +484,7 @@ $(document).ready(function() {
 			  "title": utilidades.i18n('weeklyBalance.consumption'),
 			  "searchable": true,
 			  "render": function (data, type, row, meta) {
-				  return data;
+				  return roundResult(data);
 			  }
 			},
 			
