@@ -602,6 +602,27 @@ $(document).ready(function() {
                 }
             },
 			
+			{ 
+                "data": "",
+				"className": "total",
+				'title': utilidades.i18n('weeklyProfit.weeklyProfitCbx.total'),
+                "render": function (data, type, row, meta) {
+					if(type == "display") {
+						var v2 = row.totalV2.toFixed(2);
+						var quant = row.quantity;
+						var total = v2*quant;
+						var colorClass = '';
+						if(total != 0) {
+							colorClass = total > 0 ? 'verde' : 'rojo';
+						}
+						return '<div class="importe '+ colorClass +'" ="true">' + roundResult(total) + '</div>';
+					} else {
+						return '';
+					}
+                    
+                }
+            }
+			
 
         ],
 		
@@ -645,7 +666,20 @@ $(document).ready(function() {
 			});
 			
 			
-		}
+		},
+		
+		footerCallback: function(row, data, start, end, display) {	
+
+			var sumatorio = 0;
+			for(var i=0; i<data.length; i++) {
+			   var elto = data[i];
+			   sumatorio+=elto.totalV2*elto.quantity;
+			}
+					
+			// Añadir el sumatorio al pie de la tabla
+			$(this.api().column(5).footer()).html(roundResult(sumatorio));
+			
+		 }
 		
     });
 	
