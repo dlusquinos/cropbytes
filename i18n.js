@@ -69,6 +69,7 @@ var etiqueta = {
 	    'v2Mining.price_v1': 'V1',
 	    'v2Mining.price_v2': 'V2',
 		'v2Mining.balance' : 'Extracts balance:',
+		'v2Mining.bonus' : 'Bonus',
 			  
 		'promix.title': 'PROMIX/SBF production costs',	
 		'promix.price' : 'Promix price:',
@@ -156,6 +157,7 @@ var etiqueta = {
 		'v2Mining.price_v1': 'V1',
 		'v2Mining.price_v2': 'V2',
 		'v2Mining.balance' : 'Balance de extractos:',
+		'v2Mining.bonus' : 'Bonus',
 		
 		'promix.title': 'Costos de producción de PROMIX/SBF',
 		'promix.price' : 'Precio Promix:',
@@ -244,6 +246,7 @@ var etiqueta = {
 	  'v2Mining.price_v1': 'V1',
 	  'v2Mining.price_v2': 'V2',
 	  'v2Mining.balance' : 'Uittreksel balans:',
+	  'v2Mining.bonus' : 'Bonus',
 	  
 	  'promix.title': 'PROMIX/SBF productiekosten',
 	  'promix.price' : 'Promix prijs:',
