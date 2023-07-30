@@ -588,6 +588,18 @@ $(document).ready(function() {
 			  }
 			},
 			
+			{ "data": "bonus",
+			  "className" : "importe",
+			  "title": utilidades.i18n('v2Mining.bonus'),
+			  "render": function (data, type, row, meta) {
+				if (type == 'display') {
+					return data + " %";
+				  } else {
+					  return data;
+				  }
+			  }
+			},
+			
 			{ 
                 "data": "quantity",
 				"className": "quant",
@@ -677,7 +689,7 @@ $(document).ready(function() {
 			}
 					
 			// Añadir el sumatorio al pie de la tabla
-			$(this.api().column(5).footer()).html(roundResult(sumatorio));
+			$(this.api().column(6).footer()).html(roundResult(sumatorio));
 			
 		 }
 		
@@ -1490,6 +1502,7 @@ function construirMinadoV2 (data) {
 		
 		v2Object.totalV1 = object.price;
 		v2Object.totalV2 = object.price*(1 + object.bonus/100);
+		v2Object.bonus = object.bonus;
 		
 		//Obtenemos la cantidad guardada
 		var savedQuant = quantities.find(function(item) {
