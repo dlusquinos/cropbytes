@@ -3,8 +3,16 @@ var myFarmTable;
 var myBalanceTable;
 var myV2MiningTable;
 var myPromixTable;
+var millOwner = false;
 
 $(document).ready(function() {
+	
+	 //Parametros de la url
+	 var url = window.location.href;
+	 if (url.includes("millOwner")) {
+		var parametros = new URLSearchParams(window.location.search);
+		millOwner = parametros.get("millOwner");
+	 }
 	
 	 $(".nav-tabs a").click(function(){
 		$(this).tab('show');
@@ -1528,7 +1536,9 @@ function construirPromixData() {
 		
 		//SBF
 		if(pro_extract.units_sbf > 0 ) {
-			var proExtractCostSBF = pro_extract.units_sbf + '*' + pro_extract.unit_cost;
+			var proExtractCost = getAssetProfitability(pro_extract.unit_cost); 
+			var proExtractCostSBF = pro_extract.units_sbf + '*' + proExtractCost;
+			
 			var formulaSBF = pro_mix_recipe.sbf_formula.replace('pro_extract', proExtractCostSBF);
 			data.totalSBFCost = getAssetProfitability(formulaSBF);
 		}
@@ -1811,7 +1821,7 @@ function rellenarConfiguracion(data) {
 		var grinded_asset = grindFees.find(function(item) {
 			return item.asset === treeCrop.produceAsset;
 		});
-		var grindFee = grinded_asset.grindingFeePerCrop;
+		var grindFee = millOwner ? 0 : grinded_asset.grindingFeePerCrop;
 		var weekly_fee = "7*" + daily_production + "*" + grindFee;
 		
 		var formula = weekly_production + "-" + weekly_consumption + "-" + weekly_fee;
@@ -1908,7 +1918,7 @@ function rellenarConfiguracion(data) {
 		var grinded_asset = grindFees.find(function(item) {
 			return item.asset === cropLandConf.produceAsset;
 		});
-		var grindFee = grinded_asset.grindingFeePerCrop;
+		var grindFee =  millOwner ? 0 : grinded_asset.grindingFeePerCrop;
 		var weekly_fee = "7*(" + daily_production +  "*" + grindFee + ")";
 
 		var formula = weekly_production + "-" + weekly_consumption + "-" + weekly_fee;
