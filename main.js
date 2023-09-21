@@ -3,17 +3,11 @@ var myFarmTable;
 var myBalanceTable;
 var myV2MiningTable;
 var myPromixTable;
-var millOwner = false;
+
 
 $(document).ready(function() {
 	
-	 //Parametros de la url
-	 var url = window.location.href;
-	 if (url.includes("millOwner")) {
-		var parametros = new URLSearchParams(window.location.search);
-		millOwner = parametros.get("millOwner");
-	 }
-	
+
 	 $(".nav-tabs a").click(function(){
 		$(this).tab('show');
 	});
@@ -822,6 +816,7 @@ $(document).ready(function() {
 	pintarDatosEstaticos();
 	
 	//Construimos los datos de la tabla principal
+	construirFiltros();
 	var data = construirData();
 	myFarmTable.clear().rows.add(data).draw();
 	
@@ -1795,8 +1790,9 @@ function rellenarConfiguracion(data) {
 			asset.daily_production = eval(quant) + " " + extract;
 			asset.daily_consumption = other[0].count + " " + other[0].assetId + " / " + other[1].count + " " + other[1].assetId;
 			asset.profitability = asset.grazing_active ? -(takes.hibernation_fee/2) : getAssetProfitability(formula);
-			asset.profitability_v2 = asset.grazing_active ? -(takes.hibernation_fee/2) : getAssetProfitability(formula_v2);			
-			asset.totalProfitability = asset.quantity * asset.profitability;
+			asset.profitability_v2 = asset.grazing_active ? -(takes.hibernation_fee/2) : getAssetProfitability(formula_v2);	
+			var v2Profit = obtenerFarmFilter('v2_profit');			
+			asset.totalProfitability = v2Profit.value ? asset.quantity * asset.profitability_v2 : asset.quantity * asset.profitability;
  
 		}
 
@@ -1821,7 +1817,8 @@ function rellenarConfiguracion(data) {
 		var grinded_asset = grindFees.find(function(item) {
 			return item.asset === treeCrop.produceAsset;
 		});
-		var grindFee = millOwner ? 0 : grinded_asset.grindingFeePerCrop;
+		var millOwner = obtenerFarmFilter('millOwner'); 
+		var grindFee = millOwner.value ? 0 : grinded_asset.grindingFeePerCrop;
 		var weekly_fee = "7*" + daily_production + "*" + grindFee;
 		
 		var formula = weekly_production + "-" + weekly_consumption + "-" + weekly_fee;
@@ -1918,7 +1915,8 @@ function rellenarConfiguracion(data) {
 		var grinded_asset = grindFees.find(function(item) {
 			return item.asset === cropLandConf.produceAsset;
 		});
-		var grindFee =  millOwner ? 0 : grinded_asset.grindingFeePerCrop;
+		var millOwner = obtenerFarmFilter('millOwner'); 
+		var grindFee =  millOwner.value ? 0 : grinded_asset.grindingFeePerCrop;
 		var weekly_fee = "7*(" + daily_production +  "*" + grindFee + ")";
 
 		var formula = weekly_production + "-" + weekly_consumption + "-" + weekly_fee;
@@ -2137,4 +2135,75 @@ function obtenerValorMinadoV1(asset_id) {
 			
 		return valor_v1.toFixed(6);
 		}
+}
+
+
+function construirFiltros() {
+	 var farm_filters = localStorage.getItem("farm_filters");	 
+	 if(!farm_filters) {
+		 localStorage.setItem('farm_filters', JSON.stringify(farm_filters_objects));
+	 } else {
+		savedData = JSON.parse(farm_filters);
+		for(var i=0; i < farm_filters_objects.length; i++) { 
+			var myFilter = farm_filters_objects[i];
+			var filter = savedData.find(function(item) {
+				return item.name === myFilter.name;
+			});
+			
+			if(!filter) { 
+				 var itemFilter = {name: myFilter.name, value: myFilter.value};
+				 savedData.push(itemFilter);
+				 localStorage.setItem('itemFilter', JSON.stringify(savedData));
+			} else {
+				//setear el valor del filtro en pantalla
+				$("#"+filter.name).prop("checked", filter.value);
+			}
+		}
+	 }
+	 
+	 
+
+	 
+	 
+	 
+	 $('#v2_profit').on('change', function(event) {
+		var farm_filters = localStorage.getItem("farm_filters");
+		var savedData = JSON.parse(farm_filters);
+		var filter = savedData.find(function(item) {
+				return item.name === 'v2_profit';
+		});
+		filter.value = $(this).is(":checked");
+		 
+		localStorage.setItem("farm_filters", JSON.stringify(savedData));
+		 
+		 //Repintamos la tabla
+		 var data = construirData();
+		 myFarmTable.clear().rows.add(data).draw();
+	 });
+	 
+	 
+	 $('#millOwner').on('change', function(event) {
+		var farm_filters = localStorage.getItem("farm_filters");
+		var savedData = JSON.parse(farm_filters);
+		var filter = savedData.find(function(item) {
+				return item.name === 'millOwner';
+		});
+		filter.value = $(this).is(":checked");
+		 
+		localStorage.setItem("farm_filters", JSON.stringify(savedData));
+		 
+		//Repintamos la tabla
+		var data = construirData();
+		myFarmTable.clear().rows.add(data).draw();
+	 });
+	 
+}
+
+function obtenerFarmFilter(name) {
+	 var farm_filters = localStorage.getItem("farm_filters");
+	 var savedData = JSON.parse(farm_filters);
+	 var filter = savedData.find(function(item) {
+			return item.name === name;
+	 });
+	 return filter;
 }
