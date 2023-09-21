@@ -34,6 +34,8 @@ var etiqueta = {
 		'weeklyProfit.weeklyProfitCbx.quantity': 'Quant.',
 		'weeklyProfit.weeklyProfitCbx.total': 'Total',
 		'weeklyProfit.footer.totalFarmProfit' : 'Total farm profitability',
+		'weeklyProfit.v2_profit.filter' : 'Total V2',
+		'weeklyProfit.mill_owner.filter' : 'Skip mill fee',		
 		
 		'assetMining.price' : 'Price',
 		'assetMining.diff' : 'Difficulty',
@@ -122,6 +124,8 @@ var etiqueta = {
 		'weeklyProfit.weeklyProfitCbx.quantity': 'Cant.',
 		'weeklyProfit.weeklyProfitCbx.total': 'Total',
 		'weeklyProfit.footer.totalFarmProfit' : 'Rentabilidad total de la granja',
+		'weeklyProfit.v2_profit.filter' : 'Total V2',
+		'weeklyProfit.mill_owner.filter' : 'Molino sin fee',	
 		
 		'assetMining.price' : 'Precio',
 		'assetMining.diff' : 'Dificultad',
@@ -211,6 +215,8 @@ var etiqueta = {
 	  'weeklyProfit.weeklyProfitCbx.quantity': 'Aantal',
 	  'weeklyProfit.weeklyProfitCbx.total': 'Totaal',
 	  'weeklyProfit.footer.totalFarmProfit': 'Totale winstgevendheid op de boerderij',
+	  'weeklyProfit.v2_profit.filter' : 'Totaal V2',
+	  'weeklyProfit.mill_owner.filter' : 'Molenvergoeding overslaan',	
 
 	  'assetMining.price': 'Prijs',
 	  'assetMining.diff': 'Moeilijkheid',
