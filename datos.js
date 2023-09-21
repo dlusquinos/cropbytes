@@ -426,6 +426,10 @@ const pro_mix_recipe = {
 
 };
 
+var farm_filters_objects = [
+		{name:'v2_profit', value: false},
+		{name:'millOwner', value: false} 
+];
 
 const miningAssetRequirements = {
 	br : [    { week: 40, supply: 6070, mixBase: 76.89, cbxBase: 7.20, miniGames: 8 },
