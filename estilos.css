@@ -325,3 +325,18 @@ table#v2Mining th.recipe {
 .nav li a.active {
 	font-weight: bold
 }
+
+
+.filtros {
+	margin-top: 18px;
+    position: absolute;
+    margin-left: 5px;
+    z-index: 99999;
+}
+
+.filtros .contenedor-check{
+	display: inline-block;
+    min-height: 1.5rem;
+    margin-bottom: 0.125rem;
+	margin-right: 10px;
+}
