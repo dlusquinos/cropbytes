@@ -239,21 +239,12 @@ $(document).ready(function() {
 				
 				if (index !== -1) {
 					farm[index].quantity = this.value;
-					localStorage.setItem("farm", JSON.stringify(farm));
+					localStorage.setItem("farm", JSON.stringify(farm));										
 					
-					
-					if(datosFila.category == "Super Hero") {
-						//Repintar tabla
-						var data = construirData();
-						tabla.clear().rows.add(data).draw();
-					} else {
-						//Repintar fila
-						datosFila.quantity = this.value;
-						datosFila.totalProfitability = datosFila.quantity * datosFila.profitability;
-						tabla.row(tr).data(datosFila);
-						tabla.draw();
-					}
-					
+					//Repintar tabla principal
+					var data = construirData();
+					tabla.clear().rows.add(data).draw();
+										
 					//Repintamos la tabla de balance
 					var balance = construirBalance(tabla.data());
 					myBalanceTable.clear().rows.add(balance).draw();
@@ -284,19 +275,9 @@ $(document).ready(function() {
 					localStorage.setItem("farm", JSON.stringify(farm));
 					
 					
-					//Repintar fila					
-					var weekly_production = 7*this.value + "*" + datosFila.default_prod.type;
-					var weekly_consumption = "7*" + datosFila.default_cons.quant + "*" + datosFila.default_cons.type;
-					var formula = weekly_production + "-" + weekly_consumption;
-					
-					datosFila.weekly_formula.principal = formula;
-					datosFila.daily_production = this.value + " " + datosFila.default_prod.type;
-					datosFila.profitability = getAssetProfitability(formula); 
-					datosFila.totalProfitability = datosFila.quantity * datosFila.profitability;
-					datosFila.gives_weekly = 7*this.value;
-		
-					tabla.row(tr).data(datosFila);
-					tabla.draw();					
+					//Repintar tabla principal
+					var data = construirData();
+					tabla.clear().rows.add(data).draw();
 					
 					//Repintamos la tabla de balance
 					var balance = construirBalance(tabla.data());
@@ -325,15 +306,9 @@ $(document).ready(function() {
 					farm[index].default_cons.quant = this.value;
 					localStorage.setItem("farm", JSON.stringify(farm));
 			
-					var weekly_production = 7*datosFila.default_prod.quant + "*" + datosFila.default_prod.type;
-					var weekly_consumption = 7*this.value + "*" + datosFila.default_cons.type ;
-					var formula = weekly_production + "-" + weekly_consumption;
-					
-					datosFila.weekly_formula.principal = formula;
-					datosFila.daily_consumption = this.value + " " + datosFila.default_cons.type;
-					datosFila.profitability = getAssetProfitability(formula); 
-					datosFila.totalProfitability = datosFila.quantity * datosFila.profitability;
-					datosFila.takes_weekly[datosFila.default_cons.type] = 7*this.value;
+					//Repintar tabla principal
+					var data = construirData();
+					tabla.clear().rows.add(data).draw();
 
 					//Repintar fila		
 					tabla.row(tr).data(datosFila);
@@ -367,13 +342,9 @@ $(document).ready(function() {
 					farm[index].grazing_active = checkValue;
 					localStorage.setItem("farm", JSON.stringify(farm));
 					
-					datosFila.grazing_active = checkValue;
-					datosFila.profitability = datosFila.grazing_active ? datosFila.weekly_formula.grazing : getAssetProfitability(datosFila.weekly_formula.principal);	
-					datosFila.totalProfitability = datosFila.quantity * datosFila.profitability;
-					
-					//Repintar fila		
-					tabla.row(tr).data(datosFila);
-					tabla.draw();
+					//Repintar tabla principal
+					var data = construirData();
+					tabla.clear().rows.add(data).draw();
 										
 					//Repintamos la tabla de balance
 					var balance = construirBalance(tabla.data());
