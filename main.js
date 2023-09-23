@@ -637,13 +637,14 @@ $(document).ready(function() {
 				});
 				
 				if (index !== -1) {
-					v2_objects_quant[index].quantity = this.value;
-					localStorage.setItem("minado_v2_quant", JSON.stringify(v2_objects_quant));
+					var savedData = localStorage.getItem("minado_v2_quant");
+					savedData = JSON.parse(savedData);
+					savedData[index].quantity = this.value;
+					localStorage.setItem("minado_v2_quant", JSON.stringify(savedData));
 
-					//Repintar fila
-					datosFila.quantity = this.value;					
-					tabla.row(tr).data(datosFila);
-					tabla.draw();
+					//Repintar tabla
+					var v2Data = construirMinadoV2(myFarmTable.data());
+					myV2MiningTable.clear().rows.add(v2Data).draw();	
 					
 					//Repintamos el cuadro de extractos
 					pintarBalanceV2();
