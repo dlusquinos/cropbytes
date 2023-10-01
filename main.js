@@ -233,9 +233,16 @@ $(document).ready(function() {
 				var datosFila = tabla.row(tr).data();
 				
 				
-				var index = farm.findIndex(function(asset) {
-					return asset.asset_id === datosFila.asset_id
-				});
+				var index  =-1;
+				if(datosFila.category == 'Crop land') {
+					index = farm.findIndex(function(asset) {
+						return asset.asset_id === datosFila.asset_id && asset.extract === datosFila.extract;
+					});
+				} else {
+					index = farm.findIndex(function(asset) {
+						return asset.asset_id === datosFila.asset_id
+					});
+				}
 				
 				if (index !== -1) {
 					farm[index].quantity = this.value;
