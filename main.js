@@ -315,12 +315,7 @@ $(document).ready(function() {
 			
 					//Repintar tabla principal
 					var data = construirData();
-					tabla.clear().rows.add(data).draw();
-
-					//Repintar fila		
-					tabla.row(tr).data(datosFila);
-					tabla.draw();
-					
+					tabla.clear().rows.add(data).draw();					
 					
 					//Repintamos la tabla de balance
 					var balance = construirBalance(tabla.data());
