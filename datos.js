@@ -362,7 +362,8 @@ const mineCbxData = [
 	{week:82, supply:72909746}, {week:83, supply:73712632}, {week:84, supply:74515519}, {week:85, supply:75318405}, {week:86, supply:76121292},	
 	{week:87, supply:76924178}, {week:88, supply:77727065}, {week:89, supply:78529951}, {week:90, supply:79332838}, {week:91, supply:80116608},
 	{week:92, supply:80900378}, {week:93, supply:81684149}, {week:94, supply:82467919}, {week:95, supply:83251689}, {week:96, supply:84035459},
-	{week:97, supply:84819229}, {week:98, supply:85603000}, {week:99, supply:86386770}, {week:100, supply:87170540}, {week:101, supply:87935194}
+	{week:97, supply:84819229}, {week:98, supply:85603000}, {week:99, supply:86386770}, {week:100, supply:87170540}, {week:101, supply:87935194},
+	{week:102, supply:88699848}, {week:103, supply:89464502}, {week:104, supply:90229155}, {week:105, supply:90993809}, {week:106, supply:91758463}
 	
 ]
 
