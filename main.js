@@ -1766,7 +1766,7 @@ function rellenarConfiguracion(data) {
 			asset.profitability = asset.grazing_active ? -(takes.hibernation_fee/2) : getAssetProfitability(formula);
 			asset.profitability_v2 = asset.grazing_active ? -(takes.hibernation_fee/2) : getAssetProfitability(formula_v2);	
 			var v2Profit = obtenerFarmFilter('v2_profit');			
-			asset.totalProfitability = v2Profit.value ? asset.quantity * asset.profitability_v2 : asset.quantity * asset.profitability;
+			asset.totalProfitability = v2Profit.value && !asset.pro ? asset.quantity * asset.profitability_v2 : asset.quantity * asset.profitability;
  
 		}
 
