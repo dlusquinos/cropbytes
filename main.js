@@ -173,7 +173,14 @@ $(document).ready(function() {
 				'title': utilidades.i18n('weeklyProfit.weeklyProfitCbx.roi'),
                 "render": function (data, type, row, meta) {
 					var colorClass = '';
-					var profitability = row.profitability;
+					var v2Profit = obtenerFarmFilter('v2_profit');
+					
+					var profitability;
+					if(v2Profit.value) {
+						profitability = row.profitability_v2 ? row.profitability_v2 : row.profitability
+					} else {
+						profitability = row.profitability;
+					}
 					var cbxPrice = row.priceCurrency == 'usdt' ? row.price/cbxValue : row.price;
 					var result = profitability > 0 ? roundResult(1/(profitability/cbxPrice)) : "";					
 					return '<div class="importe '+ colorClass +'" ="true">' + result + '</div>';
