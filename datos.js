@@ -366,7 +366,8 @@ const mineCbxData = [
 	{week:102, supply:88699848}, {week:103, supply:89464502}, {week:104, supply:90229155}, {week:105, supply:90993809}, {week:106, supply:91758463},
 	{week:107, supply:92523117}, {week:108, supply:93287771}, {week:109, supply:94052425}, {week:110, supply:94817079}, {week:111, supply:95562616},
 	{week:112, supply:96308154}, {week:113, supply:97053691}, {week:114, supply:97799229}, {week:115, supply:98544766}, {week:116, supply:99290304},
-	{week:117, supply:100035841}, {week:118, supply:100781379}, {week:119, supply:101526916}, {week:120, supply:102272454}, {week:121, supply:102998875}
+	{week:117, supply:100035841}, {week:118, supply:100781379}, {week:119, supply:101526916}, {week:120, supply:102272454}, {week:121, supply:102998875},
+	{week:122, supply:103725296}, {week:123, supply:104451717}, {week:124, supply:105178138}, {week:125, supply:105904560}, {week:126, supply:106630981}
 ]
 
 const v2_objects = [
