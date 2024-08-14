@@ -879,6 +879,7 @@ $(document).ready(function() {
 						minedThisWeek+=stat;
 					}
 					
+					/* 
 					//Semana actual 
 					var actualRequirements = assetRequirements.find(function(item) {
 						return item.week === week;
@@ -901,6 +902,7 @@ $(document).ready(function() {
 					nextReqs.games = roundResult(nextDif*nextRequirements.miniGames);
 					nextReqs.total = roundResult(nextReqs.cbx + nextReqs.pmix*pmixValue);
 					nextReqs.totalGames = roundResult(nextReqs.total + nextReqs.games*3.75);
+					*/
 					
 			}
 
@@ -945,6 +947,9 @@ $(document).ready(function() {
 									'</div>' +																
 								'</div>' +								
 							'</div>';
+							
+							
+					/*		
 					if(assetRequirements) {		
 					  contenido +=	'<div class="supply-asset-data col-sm-6">' +
 										'<div class="py-1">' + utilidades.i18n('assetMining.miningRequirements') +'</div>' + 
@@ -979,7 +984,8 @@ $(document).ready(function() {
 											  '</tbody>' +
 										'</table>' +
 									'</div>';
-					}		
+					}	
+					*/
 					contenido +='</div>';
 						
 						
