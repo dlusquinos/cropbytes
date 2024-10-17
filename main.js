@@ -781,8 +781,7 @@ $(document).ready(function() {
 	marketData = obtenerPreciosMarketAPI();
 	assetsData = obtenerAssetsAPI();
 	confAssetsData = obtenerConfAssetsAPI();
-	//pmixValue = obtenerPrecioAsset('pmix');
-	pmixValue = 0;
+	pmixValue = obtenerPrecioAsset('en');
 	sbfValue = obtenerPrecioAsset('sbf');
 	extractList = obtenerExtractos();
 	seedList = obtenerSemillas();
@@ -2011,16 +2010,14 @@ function anadirExtractosPRO(marketExtracts) {
 	for(var i=0; i < pro_mix_recipe.pro_extracts.length; i++) {
 		var proExtract = pro_mix_recipe.pro_extracts[i];
 		var clave = proExtract.id;
-		//var formula = "(" + pro_mix_recipe.pro_extract_value + ")/" + proExtract.units;
+		var formula = "(" + pro_mix_recipe.pro_extract_value + ")/" + proExtract.units;
 		
-		//formula = formula.replaceAll("pmix", obtenerPrecioAsset('pmix'));
-		//formula = formula.replaceAll("frf", obtenerPrecioAsset('frf'));
-		//formula = formula.replaceAll("milk", obtenerValorMinadoV1('milk')*v2_max_bonus_factor);
-		//var precio = eval(formula);
+		formula = formula.replaceAll("en", obtenerPrecioAsset('en'));
+		formula = formula.replaceAll("frf", obtenerPrecioAsset('frf'));
+		formula = formula.replaceAll("milk", obtenerValorMinadoV1('milk')*v2_max_bonus_factor);
+		var precio = eval(formula);
 		
-		//marketExtracts.push({clave: clave + "_v2" + "cbx", precio: precio});
-		
-		marketExtracts.push({clave: clave + "_v2" + "cbx", precio: 0});
+		marketExtracts.push({clave: clave + "_v2" + "cbx", precio: precio});		
 		
 	}
 	
@@ -2029,16 +2026,14 @@ function anadirExtractosPRO(marketExtracts) {
 	for(var i=0; i < pro_mix_recipe.pro_extracts.length; i++) {
 		var proExtract = pro_mix_recipe.pro_extracts[i];
 		var clave = proExtract.id;
-		//var formula = "(" + pro_mix_recipe.pro_extract_value + ")/" + proExtract.units;
+		var formula = "(" + pro_mix_recipe.pro_extract_value + ")/" + proExtract.units;
 		
-		//formula = formula.replaceAll("pmix", obtenerPrecioAsset('pmix'));
-		//formula = formula.replaceAll("frf", obtenerPrecioAsset('frf'));
-		//formula = formula.replaceAll("milk", obtenerValorMinadoV1('milk'));
-		//var precio = eval(formula);
+		formula = formula.replaceAll("en", obtenerPrecioAsset('en'));
+		formula = formula.replaceAll("frf", obtenerPrecioAsset('frf'));
+		formula = formula.replaceAll("milk", obtenerValorMinadoV1('milk'));
+		var precio = eval(formula);
 		
-		//marketExtracts.push({clave: clave + "cbx", precio: precio});
-		
-		marketExtracts.push({clave: clave + "cbx", precio: 0});
+		marketExtracts.push({clave: clave + "cbx", precio: precio});
 		
 	}
 

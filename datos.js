@@ -430,7 +430,7 @@ const pro_mix_recipe = {
 						{id: 'pmilk',name: 'Pro Milk', unit_cost: '(6*(4*caf + 3*water) + 3*frf + 3*water)/(7*4)', units:1, units_sbf: 2}
 				   ],
 	
-	pro_extract_value: '10*pmix-10*frf-40*milk',
+	pro_extract_value: '10*en-10*frf-40*milk',
 				   
 	sbf_formula: '10*milk + 10*egg + 10*trf + 25*cof + pro_extract'
 
